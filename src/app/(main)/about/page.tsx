@@ -475,7 +475,7 @@ export default function AboutPage() {
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <a
-              href="https://docs.google.com/document/d/1F_QpZvSe__mhQEFCYuhv_clJr-6IHDbd/edit?usp=sharing&ouid=113982107050901435401&rtpof=true&sd=true"
+              href="https://docs.google.com/document/d/1F_QpZvSe__mhQEFCYuhv_clJr-6IHDbd/edit?usp=sharing&rtpof=true&sd=true"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 rounded-2xl border border-ever-green/[0.06] bg-white p-4 transition-all hover:-translate-y-0.5 hover:shadow-md"
