@@ -1,12 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export function SearchTrigger() {
+  const router = useRouter();
+
   return (
     <button
-      onClick={() => {
-        // Will be wired to SearchModal in Phase 4
-        document.dispatchEvent(new CustomEvent("open-search"));
-      }}
+      onClick={() => router.push("/search")}
       className="flex items-center gap-2 rounded-button border border-border px-3 py-1.5 text-sm text-pine-cone/60 transition-colors hover:border-gator-green hover:text-pine-cone"
       aria-label="Search (Ctrl+K)"
     >

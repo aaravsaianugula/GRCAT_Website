@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAudience } from "@/contexts/AudienceContext";
 import { Navigation } from "./Navigation";
@@ -12,6 +13,20 @@ import { SearchTrigger } from "./SearchTrigger";
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { audience } = useAudience();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Global Ctrl+K / Cmd+K to navigate to search
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        if (pathname !== "/search") router.push("/search");
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [router, pathname]);
 
   const homeHref = audience ? `/${audience}` : "/";
 
