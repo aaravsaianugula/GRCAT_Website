@@ -470,7 +470,7 @@ export default function AboutPage() {
         {/* Key Documents */}
         <motion.div {...fadeUp} className="mt-16 rounded-3xl border border-ever-green/[0.06] bg-gradient-to-br from-ever-green/[0.03] to-sky-blue/[0.03] p-8 sm:p-10">
           <h2 className="font-heading text-xl font-bold text-pine-cone">Key Documents & Reports</h2>
-          <p className="mt-2 font-body text-sm text-pine-cone/55">
+          <p className="mt-2 font-body text-sm text-pine-cone/70">
             Reports, updates, and planning documents from the AI Task Force.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -487,7 +487,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <p className="font-heading text-sm font-bold text-ever-green">Draft AI Report</p>
-                <p className="font-body text-xs text-pine-cone/50">Task Force recommendations</p>
+                <p className="font-body text-xs text-pine-cone/70">Task Force recommendations</p>
               </div>
             </a>
             <a
@@ -503,7 +503,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <p className="font-heading text-sm font-bold text-ever-green">Spring 2024 Update</p>
-                <p className="font-body text-xs text-pine-cone/50">Progress report</p>
+                <p className="font-body text-xs text-pine-cone/70">Progress report</p>
               </div>
             </a>
             <a
@@ -519,7 +519,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <p className="font-heading text-sm font-bold text-ever-green">Book a Consultation</p>
-                <p className="font-body text-xs text-pine-cone/50">With Ari Wilber</p>
+                <p className="font-body text-xs text-pine-cone/70">With Ari Wilber</p>
               </div>
             </a>
           </div>

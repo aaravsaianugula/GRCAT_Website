@@ -99,6 +99,8 @@ export function SplashGate() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-center"
+          role="status"
+          aria-label="Loading"
         >
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-gator-green/30 border-t-gator-green" />
           <p className="mt-4 font-body text-sm text-white/60">
@@ -165,7 +167,7 @@ export function SplashGate() {
             .
           </p>
 
-          <p className="mt-3 font-body text-base text-white/50">
+          <p className="mt-3 font-body text-base text-white/60">
             Choose your role to get a personalized experience.
           </p>
         </motion.div>
@@ -207,8 +209,7 @@ export function SplashGate() {
                   {/* Stats badge */}
                   <div className="absolute right-4 top-4">
                     <span
-                      className="rounded-pill px-3 py-1 font-body text-xs font-bold uppercase tracking-wider text-white"
-                      style={{ backgroundColor: `${a.color}40` }}
+                      className="rounded-pill bg-black/40 px-3 py-1 font-body text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm"
                     >
                       {a.stats}
                     </span>
@@ -277,7 +278,7 @@ export function SplashGate() {
                     {a.features.map((f) => (
                       <span
                         key={f}
-                        className="rounded-lg border border-white/[0.06] bg-white/[0.04] px-2.5 py-1 font-body text-xs font-medium text-white/50"
+                        className="rounded-lg border border-white/[0.06] bg-white/[0.04] px-2.5 py-1 font-body text-xs font-medium text-white/60"
                       >
                         {f}
                       </span>
@@ -320,7 +321,7 @@ export function SplashGate() {
         >
           <Link
             href="/about"
-            className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-2.5 font-body text-sm font-medium text-white/50 transition-all hover:border-white/20 hover:bg-white/[0.06] hover:text-white/80"
+            className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-2.5 font-body text-sm font-medium text-white/60 transition-all hover:border-white/20 hover:bg-white/[0.06] hover:text-white/80"
           >
             Or explore without choosing a role
             <svg

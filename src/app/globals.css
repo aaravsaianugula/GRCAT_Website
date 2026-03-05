@@ -10,6 +10,11 @@
   --color-sky-blue: #418FDE;
   --color-pine-cone: #333333;
 
+  /* Accessible Text Variants (WCAG AA 4.5:1 on white) */
+  --color-gator-green-text: #4A8A2C;
+  --color-sky-blue-text: #2D6BB0;
+  --color-sunrise-orange-text: #B03D00;
+
   /* Extended Palette */
   --color-dark: #050D08;
   --color-dark-card: #0D1F12;

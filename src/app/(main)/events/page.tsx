@@ -6,11 +6,35 @@ import { motion } from "framer-motion";
 
 const events = [
   {
+    date: "Spring 2026",
+    title: "Canvas Nuts & Bolts: AI-Enhanced Course Design",
+    type: "Workshop",
+    desc: "Hands-on workshop integrating AI tools into Canvas course design — from AI-generated module overviews to accessible content creation.",
+    upcoming: true,
+    highlight: { student: false, faculty: true, staff: false },
+  },
+  {
+    date: "Spring 2026",
+    title: "AI Book Club: Co-Intelligence by Ethan Mollick",
+    type: "Course",
+    desc: "Faculty reading group exploring Co-Intelligence: Living and Working with AI. Weekly discussions on applying AI frameworks to teaching.",
+    upcoming: true,
+    highlight: { student: false, faculty: true, staff: false },
+  },
+  {
+    date: "Winter 2026",
+    title: "AI 101 for All: Campus-Wide AI Literacy",
+    type: "Course",
+    desc: "Expanded AI literacy program now open to all campus roles — students, faculty, staff, and administrators. Self-paced modules with live Q&A sessions.",
+    upcoming: true,
+    highlight: { student: true, faculty: true, staff: true },
+  },
+  {
     date: "Fall 2025",
     title: "AI 101 for Staff & Students Courses Launch",
     type: "Course",
     desc: "New AI literacy courses launched for staff and students, building on the successful faculty AI 101 course.",
-    upcoming: true,
+    upcoming: false,
     highlight: { student: true, faculty: false, staff: false },
   },
   {
@@ -171,7 +195,7 @@ export default function EventsPage() {
           <h1 className="text-title font-heading font-extrabold text-pine-cone">
             Presentations &amp; Events
           </h1>
-          <p className="mt-5 text-subtitle font-body text-pine-cone/60">
+          <p className="mt-5 text-subtitle font-body text-pine-cone/70">
             Workshops, trainings, courses, and presentations by the AI Task Force — from our founding in Fall 2023 through today.
           </p>
         </div>
@@ -210,7 +234,7 @@ export default function EventsPage() {
         {/* Presentations */}
         <div className="mt-14">
           <h2 className="text-title font-heading font-extrabold text-pine-cone">Presentations</h2>
-          <p className="mt-3 font-body text-base text-pine-cone/55">
+          <p className="mt-3 font-body text-base text-pine-cone/70">
             Workshop slides and resources from AI Task Force presentations. Available for departments, in-service days, and faculty meetings.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -247,7 +271,7 @@ export default function EventsPage() {
                     </svg>
                   </a>
                 ) : (
-                  <span className="mt-4 inline-flex items-center gap-1.5 font-body text-xs text-pine-cone/40">
+                  <span className="mt-4 inline-flex items-center gap-1.5 font-body text-xs text-pine-cone/70">
                     Slides coming soon
                   </span>
                 )}
@@ -325,7 +349,7 @@ export default function EventsPage() {
                       <span className={`inline-flex rounded-xl border px-3.5 py-1.5 font-heading text-xs font-bold ${typeColors[event.type] ?? "bg-ever-green/10 text-ever-green border-ever-green/20"}`}>
                         {event.type}
                       </span>
-                      <span className="font-body text-sm font-semibold text-pine-cone/50">{event.date}</span>
+                      <span className="font-body text-sm font-semibold text-pine-cone/70">{event.date}</span>
                       {event.upcoming && (
                         <span className="inline-flex items-center gap-1.5 rounded-pill bg-leaf-green/20 px-3 py-1 font-body text-xs font-bold text-grc-green">
                           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-grc-green" />
@@ -337,7 +361,7 @@ export default function EventsPage() {
                     <h3 className="mt-4 font-heading text-xl font-bold leading-tight text-ever-green sm:text-2xl">
                       {event.title}
                     </h3>
-                    <p className="mt-3 font-body text-base leading-relaxed text-pine-cone/60">
+                    <p className="mt-3 font-body text-base leading-relaxed text-pine-cone/70">
                       {event.desc}
                     </p>
                   </div>

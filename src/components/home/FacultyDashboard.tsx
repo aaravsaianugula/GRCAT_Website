@@ -100,7 +100,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/assessment-scale"
-                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 hover:-translate-y-1 hover:shadow-elevated sm:p-10"
+                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-elevated sm:p-10"
               >
                 <div className="relative z-10 flex h-full flex-col justify-between gap-6 sm:flex-row sm:items-center">
                   <div className="flex-1">
@@ -162,7 +162,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/syllabus"
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gator-green/15 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-gator-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gator-green/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-gator-green/30 hover:shadow-elevated"
               >
                 <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-gator-green/10 to-gator-green/5">
                   <Image
@@ -220,7 +220,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/toolkits/assessment-design"
-                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
+                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
               >
                 <div className="flex flex-1 flex-col p-8">
                   <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-pill bg-sky-blue/10 px-2.5 py-0.5 font-body text-xs font-bold uppercase tracking-wider text-sky-blue">
@@ -266,7 +266,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/best-practices/faculty"
-                className="group flex h-full flex-col rounded-3xl border-2 border-grc-green/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-grc-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-grc-green/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-grc-green/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-grc-green/10">
                   <svg
@@ -313,7 +313,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/prompting"
-                className="group flex h-full flex-col rounded-3xl border-2 border-leaf-green/20 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-leaf-green/40 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-leaf-green/20 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-leaf-green/40 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-leaf-green/15">
                   <svg
@@ -360,7 +360,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/playground"
-                className="group flex h-full flex-col rounded-3xl border-2 border-sky-blue/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-sky-blue/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-blue/10">
                   <svg
@@ -406,8 +406,67 @@ export function FacultyDashboard() {
         </div>
       </section>
 
+      {/* Quick Stats + Events */}
+      <section className="border-t border-ever-green/[0.06] bg-white py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-3">
+            {/* Quick Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="lg:col-span-2"
+            >
+              <h3 className="font-heading text-xl font-bold text-pine-cone">Why Clear AI Policies Matter</h3>
+              <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                {[
+                  { stat: "73%", label: "of students want clear AI guidelines in their courses", color: "text-gator-green" },
+                  { stat: "68%", label: "of faculty find AI policies reduce confusion and conflict", color: "text-sky-blue" },
+                  { stat: "85%", label: "of workplaces now use AI tools regularly", color: "text-sunrise-orange" },
+                ].map((item) => (
+                  <div key={item.stat} className="rounded-2xl border border-ever-green/[0.06] bg-surface-dim p-6 text-center">
+                    <span className={`font-heading text-4xl font-black ${item.color}`}>{item.stat}</span>
+                    <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Training & Events Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <Link
+                href="/events"
+                className="group flex h-full flex-col rounded-3xl border-2 border-gator-green/15 bg-gator-green/5 p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-elevated"
+              >
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gator-green/15">
+                  <svg className="h-5 w-5 text-gator-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                  </svg>
+                </div>
+                <h3 className="font-heading text-lg font-bold text-ever-green">Training & Events</h3>
+                <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-pine-cone/70">
+                  Upcoming workshops, AI Book Club, and Canvas course design sessions. Earn PD credit.
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1 font-body text-xs font-semibold text-gator-green">
+                  View events
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </span>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
-      <section className="border-t border-ever-green/[0.06] bg-white py-14">
+      <section className="border-t border-ever-green/[0.06] bg-surface-dim py-14">
         <div className="mx-auto max-w-7xl px-5 text-center lg:px-8">
           <h2 className="font-heading text-2xl font-bold text-pine-cone">
             Questions about AI in your courses?

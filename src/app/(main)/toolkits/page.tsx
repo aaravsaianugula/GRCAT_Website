@@ -414,7 +414,7 @@ export default function ToolkitsPage() {
                   <span className="font-body text-sm font-medium text-white/80 group-hover:text-white">
                     {qs.label}
                   </span>
-                  <svg className="h-4 w-4 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="h-4 w-4 text-white/60 transition-transform group-hover:translate-x-0.5 group-hover:text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                   </svg>
                 </Link>
@@ -440,7 +440,7 @@ export default function ToolkitsPage() {
             ].map((s) => (
               <div key={s.label}>
                 <p className="font-heading text-2xl font-extrabold text-white">{s.value}</p>
-                <p className="font-body text-xs font-medium text-white/40">{s.label}</p>
+                <p className="font-body text-xs font-medium text-white/60">{s.label}</p>
               </div>
             ))}
           </motion.div>
@@ -455,7 +455,7 @@ export default function ToolkitsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <p className="mb-6 font-body text-xs font-bold uppercase tracking-[0.15em] text-pine-cone/40">
+            <p className="mb-6 font-body text-xs font-bold uppercase tracking-[0.15em] text-pine-cone/60">
               {audience ? `Recommended for ${audience === "faculty" ? "Faculty" : audience === "staff" ? "Staff" : "Students"}` : "Featured Toolkit"}
             </p>
 
@@ -517,7 +517,7 @@ export default function ToolkitsPage() {
                     {featuredToolkit.previewItems.map((item) => (
                       <div key={item} className="flex items-start gap-2">
                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gator-green" />
-                        <span className="font-body text-sm text-pine-cone/55">{item}</span>
+                        <span className="font-body text-sm text-pine-cone/70">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -601,7 +601,7 @@ export default function ToolkitsPage() {
 
                       {/* Footer */}
                       <div className="mt-auto flex items-center justify-between pt-5">
-                        <span className="font-body text-xs font-medium text-pine-cone/40">
+                        <span className="font-body text-xs font-medium text-pine-cone/60">
                           {tk.resourceCount} resources
                         </span>
                         <span className={`inline-flex items-center gap-1.5 font-body text-sm font-semibold ${tk.color} transition-all group-hover:gap-2.5`}>
@@ -628,7 +628,7 @@ export default function ToolkitsPage() {
             <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
               {config.cta.heading}
             </h2>
-            <p className="mx-auto mt-3 max-w-xl font-body text-base text-pine-cone/55">
+            <p className="mx-auto mt-3 max-w-xl font-body text-base text-pine-cone/70">
               {config.cta.desc}
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">

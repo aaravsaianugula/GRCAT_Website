@@ -201,6 +201,7 @@ const categories: Category[] = [
       { name: "AudioEye", url: "https://www.audioeye.com" },
       { name: "ReadSpeaker", url: "https://www.readspeaker.com" },
       { name: "Otter.ai", url: "https://otter.ai" },
+      { name: "Microsoft Immersive Reader", url: "https://education.microsoft.com/en-us/resource/9b010288" },
       { name: "GrackleDocs", url: "https://www.grackledocs.com" },
       { name: "WAVE", url: "https://wave.webaim.org" },
     ],
@@ -580,7 +581,7 @@ export default function PlaygroundPage() {
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Best Practices for Ethical AI Use
           </h2>
-          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/55">
+          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/70">
             Before exploring AI tools, review these essential guidelines for
             responsible use at Green River College.
           </p>
@@ -610,7 +611,7 @@ export default function PlaygroundPage() {
                   <h3 className="font-heading text-lg font-bold text-ever-green">
                     {g.title}
                   </h3>
-                  <p className="mt-1.5 font-body text-sm leading-relaxed text-pine-cone/55">
+                  <p className="mt-1.5 font-body text-sm leading-relaxed text-pine-cone/70">
                     {g.body}
                   </p>
                 </div>
@@ -626,7 +627,7 @@ export default function PlaygroundPage() {
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Tool Categories
           </h2>
-          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/55">
+          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/70">
             {totalTools}+ AI tools organized across{" "}
             {categories.length + 1} categories. Scroll down to explore the
             full Generative AI directory and browse every category.
@@ -731,7 +732,7 @@ export default function PlaygroundPage() {
               <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
                 AI Assistants &amp; Chatbots
               </h2>
-              <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/55">
+              <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/70">
                 General-purpose AI tools for brainstorming, writing, coding,
                 research, and creative work.
               </p>
@@ -782,7 +783,7 @@ export default function PlaygroundPage() {
                   <h3 className="font-heading text-lg font-bold text-ever-green">
                     {tool.name}
                   </h3>
-                  <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-pine-cone/55">
+                  <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-pine-cone/70">
                     {tool.description}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
@@ -824,7 +825,7 @@ export default function PlaygroundPage() {
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Generative AI Comparison
           </h2>
-          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/55">
+          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/70">
             {audience === "student"
               ? "A quick look at AI assistants and what each one is best for."
               : "Side-by-side comparison to help you choose the right AI assistant for your needs."}
@@ -920,7 +921,7 @@ export default function PlaygroundPage() {
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Browse All Categories
           </h2>
-          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/55">
+          <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-pine-cone/70">
             Explore {totalTools - generativeAITools.length} additional tools
             across {categories.length} specialized categories.
           </p>
@@ -994,7 +995,7 @@ export default function PlaygroundPage() {
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Need Help Choosing a Tool?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl font-body text-base leading-relaxed text-pine-cone/55">
+          <p className="mx-auto mt-4 max-w-xl font-body text-base leading-relaxed text-pine-cone/70">
             The AI Task Force is here to help. Reach out for personalized
             recommendations, training sessions, or to suggest a tool for the
             directory.

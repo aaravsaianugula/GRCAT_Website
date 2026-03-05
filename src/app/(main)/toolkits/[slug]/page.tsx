@@ -72,7 +72,7 @@ interface ToolkitEntry {
   promptTemplates?: PromptTemplate[];
   promptMakeovers?: PromptMakeover[];
   ethicsResources?: EthicsResource[];
-  ethicsDownloadables?: { title: string; format: string }[];
+  ethicsDownloadables?: { title: string; format: string; description: string }[];
   customGPTs?: CustomGPT[];
   studentLanguageSections?: StudentLanguageSection[];
   studentLanguageDownloads?: { title: string; description: string }[];
@@ -265,11 +265,11 @@ const toolkitData: Record<string, ToolkitEntry> = {
       },
     ],
     ethicsDownloadables: [
-      { title: "AI Ethics Decision Framework", format: "PDF" },
-      { title: "AI Attribution Templates", format: "Word Doc" },
-      { title: "AI Bias Assessment Checklist", format: "Excel" },
-      { title: "AI Implementation Planner", format: "PDF" },
-      { title: "Data Privacy Toolkit", format: "ZIP" },
+      { title: "AI Ethics Decision Framework", format: "PDF", description: "Step-by-step guide for ethical decision-making when implementing AI tools in educational and institutional contexts." },
+      { title: "AI Attribution Templates", format: "Word Doc", description: "Editable templates for citing AI assistance in academic papers, course materials, and professional documents." },
+      { title: "AI Bias Assessment Checklist", format: "Excel", description: "Comprehensive checklist for identifying potential bias in AI-generated content and decision-making processes." },
+      { title: "AI Implementation Planner", format: "PDF", description: "Strategic planning template for ethical AI integration across courses, departments, and campus operations." },
+      { title: "Data Privacy Toolkit", format: "ZIP", description: "Comprehensive resources for protecting personal and institutional data when working with AI systems." },
     ],
   },
   prompting: {
@@ -620,7 +620,7 @@ function SyllabusContent({ data }: { data: ToolkitEntry }) {
               <h3 className="font-heading text-base font-bold text-ever-green">
                 {item.title}
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 {item.text}
               </p>
             </div>
@@ -632,7 +632,7 @@ function SyllabusContent({ data }: { data: ToolkitEntry }) {
       <h2 className="font-heading text-2xl font-bold text-pine-cone">
         Syllabus Language by Assessment Level
       </h2>
-      <p className="mt-3 mb-8 font-body text-base text-pine-cone/55">
+      <p className="mt-3 mb-8 font-body text-base text-pine-cone/70">
         Select the level that matches your assignment goals. Copy and customize
         the sample statement for your syllabus.
       </p>
@@ -711,7 +711,7 @@ function SyllabusContent({ data }: { data: ToolkitEntry }) {
         <h2 className="font-heading text-xl font-bold text-pine-cone">
           Custom GPT Assistant
         </h2>
-        <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/55">
+        <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/70">
           Want help crafting your course AI policy in minutes? The AI Policy
           Assistant can help you create a customized policy that aligns with your
           teaching style and course objectives.
@@ -732,15 +732,28 @@ function SyllabusContent({ data }: { data: ToolkitEntry }) {
             </li>
           ))}
         </ul>
-        <Link
-          href="/toolkits/custom-gpts"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gator-green px-5 py-2.5 font-heading text-sm font-bold text-white transition-colors hover:bg-ever-green"
-        >
-          Explore Custom GPTs
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-          </svg>
-        </Link>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a
+            href="https://chatgpt.com/g/g-6836032b4588819193c56ab6950d8b99-ai-policy-assistant-grc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-gator-green px-5 py-2.5 font-heading text-sm font-bold text-white transition-colors hover:bg-ever-green"
+          >
+            Try the AI Policy Assistant
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+          </a>
+          <Link
+            href="/toolkits/custom-gpts"
+            className="inline-flex items-center gap-2 rounded-xl border border-gator-green/20 bg-gator-green/10 px-5 py-2.5 font-heading text-sm font-bold text-gator-green transition-colors hover:bg-gator-green/20"
+          >
+            Explore All Custom GPTs
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </div>
       </div>
     </>
   );
@@ -792,7 +805,7 @@ function StudentLanguageContent({ data }: { data: ToolkitEntry }) {
               <h3 className="font-heading text-base font-bold text-ever-green">
                 {item.title}
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 {item.text}
               </p>
             </div>
@@ -813,7 +826,7 @@ function StudentLanguageContent({ data }: { data: ToolkitEntry }) {
             <h3 className="font-heading text-base font-bold text-ever-green">
               {sec.title}
             </h3>
-            <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+            <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
               {sec.description}
             </p>
           </div>
@@ -842,7 +855,7 @@ function StudentLanguageContent({ data }: { data: ToolkitEntry }) {
                   Coming Soon
                 </span>
               </div>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 {dl.description}
               </p>
             </div>
@@ -863,7 +876,7 @@ function StudentLanguageContent({ data }: { data: ToolkitEntry }) {
 
       {/* CTA */}
       <div className="mt-10 rounded-3xl border border-sky-blue/10 bg-sky-blue/[0.04] p-8 text-center">
-        <p className="font-body text-sm text-pine-cone/55">
+        <p className="font-body text-sm text-pine-cone/70">
           Students are learning alongside us&mdash;these tools help build
           relationships while promoting academic integrity.
         </p>
@@ -889,7 +902,7 @@ function EthicsPrivacyContent({ data }: { data: ToolkitEntry }) {
         <h2 className="font-heading text-2xl font-bold text-pine-cone">
           Ethical Use of AI at Green River College
         </h2>
-        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/55">
+        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/70">
           We invite students, faculty, and staff to explore these resources
           designed to promote responsible and ethical use of artificial
           intelligence in learning, teaching, and campus operations. Together, we
@@ -914,7 +927,7 @@ function EthicsPrivacyContent({ data }: { data: ToolkitEntry }) {
             <h3 className="mt-3 font-heading text-base font-bold text-ever-green">
               {res.title}
             </h3>
-            <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+            <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
               {res.description}
             </p>
           </div>
@@ -933,16 +946,19 @@ function EthicsPrivacyContent({ data }: { data: ToolkitEntry }) {
           {data.ethicsDownloadables?.map((dl) => (
             <div
               key={dl.title}
-              className="flex items-center justify-between rounded-2xl border border-ever-green/[0.06] bg-white/40 px-6 py-4 opacity-75"
+              className="rounded-2xl border border-ever-green/[0.06] bg-white/40 px-6 py-4 opacity-75"
             >
-              <div>
+              <div className="flex items-center justify-between">
                 <h3 className="font-heading text-base font-bold text-ever-green">
                   {dl.title}
                 </h3>
+                <span className="rounded-full bg-ever-green/[0.06] px-3 py-1 font-body text-xs font-medium text-pine-cone/70">
+                  {dl.format} — Coming Soon
+                </span>
               </div>
-              <span className="rounded-full bg-ever-green/[0.06] px-3 py-1 font-body text-xs font-medium text-pine-cone/70">
-                {dl.format} — Coming Soon
-              </span>
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
+                {dl.description}
+              </p>
             </div>
           ))}
         </div>
@@ -979,7 +995,7 @@ function EthicsPrivacyContent({ data }: { data: ToolkitEntry }) {
               <h3 className="font-heading text-base font-bold text-ever-green">
                 {principle.title}
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 {principle.text}
               </p>
             </div>
@@ -998,7 +1014,7 @@ function PromptingContent({ data }: { data: ToolkitEntry }) {
         <h2 className="font-heading text-2xl font-bold text-pine-cone">
           Prompting Toolkit for Faculty, Staff & Admin
         </h2>
-        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/55">
+        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/70">
           Writing effective prompts is the key to unlocking useful, accurate, and
           ethical responses from AI tools. Whether you&apos;re teaching,
           advising, drafting reports, or writing emails, this toolkit will help
@@ -1126,7 +1142,7 @@ function PromptingContent({ data }: { data: ToolkitEntry }) {
                   </p>
                 </div>
               </div>
-              <p className="mt-3 font-body text-xs text-pine-cone/45">
+              <p className="mt-3 font-body text-xs text-pine-cone/60">
                 <strong className="text-pine-cone/60">Why it works:</strong>{" "}
                 {mo.why}
               </p>
@@ -1162,7 +1178,7 @@ function PromptingContent({ data }: { data: ToolkitEntry }) {
                 <blockquote className="rounded-xl border-l-4 border-gator-green bg-gator-green/[0.04] px-5 py-3 font-body text-sm italic leading-relaxed text-pine-cone/60">
                   &ldquo;{tmpl.prompt}&rdquo;
                 </blockquote>
-                <p className="mt-3 font-body text-xs text-pine-cone/45">
+                <p className="mt-3 font-body text-xs text-pine-cone/60">
                   <strong className="text-pine-cone/60">Tip:</strong> {tmpl.tip}
                 </p>
               </div>
@@ -1176,7 +1192,7 @@ function PromptingContent({ data }: { data: ToolkitEntry }) {
         <h2 className="font-heading text-xl font-bold text-pine-cone">
           How to Acknowledge AI Use
         </h2>
-        <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/55">
+        <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/70">
           Transparency builds trust. If you use AI to draft, summarize, or
           revise content, acknowledge it clearly&mdash;just like citing a
           collaborator.
@@ -1205,7 +1221,7 @@ function PromptingContent({ data }: { data: ToolkitEntry }) {
           ].map((reason) => (
             <li
               key={reason}
-              className="flex items-center gap-2 font-body text-sm text-pine-cone/55"
+              className="flex items-center gap-2 font-body text-sm text-pine-cone/70"
             >
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gator-green" />
               {reason}
@@ -1233,9 +1249,9 @@ function PromptingContent({ data }: { data: ToolkitEntry }) {
             >
               <h3 className="font-heading text-base font-bold text-ever-green group-hover:text-grc-green">
                 {lib.name}
-                <span className="ml-1.5 inline-block text-xs text-pine-cone/40 transition-transform group-hover:translate-x-0.5">↗</span>
+                <span className="ml-1.5 inline-block text-xs text-pine-cone/60 transition-transform group-hover:translate-x-0.5">↗</span>
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 {lib.description}
               </p>
             </a>
@@ -1254,14 +1270,14 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
         <h2 className="font-heading text-2xl font-bold text-pine-cone">
           Welcome to the AI Assessment Toolkit
         </h2>
-        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/55">
+        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/70">
           This toolkit is designed to help faculty at Green River College
           integrate AI assessment strategies into their courses. Explore
           resources, examples, and guidance for creating effective assessments in
           the age of AI.
         </p>
         <div className="mt-6 rounded-2xl border border-sky-blue/10 bg-sky-blue/[0.04] p-5">
-          <p className="font-body text-sm leading-relaxed text-pine-cone/55">
+          <p className="font-body text-sm leading-relaxed text-pine-cone/70">
             <strong className="text-ever-green">About this framework:</strong>{" "}
             Green River College&apos;s AI assessment approach is adapted from the{" "}
             <strong>AI Assessment Scale (AIAS)</strong>, developed by Mike
@@ -1271,7 +1287,7 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
             the framework for its specific context.
           </p>
           <p className="mt-2 font-body text-xs text-pine-cone/60">
-            aiassessmentscale.com &bull; Licensed under CC BY-NC-SA 4.0
+            <a href="https://aiassessmentscale.com" target="_blank" rel="noopener noreferrer" className="text-sky-blue underline hover:text-ever-green">aiassessmentscale.com</a> &bull; Licensed under CC BY-NC-SA 4.0
           </p>
         </div>
       </div>
@@ -1281,7 +1297,7 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
         <p className="font-heading text-sm font-bold text-sunrise-orange">
           Important: Understanding Level 1 Requirements
         </p>
-        <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+        <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
           Level 1 (No AI) is only effective in controlled environments where you
           can reliably verify that students completed the work
           independently&mdash;such as in-class exams, proctored assessments,
@@ -1315,7 +1331,7 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
       <h2 className="font-heading text-2xl font-bold text-pine-cone">
         Understanding the Five Levels
       </h2>
-      <p className="mt-3 mb-8 font-body text-base text-pine-cone/55">
+      <p className="mt-3 mb-8 font-body text-base text-pine-cone/70">
         The AI Assessment Scale provides a framework for understanding how
         assessments can be designed to work effectively with AI tools.
       </p>
@@ -1479,7 +1495,7 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
               </div>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 {res.description}
               </p>
             </a>
@@ -1492,7 +1508,7 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
         <h2 className="font-heading text-xl font-bold text-pine-cone">
           UDL Add-ons for AI-Enhanced Assignments
         </h2>
-        <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/55">
+        <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/70">
           Universal Design for Learning principles can be integrated with AI
           assessment strategies to create more inclusive and accessible learning
           experiences.
@@ -1515,6 +1531,29 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
         </ul>
       </div>
 
+      {/* Full Toolkit CTA */}
+      <div className="mt-12 rounded-3xl border border-sky-blue/10 bg-sky-blue/[0.04] p-8 text-center">
+        <p className="font-heading text-lg font-bold text-ever-green">
+          Access the Full Assessment Toolkit
+        </p>
+        <p className="mt-2 font-body text-sm text-pine-cone/70">
+          Download the complete AI-Enhanced Assessment Design Toolkit with all
+          templates, rubrics, reflection tools, and assignment examples in one
+          comprehensive document.
+        </p>
+        <a
+          href="https://docs.google.com/document/d/1KkPL3nzr0Z-kh66G6MwN3WdrRxk_h99NSZZP_3RE3nY/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center gap-2 rounded-xl bg-sky-blue px-5 py-2.5 font-heading text-sm font-bold text-white transition-colors hover:bg-ever-green"
+        >
+          Open Full Toolkit (Google Docs)
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>
+        </a>
+      </div>
+
       {/* Attribution */}
       <p className="mt-8 text-center font-body text-xs text-pine-cone/35">
         Created by Ari Wilber, English Faculty & AI Task Force Co-Lead at
@@ -1534,7 +1573,7 @@ function CustomGPTsContent({ data }: { data: ToolkitEntry }) {
         <h2 className="font-heading text-2xl font-bold text-pine-cone">
           Custom GPT Tools @ Green River College
         </h2>
-        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/55">
+        <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/70">
           Green River College is committed to helping faculty and students
           navigate the evolving landscape of artificial intelligence in
           education. These custom GPT tools are designed specifically for the
@@ -1614,7 +1653,7 @@ function CustomGPTsContent({ data }: { data: ToolkitEntry }) {
                     </span>
                   )}
                 </div>
-                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                   {gpt.description}
                 </p>
                 {gpt.url && (
@@ -1653,7 +1692,7 @@ function CustomGPTsContent({ data }: { data: ToolkitEntry }) {
         <p className="font-heading text-lg font-bold text-ever-green">
           Looking for even more?
         </p>
-        <p className="mt-2 font-body text-sm text-pine-cone/55">
+        <p className="mt-2 font-body text-sm text-pine-cone/70">
           Access the complete collection of AI teaching resources. These tools
           were created by faculty and staff at Green River College to support
           ethical and empowered AI use.
@@ -1696,7 +1735,7 @@ function ToolkitContent({ slug, data }: { slug: string; data: ToolkitEntry }) {
           <h2 className="font-heading text-2xl font-bold text-pine-cone">
             Toolkit Content
           </h2>
-          <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/55">
+          <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/70">
             This toolkit is currently being developed. Check back soon for
             comprehensive resources and templates.
           </p>
@@ -1755,7 +1794,7 @@ export default async function ToolkitPage({
               <h2 className="font-heading text-2xl font-bold text-pine-cone">
                 Toolkit Not Found
               </h2>
-              <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/55">
+              <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/70">
                 The requested toolkit could not be found. Please return to the
                 toolkits page and select a valid toolkit.
               </p>

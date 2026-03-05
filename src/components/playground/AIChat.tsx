@@ -245,7 +245,7 @@ export function AIChat() {
             <h3 className="font-heading text-base font-bold text-pine-cone">
               Ask the AI Guide
             </h3>
-            <p className="font-body text-xs text-pine-cone/50">
+            <p className="font-body text-xs text-pine-cone/70">
               Powered by Llama 3.1
             </p>
           </div>
@@ -256,7 +256,7 @@ export function AIChat() {
           className={`rounded-pill px-2.5 py-1 font-body text-xs font-semibold ${
             remaining <= 3
               ? "bg-sunrise-orange/10 text-sunrise-orange"
-              : "bg-ever-green/[0.06] text-pine-cone/50"
+              : "bg-ever-green/[0.06] text-pine-cone/70"
           }`}
         >
           {remaining} left
@@ -282,7 +282,7 @@ export function AIChat() {
               exit="exit"
               className="flex h-full flex-col items-center justify-center gap-4"
             >
-              <p className="font-body text-sm text-pine-cone/40">
+              <p className="font-body text-sm text-pine-cone/60">
                 Ask me anything about AI at Green River College
               </p>
               <div className="flex flex-wrap justify-center gap-2">

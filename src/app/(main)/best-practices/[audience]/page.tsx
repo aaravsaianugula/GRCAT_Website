@@ -461,7 +461,10 @@ const audienceData: Record<string, AudienceData> = {
       { label: "Gathering multiple forms of student work for assessment", category: "Academic Integrity" },
       { label: "Not relying solely on AI detectors", category: "Academic Integrity" },
       { label: "Tested the tool myself before assigning it to students", category: "Effectiveness" },
+      { label: "AI is saving time, not adding unnecessary complexity", category: "Effectiveness" },
       { label: "Practices align with college and union expectations", category: "Professional Accountability" },
+      { label: "Would feel confident explaining my AI use if audited", category: "Professional Accountability" },
+      { label: "One change I will make based on this checklist is...", category: "Reflection" },
     ],
     ctaText: "Explore Faculty Toolkits",
     ctaHref: "/toolkits/syllabus",
@@ -708,11 +711,19 @@ export default async function BestPracticesPage({
                   ask your instructor if you are unsure what is allowed. AI use varies
                   by class, and what is acceptable in one course may not be in another.
                 </p>
-                <div className="mt-5 inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2.5">
-                  <ChatIcon className="h-4 w-4 text-white/60" />
-                  <span className="font-body text-sm font-semibold text-white/80">
-                    When in doubt, ask your instructor!
-                  </span>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <div className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2.5">
+                    <ChatIcon className="h-4 w-4 text-white/60" />
+                    <span className="font-body text-sm font-semibold text-white/80">
+                      When in doubt, ask your instructor!
+                    </span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2.5">
+                    <BookIcon className="h-4 w-4 text-white/60" />
+                    <span className="font-body text-sm font-semibold text-white/80">
+                      Visit the Writing &amp; Tutoring Center for help
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -741,7 +752,7 @@ export default async function BestPracticesPage({
                 <h3 className="font-heading text-lg font-bold text-ever-green">
                   {p.title}
                 </h3>
-                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                   {p.description}
                 </p>
               </div>
@@ -769,7 +780,7 @@ export default async function BestPracticesPage({
                     <h3 className="font-heading text-lg font-bold text-ever-green">
                       {item.title}
                     </h3>
-                    <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+                    <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                       {item.description}
                     </p>
                     {item.prompt && (
@@ -809,7 +820,7 @@ export default async function BestPracticesPage({
                     <h3 className="font-heading text-lg font-bold text-ever-green">
                       {item.title}
                     </h3>
-                    <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+                    <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                       {item.description}
                     </p>
                   </div>
@@ -937,6 +948,7 @@ export default async function BestPracticesPage({
                     { icon: BookIcon, label: "Course Design", desc: "Weekly overviews, learning objectives, Canvas pages" },
                     { icon: ClipboardIcon, label: "Grading & Feedback", desc: "Rubric drafting, feedback templates, comment banks" },
                     { icon: AcademicCapIcon, label: "Assignment Design", desc: "AI-enhanced and AI-resistant assignment templates" },
+                    { icon: ShieldIcon, label: "Accessibility & UDL", desc: "Making content more accessible, universal design for learning" },
                     { icon: UserGroupIcon, label: "Student Engagement", desc: "Discussion prompts, active learning activities" },
                   ].map((uc) => (
                     <div
@@ -949,7 +961,7 @@ export default async function BestPracticesPage({
                       <h3 className="font-heading text-base font-bold text-ever-green">
                         {uc.label}
                       </h3>
-                      <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+                      <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                         {uc.desc}
                       </p>
                     </div>
@@ -970,7 +982,7 @@ export default async function BestPracticesPage({
                       <h3 className="font-heading text-base font-bold text-ever-green">
                         {uc.label}
                       </h3>
-                      <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+                      <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                         {uc.desc}
                       </p>
                     </div>
@@ -1046,10 +1058,10 @@ export default async function BestPracticesPage({
                     <td className="px-6 py-4 font-heading text-sm font-bold text-ever-green sm:px-8">
                       {tool.name}
                     </td>
-                    <td className="hidden px-6 py-4 font-body text-sm text-pine-cone/55 sm:table-cell sm:px-8">
+                    <td className="hidden px-6 py-4 font-body text-sm text-pine-cone/70 sm:table-cell sm:px-8">
                       {tool.purpose}
                     </td>
-                    <td className="px-6 py-4 font-body text-sm text-pine-cone/55 sm:px-8">
+                    <td className="px-6 py-4 font-body text-sm text-pine-cone/70 sm:px-8">
                       {tool.tip}
                     </td>
                   </tr>
@@ -1135,7 +1147,7 @@ export default async function BestPracticesPage({
                 <h3 className="font-heading text-base font-bold text-ever-green">
                   {rp.prompt}
                 </h3>
-                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                   {rp.context}
                 </p>
               </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -15,6 +15,8 @@ export function SiteHeader() {
   const { audience } = useAudience();
   const router = useRouter();
   const pathname = usePathname();
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Global Ctrl+K / Cmd+K to navigate to search
   useEffect(() => {
@@ -27,6 +29,25 @@ export function SiteHeader() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [router, pathname]);
+
+  // Escape key closes mobile menu + return focus to hamburger
+  useEffect(() => {
+    if (!mobileOpen) return;
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMobileOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    }
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [mobileOpen]);
+
+  // Return focus to hamburger when menu closes
+  const closeMobileMenu = useCallback(() => {
+    setMobileOpen(false);
+    hamburgerRef.current?.focus();
+  }, []);
 
   const homeHref = audience ? `/${audience}` : "/";
 
@@ -66,6 +87,7 @@ export function SiteHeader() {
 
             {/* Mobile Hamburger */}
             <button
+              ref={hamburgerRef}
               onClick={() => setMobileOpen(!mobileOpen)}
               className="flex h-9 w-9 items-center justify-center rounded-lg text-pine-cone transition-colors hover:bg-ever-green/5 lg:hidden"
               aria-expanded={mobileOpen}
@@ -87,14 +109,18 @@ export function SiteHeader() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            ref={mobileMenuRef}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
             className="overflow-hidden border-b border-ever-green/[0.06] bg-white/95 backdrop-blur-xl lg:hidden"
           >
             <div className="px-5 py-4">
-              <Navigation mobile onNavClick={() => setMobileOpen(false)} />
+              <Navigation mobile onNavClick={closeMobileMenu} />
               <div className="mt-4 flex items-center gap-3 border-t border-ever-green/[0.06] pt-4">
                 <SearchTrigger />
                 <AudienceSwitcher />

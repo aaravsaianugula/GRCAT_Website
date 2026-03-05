@@ -55,7 +55,7 @@ export function ResourceCard({
           <h3 className="font-heading text-base font-bold text-ever-green">
             {title}
           </h3>
-          <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-pine-cone/55">
+          <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-pine-cone/70">
             {description}
           </p>
         </div>

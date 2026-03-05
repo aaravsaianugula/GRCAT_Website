@@ -107,7 +107,7 @@ export function ParticleBackground({
     >
       <canvas
         ref={canvasRef}
-        className={`pointer-events-auto h-full w-full ${
+        className={`pointer-events-none h-full w-full ${
           fullViewport ? "fixed inset-0" : ""
         }`}
       />

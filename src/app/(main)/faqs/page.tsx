@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useId } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -327,10 +327,17 @@ function AccordionItem({
   isOpen: boolean;
   onToggle: () => void;
 }) {
+  const id = useId();
+  const buttonId = `${id}-btn`;
+  const panelId = `${id}-panel`;
+
   return (
     <div className="rounded-3xl border border-ever-green/[0.06] bg-white overflow-hidden">
       <button
+        id={buttonId}
         onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
         className="flex w-full cursor-pointer items-center justify-between p-6 sm:p-8 text-left font-heading text-lg font-bold text-ever-green"
       >
         <span className="pr-4">{faq.q}</span>
@@ -358,8 +365,13 @@ function AccordionItem({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] as const }}
           >
-            <div className="px-6 pb-6 sm:px-8 sm:pb-8">
-              <p className="font-body text-base leading-relaxed text-pine-cone/55">
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={buttonId}
+              className="px-6 pb-6 sm:px-8 sm:pb-8"
+            >
+              <p className="font-body text-base leading-relaxed text-pine-cone/70">
                 {faq.a}
               </p>
             </div>
@@ -572,7 +584,7 @@ export default function FaqsPage() {
               <h3 className="mt-4 font-heading text-lg font-bold text-ever-green">
                 Ask Your Instructor
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 When in doubt about AI use, always check with your instructor
                 first. Every course has its own AI policy.
               </p>
@@ -590,7 +602,7 @@ export default function FaqsPage() {
               <h3 className="mt-4 font-heading text-lg font-bold text-ever-green">
                 Complete Full Assignments
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 Never use AI to complete entire assignments unless explicitly
                 allowed by your instructor at Level 4 or 5.
               </p>
@@ -608,7 +620,7 @@ export default function FaqsPage() {
               <h3 className="mt-4 font-heading text-lg font-bold text-ever-green">
                 Use AI Ethically
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/55">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/70">
                 Brainstorm, revise, or practice concepts with AI as a learning
                 supplement. Always be transparent about your use.
               </p>

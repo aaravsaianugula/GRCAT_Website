@@ -52,7 +52,7 @@ export function SiteFooter() {
             <p className="mt-4 max-w-[220px] font-body text-sm leading-relaxed text-pine-cone/60">
               Empowering education through responsible AI integration.
             </p>
-            <p className="mt-3 font-body text-xs text-pine-cone/55">
+            <p className="mt-3 font-body text-xs text-pine-cone/70">
               Green River College<br />
               12401 SE 320th St<br />
               Auburn, WA 98092
@@ -62,7 +62,7 @@ export function SiteFooter() {
           {/* Link Columns */}
           {footerLinks.map((group) => (
             <div key={group.heading}>
-              <h3 className="font-body text-xs font-bold uppercase tracking-[0.15em] text-pine-cone/55">
+              <h3 className="font-body text-xs font-bold uppercase tracking-[0.15em] text-pine-cone/70">
                 {group.heading}
               </h3>
               <ul className="mt-4 space-y-2.5">
@@ -82,7 +82,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 border-t border-ever-green/[0.04] pt-6">
-          <p className="font-body text-xs text-pine-cone/25">
+          <p className="font-body text-xs text-pine-cone/55">
             &copy; {new Date().getFullYear()} Green River College AI Taskforce. Built for ENGL 235 Unit 2.
           </p>
         </div>

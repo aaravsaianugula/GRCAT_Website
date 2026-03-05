@@ -406,7 +406,7 @@ export default function SearchPage() {
         </div>
 
         {/* Search input */}
-        <div className="mx-auto mt-10 max-w-2xl">
+        <div className="mx-auto mt-10 max-w-2xl" role="search" aria-label="Site search">
           <div className="relative flex items-center gap-3 rounded-2xl border border-ever-green/10 bg-white px-5 py-4 shadow-card transition-all focus-within:border-gator-green/30 focus-within:ring-2 focus-within:ring-gator-green/10">
             <svg className="h-5 w-5 shrink-0 text-pine-cone/55" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -423,21 +423,22 @@ export default function SearchPage() {
               <button
                 type="button"
                 onClick={handleClear}
-                className="shrink-0 rounded-lg p-1 text-pine-cone/40 transition-colors hover:text-pine-cone/70"
+                aria-label="Clear search"
+                className="shrink-0 rounded-lg p-1 text-pine-cone/60 transition-colors hover:text-pine-cone/70"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             )}
-            <kbd className="hidden shrink-0 rounded-lg border border-ever-green/10 bg-surface-dim/60 px-2 py-0.5 font-body text-xs text-pine-cone/40 sm:inline-block">
+            <kbd className="hidden shrink-0 rounded-lg border border-ever-green/10 bg-surface-dim/60 px-2 py-0.5 font-body text-xs text-pine-cone/60 sm:inline-block">
               {typeof navigator !== "undefined" && /Mac|iPod|iPhone|iPad/.test(navigator.platform ?? "") ? "\u2318" : "Ctrl+"}K
             </kbd>
           </div>
 
           {/* Audience filter indicator */}
           {audience && (
-            <p className="mt-3 text-center font-body text-sm text-pine-cone/45">
+            <p className="mt-3 text-center font-body text-sm text-pine-cone/60">
               Showing results relevant to{" "}
               <span className="font-semibold text-gator-green">
                 {audience === "student" ? "students" : audience}
@@ -459,7 +460,7 @@ export default function SearchPage() {
                 className="flex flex-col items-center py-16"
               >
                 <div className="h-8 w-8 animate-spin rounded-full border-2 border-gator-green/20 border-t-gator-green" />
-                <p className="mt-4 font-body text-sm text-pine-cone/45">Searching...</p>
+                <p className="mt-4 font-body text-sm text-pine-cone/60">Searching...</p>
               </motion.div>
             ) : hasQuery && !hasResults ? (
               /* Empty state */
@@ -479,7 +480,7 @@ export default function SearchPage() {
                 <p className="mt-4 font-heading text-lg font-bold text-pine-cone/70">
                   No results found
                 </p>
-                <p className="mt-2 max-w-sm font-body text-sm text-pine-cone/45">
+                <p className="mt-2 max-w-sm font-body text-sm text-pine-cone/60">
                   Try different keywords or check your spelling. You can also browse our{" "}
                   <Link href="/toolkits" className="font-semibold text-gator-green underline decoration-gator-green/30 underline-offset-2 hover:decoration-gator-green">
                     toolkits
@@ -501,7 +502,7 @@ export default function SearchPage() {
                 transition={{ duration: 0.2 }}
                 className="space-y-8"
               >
-                <p className="font-body text-sm text-pine-cone/45">
+                <p className="font-body text-sm text-pine-cone/60" aria-live="polite">
                   {results.length} result{results.length !== 1 ? "s" : ""} found
                 </p>
                 {groupOrder.map((type) => {
@@ -509,7 +510,7 @@ export default function SearchPage() {
                   if (!entries || entries.length === 0) return null;
                   return (
                     <div key={type}>
-                      <h2 className="mb-3 font-heading text-sm font-bold uppercase tracking-[0.1em] text-pine-cone/50">
+                      <h2 className="mb-3 font-heading text-sm font-bold uppercase tracking-[0.1em] text-pine-cone/70">
                         {type}
                       </h2>
                       <div className="space-y-2">
@@ -527,7 +528,7 @@ export default function SearchPage() {
                                 <h3 className="font-heading text-base font-bold text-pine-cone group-hover:text-gator-green transition-colors">
                                   {entry.title}
                                 </h3>
-                                <p className="mt-1 font-body text-sm text-pine-cone/55 line-clamp-2">
+                                <p className="mt-1 font-body text-sm text-pine-cone/70 line-clamp-2">
                                   {entry.description}
                                 </p>
                               </div>
@@ -551,7 +552,7 @@ export default function SearchPage() {
                 transition={{ duration: 0.3, delay: 0.1 }}
                 className="py-10"
               >
-                <p className="mb-5 text-center font-body text-sm font-semibold text-pine-cone/45">
+                <p className="mb-5 text-center font-body text-sm font-semibold text-pine-cone/60">
                   Popular searches
                 </p>
                 <div className="flex flex-wrap justify-center gap-2">

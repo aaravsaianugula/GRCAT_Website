@@ -255,7 +255,7 @@ function StudentView() {
                   {level.num}
                 </div>
                 <div className="mt-1 font-heading text-sm font-bold text-pine-cone/80">{level.name}</div>
-                <div className="mt-2 font-body text-xs leading-relaxed text-pine-cone/55">
+                <div className="mt-2 font-body text-xs leading-relaxed text-pine-cone/70">
                   {i === 0 && "No AI allowed"}
                   {i === 1 && "AI for brainstorming only"}
                   {i === 2 && "AI helps, you drive"}
@@ -272,7 +272,7 @@ function StudentView() {
       <ScrollReveal delay={0.15}>
         <div className="mb-12 overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <h2 className="font-heading text-2xl font-bold text-pine-cone">Where Does Your Assignment Fall?</h2>
-          <p className="mt-2 font-body text-base text-pine-cone/55">
+          <p className="mt-2 font-body text-base text-pine-cone/70">
             Tap a level to see what it means for you.
           </p>
           <SpectrumSlider activeLevel={activeLevel} onSelect={setActiveLevel} />
@@ -408,7 +408,7 @@ function FacultyView() {
           <h2 className="font-heading text-2xl font-bold text-pine-cone sm:text-3xl">
             What&apos;s Allowed at Each Level
           </h2>
-          <p className="mt-3 max-w-2xl font-body text-base text-pine-cone/55">
+          <p className="mt-3 max-w-2xl font-body text-base text-pine-cone/70">
             A quick visual comparison of AI activities permitted across the five levels.
           </p>
 
@@ -461,7 +461,7 @@ function FacultyView() {
       <ScrollReveal>
         <div className="mt-14 overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <h2 className="font-heading text-2xl font-bold text-pine-cone sm:text-3xl">Level Spectrum</h2>
-          <p className="mt-2 font-body text-base text-pine-cone/55">The five levels form a continuous spectrum from full restriction to full creative freedom.</p>
+          <p className="mt-2 font-body text-base text-pine-cone/70">The five levels form a continuous spectrum from full restriction to full creative freedom.</p>
           <SpectrumSlider activeLevel={null} onSelect={() => {}} />
         </div>
       </ScrollReveal>
@@ -471,7 +471,7 @@ function FacultyView() {
       {/* Level Cards with Design Tips + Syllabus Language + Communication Tips */}
       <div className="mt-14">
         <h2 className="font-heading text-2xl font-bold text-pine-cone sm:text-3xl">The Five Levels</h2>
-        <p className="mt-3 max-w-2xl font-body text-base text-pine-cone/55">
+        <p className="mt-3 max-w-2xl font-body text-base text-pine-cone/70">
           Detailed guidance, assignment design tips, and ready-to-use syllabus language for each level.
         </p>
       </div>
@@ -500,7 +500,7 @@ function FacultyView() {
                   <p className="mt-1 font-body text-sm italic text-pine-cone/60">
                     &ldquo;{level.quote}&rdquo;
                   </p>
-                  <p className="mt-2 font-body text-base leading-relaxed text-pine-cone/55">{level.desc.faculty}</p>
+                  <p className="mt-2 font-body text-base leading-relaxed text-pine-cone/70">{level.desc.faculty}</p>
                 </div>
                 <svg className="mt-2 h-5 w-5 shrink-0 text-pine-cone/20 transition-all group-hover:translate-x-1 group-hover:text-gator-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -590,7 +590,7 @@ function StaffView() {
       <ScrollReveal delay={0.1}>
         <div className="mb-12 overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <h2 className="font-heading text-2xl font-bold text-pine-cone sm:text-3xl">The Spectrum at a Glance</h2>
-          <p className="mt-2 font-body text-base text-pine-cone/55">From full restriction to full creative freedom.</p>
+          <p className="mt-2 font-body text-base text-pine-cone/70">From full restriction to full creative freedom.</p>
           <SpectrumSlider activeLevel={null} onSelect={() => {}} />
         </div>
       </ScrollReveal>
@@ -632,7 +632,7 @@ function StaffView() {
       {/* Level Cards with Talking Points + Policy Notes */}
       <div className="mt-14">
         <h2 className="font-heading text-2xl font-bold text-pine-cone sm:text-3xl">Levels & Talking Points</h2>
-        <p className="mt-3 max-w-2xl font-body text-base text-pine-cone/55">
+        <p className="mt-3 max-w-2xl font-body text-base text-pine-cone/70">
           Key messaging and policy context for each level of the scale.
         </p>
       </div>
@@ -657,7 +657,7 @@ function StaffView() {
                   <h3 className="font-heading text-xl font-bold text-pine-cone sm:text-2xl">
                     Level {level.num}: {level.name}
                   </h3>
-                  <p className="mt-2 font-body text-base leading-relaxed text-pine-cone/55">{level.desc.staff}</p>
+                  <p className="mt-2 font-body text-base leading-relaxed text-pine-cone/70">{level.desc.staff}</p>
                 </div>
                 <svg className="mt-2 h-5 w-5 shrink-0 text-pine-cone/20 transition-all group-hover:translate-x-1 group-hover:text-gator-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -779,7 +779,7 @@ export default function AssessmentScalePage() {
         {/* External Resources */}
         <div className="mt-16 rounded-3xl border border-ever-green/[0.06] bg-gradient-to-br from-gator-green/[0.03] to-sky-blue/[0.03] p-8 sm:p-10">
           <h2 className="font-heading text-xl font-bold text-pine-cone">Assessment Scale Resources</h2>
-          <p className="mt-2 font-body text-sm text-pine-cone/55">
+          <p className="mt-2 font-body text-sm text-pine-cone/70">
             Access the full assessment toolkit documents and learn more about the AI Assessment Scale framework.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">

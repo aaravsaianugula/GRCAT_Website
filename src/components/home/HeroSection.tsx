@@ -58,7 +58,7 @@ export function HeroSection({
           <p className="mt-5 max-w-xl font-body text-lg leading-relaxed text-white/70 sm:text-xl">
             {subtitle}
           </p>
-          <div className="mt-6 flex items-center gap-3 text-white/50">
+          <div className="mt-6 flex items-center gap-3 text-white/60">
             <span className="h-px w-8 bg-gator-green/60" />
             <span className="font-body text-xs font-semibold uppercase tracking-[0.2em]">Green River College AI Task Force</span>
           </div>

@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { useAudience } from "@/contexts/AudienceContext";
 
+interface DisciplineExample {
+  discipline: string;
+  assignment: string;
+}
+
 interface LevelInfo {
   name: string;
   color: string;
@@ -20,6 +25,9 @@ interface LevelInfo {
   guidance: string;
   studentTip: string;
   toolkitDocUrl?: string;
+  disciplineExamples: DisciplineExample[];
+  whenToUse: string[];
+  importantNote?: string;
 }
 
 const levelData: Record<string, LevelInfo> = {
@@ -58,6 +66,19 @@ const levelData: Record<string, LevelInfo> = {
     guidance: "Use this level when it is critical to verify that a student has internalized the knowledge or skill being assessed. No AI tools, including grammar checkers or spell-check beyond basic word processing, should be used.",
     studentTip: "If your syllabus says Level 1, plan to complete the entire assignment without any AI help. This includes brainstorming, drafting, and editing — it's all you!",
     toolkitDocUrl: "https://docs.google.com/document/d/1HI2thmfAtqRfbSgBX2An86aTEswhs5gEzc3OKzYnYSw/edit?usp=sharing",
+    disciplineExamples: [
+      { discipline: "STEM", assignment: "In-class lab practical demonstrating chemical titration techniques" },
+      { discipline: "Humanities", assignment: "Handwritten in-class essay analyzing a primary source document" },
+      { discipline: "Business", assignment: "Proctored exam on accounting principles and financial statements" },
+      { discipline: "Arts", assignment: "Live studio performance or critique session with peer audience" },
+    ],
+    whenToUse: [
+      "When assessing foundational skills students must demonstrate independently",
+      "In proctored or controlled environments (in-class, lab, live)",
+      "For licensure or certification preparation where AI use is prohibited",
+      "When verifying that students have internalized core knowledge",
+    ],
+    importantNote: "Level 1 (No AI) is only effective in controlled environments where you can reliably verify that students completed the work independently — such as in-class exams, proctored assessments, live presentations, or oral exams. For take-home assignments, recognize that students will have access to AI tools, and there is no reliable way to prevent or detect their use. If assigning work outside a controlled environment, consider Level 2 or higher.",
   },
   "2": {
     name: "AI Planning",
@@ -94,6 +115,18 @@ const levelData: Record<string, LevelInfo> = {
     guidance: "Students should disclose any AI use during the planning phase. The final submitted work must be entirely student-written. AI outputs used in planning should not appear verbatim in the final product.",
     studentTip: "Great for getting unstuck! Use ChatGPT to brainstorm 10 essay topics, then pick one and write it yourself. Just remember to mention that you used AI for planning.",
     toolkitDocUrl: "https://docs.google.com/document/d/1GsDegd_wFRlBLdWZ04ueprY5ZQBM4UNODlXGSdMJ2tI/edit?usp=sharing",
+    disciplineExamples: [
+      { discipline: "STEM", assignment: "Use AI to research and outline a lab report, then write the report independently" },
+      { discipline: "Humanities", assignment: "Brainstorm essay angles with AI, then craft the argument and prose yourself" },
+      { discipline: "Business", assignment: "Use AI to identify market trends for a business plan, then write the analysis" },
+      { discipline: "Arts", assignment: "Generate concept mood boards with AI, then create the original artwork" },
+    ],
+    whenToUse: [
+      "When you want students to practice independent writing but need help getting started",
+      "For research-heavy assignments where AI can accelerate the discovery phase",
+      "When the learning objective is the final product, not the planning process",
+      "For essays, research papers, and project proposals",
+    ],
   },
   "3": {
     name: "AI Collaboration",
@@ -130,6 +163,18 @@ const levelData: Record<string, LevelInfo> = {
     guidance: "Students must document their AI interactions and clearly show how they revised and improved upon AI-generated content. The focus is on the student's ability to think critically about AI output.",
     studentTip: "Think of AI as a first-draft partner. It gives you something to work with, but YOUR job is to make it better, more accurate, and more personal. Keep track of what the AI wrote vs. what you changed.",
     toolkitDocUrl: "https://docs.google.com/document/d/1hczLasu4eaoJJvs3iolxBgyEYWr1a2H7rH6qef_4AlQ/edit?usp=sharing",
+    disciplineExamples: [
+      { discipline: "STEM", assignment: "Draft a lab discussion section with AI, then revise with your own data analysis" },
+      { discipline: "Humanities", assignment: "Use AI for grammar and structure feedback on a critical analysis essay" },
+      { discipline: "Business", assignment: "Collaborate with AI on a case study draft, then add your original insights" },
+      { discipline: "Arts", assignment: "Get AI feedback on a creative writing piece and revise based on your judgment" },
+    ],
+    whenToUse: [
+      "When developing critical evaluation skills is a key learning objective",
+      "For writing-intensive courses where iterative revision is valued",
+      "When you want students to learn from AI feedback while maintaining ownership",
+      "For case studies, analytical papers, and peer-review style assignments",
+    ],
   },
   "4": {
     name: "Full AI",
@@ -166,6 +211,18 @@ const levelData: Record<string, LevelInfo> = {
     guidance: "Assessment at this level focuses on the student's skill in using AI as a tool: prompt quality, evaluation rigor, and the ability to identify and correct AI errors or biases. Detailed documentation of the AI interaction process is expected.",
     studentTip: "This is where your prompt engineering skills shine! Try different approaches, use multiple AI tools, and document everything. Your ability to GET GREAT RESULTS from AI is what's being graded.",
     toolkitDocUrl: "https://docs.google.com/document/d/1-z3iszlYJU0w3LWq2S3HZVx99LE5xAiRyPmQTQucMvk/edit?usp=sharing",
+    disciplineExamples: [
+      { discipline: "STEM", assignment: "Use AI to build a data analysis pipeline, documenting tool selection and prompt iterations" },
+      { discipline: "Humanities", assignment: "Direct AI to create a multimedia digital humanities project with documented workflow" },
+      { discipline: "Business", assignment: "Build a comprehensive market analysis using multiple AI tools with process documentation" },
+      { discipline: "Arts", assignment: "Create an AI-assisted design portfolio with detailed prompt engineering documentation" },
+    ],
+    whenToUse: [
+      "When AI proficiency IS the learning objective",
+      "For courses preparing students for AI-integrated careers",
+      "When you want to assess prompt engineering and tool selection skills",
+      "For problem-solving projects and technology-focused courses",
+    ],
   },
   "5": {
     name: "AI Exploration",
@@ -202,6 +259,18 @@ const levelData: Record<string, LevelInfo> = {
     guidance: "Students are assessed on creativity, innovation, and their ability to push beyond conventional AI use. Reflection on the process, limitations encountered, and ethical considerations is an important component at this level.",
     studentTip: "This is the most exciting level! Experiment, iterate, fail forward, and create something truly original. Document your process — the journey matters as much as the destination.",
     toolkitDocUrl: "https://docs.google.com/document/d/1bz0YCMVuhn5waMYALM4nw4idO4CrCDcxbv-Z69FS5ko/edit?usp=sharing",
+    disciplineExamples: [
+      { discipline: "STEM", assignment: "Design a novel AI-powered experiment or simulation, analyzing its limitations" },
+      { discipline: "Humanities", assignment: "Create an AI-augmented interactive narrative exploring ethical implications of technology" },
+      { discipline: "Business", assignment: "Develop an innovative AI-driven business concept with ethical analysis and market validation" },
+      { discipline: "Arts", assignment: "Produce an original creative work that critically explores the boundary between human and AI creativity" },
+    ],
+    whenToUse: [
+      "For capstone or advanced courses where innovation is the goal",
+      "When exploring the limits and ethical implications of AI is valuable",
+      "For creative and research-oriented projects with open-ended outcomes",
+      "When building students' ability to think critically about AI's role in their field",
+    ],
   },
 };
 
@@ -222,7 +291,7 @@ export function LevelPageContent({ level }: { level: string }) {
         <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
           <Link
             href="/assessment-scale"
-            className="mb-8 inline-flex items-center gap-2 font-body text-sm font-medium text-pine-cone/60 transition-colors hover:text-ever-green"
+            className="mb-8 inline-flex items-center gap-2 font-body text-sm font-medium text-pine-cone/70 transition-colors hover:text-ever-green"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -245,7 +314,7 @@ export function LevelPageContent({ level }: { level: string }) {
         <div className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
           <Link
             href="/assessment-scale"
-            className="mb-6 inline-flex items-center gap-2 font-body text-sm font-medium text-pine-cone/60 transition-colors hover:text-ever-green"
+            className="mb-6 inline-flex items-center gap-2 font-body text-sm font-medium text-pine-cone/70 transition-colors hover:text-ever-green"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -294,19 +363,36 @@ export function LevelPageContent({ level }: { level: string }) {
           </motion.div>
         )}
 
+        {/* Important Note (Level 1 disclaimer) */}
+        {data.importantNote && (
+          <motion.div {...fadeUp} className="mb-10 rounded-3xl border border-sunrise-orange/20 bg-sunrise-orange/5 p-6 sm:p-8">
+            <div className="flex items-start gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sunrise-orange/15 text-sunrise-orange">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-heading text-base font-bold text-sunrise-orange">Important Note</h3>
+                <p className="mt-1 font-body text-sm leading-relaxed text-pine-cone/80">{data.importantNote}</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {/* Blockquote — Syllabus Language */}
         <motion.div
           {...fadeUp}
           className={`rounded-3xl border-l-4 ${data.borderAccent} bg-white p-6 shadow-card sm:p-8`}
         >
-          <p className="mb-2 font-heading text-xs font-bold uppercase tracking-wider text-pine-cone/60">
+          <p className="mb-2 font-heading text-xs font-bold uppercase tracking-wider text-pine-cone/70">
             Suggested Syllabus Language
           </p>
           <blockquote className="font-body text-xl italic leading-relaxed text-pine-cone/80">
             &ldquo;{data.quote}&rdquo;
           </blockquote>
           {audience === "faculty" && (
-            <p className="mt-4 font-body text-sm text-pine-cone/60">
+            <p className="mt-4 font-body text-sm text-pine-cone/70">
               Copy this language directly into your syllabus, or customize it for your course context.
               See the <Link href="/toolkits/syllabus" className="font-semibold text-ever-green hover:underline">Syllabus Statement Toolkit</Link> for more options.
             </p>
@@ -348,6 +434,42 @@ export function LevelPageContent({ level }: { level: string }) {
             ))}
           </ul>
         </motion.div>
+
+        {/* Discipline-Specific Examples */}
+        {data.disciplineExamples.length > 0 && (
+          <motion.div {...fadeUp} className="mt-6 rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
+            <h2 className="font-heading text-2xl font-bold text-pine-cone">
+              {audience === "student" ? "Examples Across Subjects" : "Discipline-Specific Assignment Examples"}
+            </h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {data.disciplineExamples.map((ex) => (
+                <div key={ex.discipline} className="rounded-2xl border border-ever-green/[0.06] bg-surface-dim p-5">
+                  <span className="inline-flex rounded-xl bg-gator-green/10 px-3 py-1 font-heading text-xs font-bold uppercase tracking-wider text-gator-green">
+                    {ex.discipline}
+                  </span>
+                  <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/80">{ex.assignment}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* When to Use */}
+        {data.whenToUse.length > 0 && audience !== "student" && (
+          <motion.div {...fadeUp} className="mt-6 rounded-3xl border border-sky-blue/10 bg-sky-blue/5 p-8 sm:p-10">
+            <h2 className="font-heading text-2xl font-bold text-pine-cone">When to Use This Level</h2>
+            <ul className="mt-6 space-y-4">
+              {data.whenToUse.map((scenario) => (
+                <li key={scenario} className="flex items-start gap-3 font-body text-base leading-relaxed text-pine-cone/80">
+                  <svg className="mt-0.5 h-5 w-5 shrink-0 text-sky-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                  {scenario}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
 
         {/* Faculty tips section */}
         {audience === "faculty" && (
@@ -391,7 +513,7 @@ export function LevelPageContent({ level }: { level: string }) {
             <h2 className="font-heading text-2xl font-bold text-pine-cone">
               Key Talking Points
             </h2>
-            <p className="mt-2 font-body text-sm text-pine-cone/60">
+            <p className="mt-2 font-body text-sm text-pine-cone/70">
               Use these points when communicating about AI assessment policies to parents, board members, or community stakeholders.
             </p>
             <ul className="mt-6 space-y-4">

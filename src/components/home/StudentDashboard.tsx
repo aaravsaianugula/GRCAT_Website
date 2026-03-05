@@ -120,7 +120,7 @@ export function StudentDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/assessment-scale"
-                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 hover:-translate-y-1 hover:shadow-elevated sm:p-10"
+                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-elevated sm:p-10"
               >
                 <div className="relative z-10 flex h-full flex-col justify-between gap-6 sm:flex-row sm:items-center">
                   <div className="flex-1">
@@ -177,7 +177,7 @@ export function StudentDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/best-practices/students"
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gator-green/15 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-gator-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gator-green/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-gator-green/30 hover:shadow-elevated"
               >
                 <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-gator-green/10 to-gator-green/5">
                   <Image
@@ -219,7 +219,7 @@ export function StudentDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/playground"
-                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
+                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
               >
                 <div className="flex flex-1 flex-col p-8">
                   <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-pill bg-sky-blue/10 px-2.5 py-0.5 font-body text-xs font-bold uppercase tracking-wider text-sky-blue">
@@ -269,7 +269,7 @@ export function StudentDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/faqs"
-                className="group flex h-full flex-col rounded-3xl border-2 border-sunrise-orange/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sunrise-orange/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-sunrise-orange/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sunrise-orange/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-sunrise-orange/10">
                   <svg
@@ -316,7 +316,7 @@ export function StudentDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/ethics-privacy"
-                className="group flex h-full flex-col rounded-3xl border-2 border-ever-green/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-ever-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-ever-green/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-ever-green/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-ever-green/10">
                   <svg
@@ -363,7 +363,7 @@ export function StudentDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/prompting"
-                className="group flex h-full flex-col rounded-3xl border-2 border-sky-blue/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-sky-blue/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-blue/10">
                   <svg
@@ -409,8 +409,105 @@ export function StudentDashboard() {
         </div>
       </section>
 
+      {/* Quick Tools & Level Check */}
+      <section className="border-t border-ever-green/[0.06] bg-white py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-2">
+            {/* Top Free Tools */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl border border-ever-green/[0.06] bg-surface-dim p-8"
+            >
+              <h3 className="font-heading text-xl font-bold text-pine-cone">Top Free AI Tools</h3>
+              <p className="mt-2 font-body text-sm text-pine-cone/70">Popular tools to get started — all have free tiers.</p>
+              <div className="mt-6 space-y-3">
+                {[
+                  { name: "ChatGPT", tip: "Brainstorming & explanations", url: "https://chat.openai.com" },
+                  { name: "Grammarly", tip: "Grammar & tone", url: "https://www.grammarly.com" },
+                  { name: "Canva AI", tip: "Presentations & design", url: "https://www.canva.com" },
+                  { name: "Quillbot", tip: "Paraphrasing & summarizing", url: "https://quillbot.com" },
+                  { name: "Microsoft Copilot", tip: "Office documents", url: "https://copilot.microsoft.com" },
+                ].map((tool) => (
+                  <a
+                    key={tool.name}
+                    href={tool.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between rounded-2xl border border-ever-green/[0.06] bg-white px-5 py-3.5 transition-all hover:-translate-y-0.5 hover:shadow-card"
+                  >
+                    <div>
+                      <span className="font-heading text-sm font-bold text-ever-green">{tool.name}</span>
+                      <span className="ml-2 font-body text-xs text-pine-cone/70">{tool.tip}</span>
+                    </div>
+                    <svg className="h-4 w-4 shrink-0 text-pine-cone/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+              <Link
+                href="/playground"
+                className="mt-5 inline-flex items-center gap-2 font-body text-sm font-semibold text-sky-blue transition-colors hover:text-ever-green"
+              >
+                Browse all 60+ tools
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </motion.div>
+
+            {/* What AI Level is My Assignment? */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="rounded-3xl border border-sky-blue/15 bg-sky-blue/5 p-8"
+            >
+              <h3 className="font-heading text-xl font-bold text-pine-cone">What AI Level is My Assignment?</h3>
+              <p className="mt-2 font-body text-sm text-pine-cone/70">Quick reference to understand what each level means for you.</p>
+              <div className="mt-6 space-y-3">
+                {[
+                  { level: "1", name: "No AI", color: "bg-red-500/10 text-red-600 border-red-500/20", desc: "Do everything yourself — no AI at all" },
+                  { level: "2", name: "Planning Only", color: "bg-orange-500/10 text-orange-600 border-orange-500/20", desc: "AI for brainstorming only, write it yourself" },
+                  { level: "3", name: "Collaboration", color: "bg-yellow-500/10 text-yellow-700 border-yellow-500/20", desc: "Use AI for drafts/feedback, but revise & improve" },
+                  { level: "4", name: "Full AI", color: "bg-sky-blue/10 text-sky-blue border-sky-blue/20", desc: "Use AI freely — show your prompt skills" },
+                  { level: "5", name: "Exploration", color: "bg-gator-green/10 text-gator-green border-gator-green/20", desc: "Get creative — push AI to its limits" },
+                ].map((item) => (
+                  <Link
+                    key={item.level}
+                    href={`/assessment-scale/${item.level}`}
+                    className="flex items-center gap-4 rounded-2xl border border-ever-green/[0.06] bg-white px-5 py-3.5 transition-all hover:-translate-y-0.5 hover:shadow-card"
+                  >
+                    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border font-heading text-sm font-black ${item.color}`}>
+                      {item.level}
+                    </span>
+                    <div className="min-w-0">
+                      <span className="font-heading text-sm font-bold text-ever-green">{item.name}</span>
+                      <p className="font-body text-xs text-pine-cone/70">{item.desc}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href="/assessment-scale"
+                className="mt-5 inline-flex items-center gap-2 font-body text-sm font-semibold text-sky-blue transition-colors hover:text-ever-green"
+              >
+                Full Assessment Scale details
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
-      <section className="border-t border-ever-green/[0.06] bg-white py-14">
+      <section className="border-t border-ever-green/[0.06] bg-surface-dim py-14">
         <div className="mx-auto max-w-7xl px-5 text-center lg:px-8">
           <h2 className="font-heading text-2xl font-bold text-pine-cone">
             Need help or have questions?
