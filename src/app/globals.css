@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* GRC Brand Colors */
+  --color-gator-green: #6CB443;
+  --color-grc-green: #2C882B;
+  --color-ever-green: #006225;
+  --color-leaf-green: #BBD416;
+  --color-sunrise-orange: #D14900;
+  --color-sky-blue: #418FDE;
+  --color-pine-cone: #333333;
+
+  /* Extended Palette */
+  --color-dark: #050D08;
+  --color-dark-card: #0D1F12;
+  --color-dark-surface: #111B14;
+  --color-dark-border: #1A3320;
+  --color-glass: rgba(255, 255, 255, 0.06);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-hover: rgba(255, 255, 255, 0.1);
+  --color-glow-green: rgba(108, 180, 67, 0.4);
+  --color-glow-blue: rgba(65, 143, 222, 0.3);
+  --color-glow-orange: rgba(209, 73, 0, 0.3);
+
+  /* Semantic */
+  --color-surface: #FFFFFF;
+  --color-surface-dim: #F4F7F4;
+  --color-surface-dark: #050D08;
+  --color-border: #E2E8E4;
+  --color-border-dark: #1A3320;
+
+  /* Typography */
+  --font-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Border Radius — Bento 2.0 exaggerated rounding */
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow-glow-green: 0 0 60px rgba(108, 180, 67, 0.15), 0 0 120px rgba(108, 180, 67, 0.05);
+  --shadow-glow-blue: 0 0 60px rgba(65, 143, 222, 0.15);
+  --shadow-glow-orange: 0 0 60px rgba(209, 73, 0, 0.15);
+}
+
+/* Base Styles — inside @layer base so Tailwind utilities can override */
+@layer base {
+  body {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    color: #333333;
+    background: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    color: #333333;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ==========================================
+   DRAMATIC TYPOGRAPHY UTILITIES
+   ========================================== */
+
+@layer utilities {
+  .text-display {
+    font-size: clamp(3.5rem, 8vw, 9rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .text-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .text-subtitle {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    line-height: 1.5;
+  }
+}
+
+/* ==========================================
+   DRAMATIC CARD VARIANTS
+   ========================================== */
+
+.card-feature {
+  background: linear-gradient(135deg, #006225 0%, #0D1F12 60%, #050D08 100%);
+  color: white;
+}
+
+.card-accent-blue {
+  background: linear-gradient(135deg, rgba(65,143,222,0.08), rgba(65,143,222,0.02));
+}
+
+.card-accent-orange {
+  background: linear-gradient(135deg, rgba(209,73,0,0.08), rgba(209,73,0,0.02));
+}
+
+.card-accent-green {
+  background: linear-gradient(135deg, rgba(108,180,67,0.08), rgba(108,180,67,0.02));
+}
+
+/* ==========================================
+   MARQUEE — CSS-only horizontal scroll
+   ========================================== */
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.marquee-track {
+  display: inline-flex;
+  animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================
+   DIVIDER GLOW
+   ========================================== */
+
+.divider-glow {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #6CB443 20%,
+    #2C882B 50%,
+    #6CB443 80%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 8px rgba(108, 180, 67, 0.4),
+    0 0 20px rgba(108, 180, 67, 0.2),
+    0 0 40px rgba(108, 180, 67, 0.1);
+}
+
+/* Focus Ring */
+*:focus-visible {
+  outline: 2px solid #418FDE;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip to Main */
+.skip-to-main {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: #006225;
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: top 150ms ease;
+}
+.skip-to-main:focus { top: 1rem; }
+
+/* Gradient Mesh Background */
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(108, 180, 67, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 20%, rgba(65, 143, 222, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 80% at 60% 80%, rgba(187, 212, 22, 0.06) 0%, transparent 70%),
+    #050D08;
+}
+
+/* Glass Card */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 98, 37, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Glow effects */
+.glow-green { box-shadow: 0 0 60px rgba(108, 180, 67, 0.15), 0 0 120px rgba(108, 180, 67, 0.05); }
+.glow-blue { box-shadow: 0 0 60px rgba(65, 143, 222, 0.15); }
+.glow-orange { box-shadow: 0 0 60px rgba(209, 73, 0, 0.15); }
+
+/* Gradient text */
+.text-gradient-green {
+  background: linear-gradient(135deg, #6CB443 0%, #BBD416 50%, #2C882B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-white {
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Noise texture overlay */
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animated gradient border */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.border-gradient {
+  border: 2px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(#0D1F12, #0D1F12),
+    conic-gradient(from var(--angle), #6CB443, #418FDE, #BBD416, #6CB443);
+  animation: spin-border 6s linear infinite;
+}
+@keyframes spin-border {
+  to { --angle: 360deg; }
+}
+
+/* Bento grid base */
+.bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(12, 1fr);
+}
+@media (max-width: 768px) {
+  .bento-grid { grid-template-columns: 1fr; }
+}
+
+/* Smooth scroll (without the Next.js warning) */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: auto; }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(108, 180, 67, 0.25);
+  color: #006225;
+}

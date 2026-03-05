@@ -1,0 +1,292 @@
+- generic [active] [ref=e1]:
+  - link "Skip to Main Content" [ref=e2] [cursor=pointer]:
+    - /url: "#s-lg-guide-main"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "\" Green River College Logo" [ref=e6] [cursor=pointer]:
+          - /url: http://www.greenriver.edu
+          - text: "\""
+          - img "Green River College Logo" [ref=e7]
+        - heading "Holman Library" [level=1] [ref=e8]:
+          - link "Holman Library" [ref=e9] [cursor=pointer]:
+            - /url: https://www.greenriver.edu/campus/campus-resources/holman-library/index.html
+      - link "Ask a Question" [ref=e12] [cursor=pointer]:
+        - /url: https://libguides.greenriver.edu/about-the-library/ask
+        - img "Ask a Question" [ref=e13]
+  - generic [ref=e14]:
+    - navigation "breadcrumb" [ref=e15]:
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "GRC Holman Library" [ref=e18] [cursor=pointer]:
+            - /url: https://www.greenriver.edu/campus/campus-resources/holman-library/
+        - listitem [ref=e19]:
+          - text: /
+          - link "Green River LibGuides" [ref=e20] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/
+        - listitem [ref=e21]:
+          - text: /
+          - link "Green River College AI Taskforce" [ref=e22] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/AITaskforce
+        - listitem [ref=e23]: / AI Best Practices for Students
+    - search [ref=e27]:
+      - generic [ref=e28]:
+        - textbox "Search this Guide" [ref=e29]
+        - generic [ref=e30]: Search this Guide
+        - button "Search" [ref=e32] [cursor=pointer]
+    - generic [ref=e33]:
+      - heading "Green River College AI Taskforce" [level=1] [ref=e34]
+      - generic [ref=e35]: Empowering education through responsible AI integration
+  - generic [ref=e37]:
+    - navigation "Guide Pages" [ref=e40]:
+      - list [ref=e41]:
+        - listitem [ref=e42]:
+          - link "Home" [ref=e43] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/AITaskforce/home
+        - listitem [ref=e44]:
+          - link "Toolkit Library" [ref=e45] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=10962847
+          - link "Toggle Dropdown" [ref=e46] [cursor=pointer]:
+            - /url: javascript:void(0);
+            - generic [ref=e48]: Toggle Dropdown
+        - listitem [ref=e49]:
+          - link "AI-Enhanced Assessment Toolkit" [ref=e50] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=10959028
+          - link "Toggle Dropdown" [ref=e51] [cursor=pointer]:
+            - /url: javascript:void(0);
+            - generic [ref=e53]: Toggle Dropdown
+        - listitem [ref=e54]:
+          - link "AI for Faculty" [ref=e55] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=11003409
+          - link "Toggle Dropdown" [ref=e56] [cursor=pointer]:
+            - /url: javascript:void(0);
+            - generic [ref=e58]: Toggle Dropdown
+        - listitem [ref=e59]:
+          - link "AI for Staff & Administration" [ref=e60] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=11003411
+          - link "Toggle Dropdown" [ref=e61] [cursor=pointer]:
+            - /url: javascript:void(0);
+            - generic [ref=e63]: Toggle Dropdown
+        - listitem [ref=e64]:
+          - link "AI for Students" [ref=e65] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=11003410
+          - list [ref=e66]:
+            - listitem [ref=e67]:
+              - link "AI Best Practices for Students" [ref=e68]:
+                - /url: https://libguides.greenriver.edu/AITaskforce/Students
+        - listitem [ref=e69]:
+          - link "AI Playground" [ref=e70] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=10955277
+          - link "Toggle Dropdown" [ref=e71] [cursor=pointer]:
+            - /url: javascript:void(0);
+            - generic [ref=e73]: Toggle Dropdown
+        - listitem [ref=e74]:
+          - link "AI Presentations & Events" [ref=e75] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/AITaskforce/presentations-and-events
+        - listitem [ref=e76]:
+          - link "About the GRC AI Task Force" [ref=e77] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=11003389
+        - listitem [ref=e78]:
+          - link "Feedback & Support" [ref=e79] [cursor=pointer]:
+            - /url: https://libguides.greenriver.edu/c.php?g=1471733&p=11003414
+          - link "Toggle Dropdown" [ref=e80] [cursor=pointer]:
+            - /url: javascript:void(0);
+            - generic [ref=e82]: Toggle Dropdown
+    - generic [ref=e91]:
+      - 'heading "AI Best Practices: Students" [level=2] [ref=e92]'
+      - generic [ref=e95]:
+        - banner [ref=e96]:
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - heading "AI Best Practices" [level=1] [ref=e100]
+              - paragraph [ref=e101]: For Students at Green River College
+            - img "Green River College Logo" [ref=e103]
+        - main [ref=e104]:
+          - generic [ref=e105]:
+            - heading "Using AI Tools Responsibly" [level=2] [ref=e106]
+            - paragraph [ref=e107]: This guide helps you understand how to use artificial intelligence tools ethically and effectively in your coursework. Learn what's appropriate, what to avoid, and how to make the most of these powerful resources.
+          - generic [ref=e110]:
+            - img [ref=e113]
+            - generic [ref=e115]:
+              - heading "📌 Start Here – Always Check Your Class Policy" [level=2] [ref=e116]
+              - generic [ref=e117]:
+                - heading "📣 AI Use Varies by Class" [level=3] [ref=e118]
+                - paragraph [ref=e119]: Every instructor has different expectations for using AI in their course. Before using any AI tools, read your syllabus carefully and ask your instructor if you're unsure what's allowed.
+              - generic [ref=e120]: "\"When in doubt, ask your instructor!\""
+          - generic [ref=e121]:
+            - heading "✅ What You CAN Do (With Permission)" [level=2] [ref=e122]
+            - generic [ref=e123]:
+              - generic [ref=e124]:
+                - img [ref=e127]
+                - generic [ref=e129]:
+                  - heading "Use AI to Brainstorm Ideas" [level=3] [ref=e130]
+                  - paragraph [ref=e131]: Get unstuck with topic ideas or outlines when you're not sure where to start.
+                  - generic [ref=e132]:
+                    - heading "Example Prompt:" [level=4] [ref=e133]
+                    - paragraph [ref=e134]: "\"Give me 3 ways to start a paper on climate change.\""
+              - generic [ref=e135]:
+                - img [ref=e138]
+                - generic [ref=e140]:
+                  - heading "Ask AI to Explain a Concept" [level=3] [ref=e141]
+                  - paragraph [ref=e142]: Use AI to clarify terms, summarize readings, or rephrase content in simpler terms.
+                  - generic [ref=e143]:
+                    - heading "Example Prompt:" [level=4] [ref=e144]
+                    - paragraph [ref=e145]: "\"Explain the concept of photosynthesis in simple terms.\""
+              - generic [ref=e146]:
+                - img [ref=e149]
+                - generic [ref=e151]:
+                  - heading "Edit or Polish Your Own Writing" [level=3] [ref=e152]
+                  - paragraph [ref=e153]: Use Grammarly or AI to check grammar or suggest tone improvements for your work.
+                  - generic [ref=e154]:
+                    - heading "Example Prompt:" [level=4] [ref=e155]
+                    - paragraph [ref=e156]: "\"Can you help me make this paragraph more concise while keeping the main points?\""
+              - generic [ref=e157]:
+                - img [ref=e160]
+                - generic [ref=e162]:
+                  - heading "Create Study Materials" [level=3] [ref=e163]
+                  - paragraph [ref=e164]: Generate practice questions, flashcards, or summaries to help you study more effectively.
+                  - generic [ref=e165]:
+                    - heading "Example Prompt:" [level=4] [ref=e166]
+                    - paragraph [ref=e167]: "\"Create 5 practice questions about cell biology based on these key terms: mitochondria, nucleus, endoplasmic reticulum.\""
+          - generic [ref=e168]:
+            - heading "🚫 What You Should NOT Do" [level=2] [ref=e169]
+            - generic [ref=e170]:
+              - generic [ref=e171]:
+                - img [ref=e174]
+                - generic [ref=e176]:
+                  - heading "Don't Copy and Paste Entire Essays" [level=3] [ref=e177]
+                  - paragraph [ref=e178]: AI-written content is still plagiarism unless your instructor says it's okay. Submitting AI-generated work as your own violates academic integrity policies.
+              - generic [ref=e179]:
+                - img [ref=e182]
+                - generic [ref=e184]:
+                  - heading "Don't Fake Discussions or Peer Replies" [level=3] [ref=e185]
+                  - paragraph [ref=e186]: Learning is a dialogue—not something to automate. Using AI to generate discussion posts prevents genuine engagement with your classmates and instructors.
+              - generic [ref=e187]:
+                - img [ref=e190]
+                - generic [ref=e192]:
+                  - heading "Don't Assume AI Is Always Right" [level=3] [ref=e193]
+                  - paragraph [ref=e194]: AI can make things up or provide incorrect information. Always verify facts from your course materials, textbooks, or other reliable sources before using AI-generated content.
+              - generic [ref=e195]:
+                - img [ref=e198]
+                - generic [ref=e200]:
+                  - heading "Don't Upload Private Info" [level=3] [ref=e201]
+                  - paragraph [ref=e202]: Never share your name, student ID, grades, or other personal information with public AI tools. This information could be stored and potentially accessed by others.
+          - generic [ref=e203]:
+            - heading "🤝 How to Use AI Ethically" [level=2] [ref=e204]
+            - generic [ref=e205]:
+              - generic [ref=e206]:
+                - img [ref=e209]
+                - generic [ref=e211]:
+                  - heading "Be Transparent" [level=3] [ref=e212]
+                  - paragraph [ref=e213]: Let your instructor know how you used AI in your process. Many instructors appreciate honesty about AI use and may even encourage it for certain tasks.
+              - generic [ref=e214]:
+                - img [ref=e217]
+                - generic [ref=e219]:
+                  - heading "Stay in Control" [level=3] [ref=e220]
+                  - paragraph [ref=e221]: Use AI for support, not shortcuts. You should always understand the content you're submitting and be able to explain it in your own words.
+              - generic [ref=e222]:
+                - img [ref=e225]
+                - generic [ref=e227]:
+                  - heading "Know the Rules" [level=3] [ref=e228]
+                  - paragraph [ref=e229]: Each course may have its own AI policy—follow it. Some instructors may prohibit AI use entirely, while others may encourage it for specific assignments.
+          - generic [ref=e230]:
+            - heading "🧠 Real Scenarios (Student Voices)" [level=2] [ref=e231]
+            - generic [ref=e232]:
+              - generic [ref=e233]:
+                - heading "Writing a Draft" [level=3] [ref=e235]
+                - generic [ref=e236]:
+                  - paragraph [ref=e238]: "\"I used ChatGPT to help me structure my outline, then wrote the essay myself. This helped me organize my thoughts without relying on AI for the actual content.\""
+                  - generic [ref=e239]:
+                    - img [ref=e241]
+                    - generic [ref=e243]: First-year Biology student
+              - generic [ref=e244]:
+                - heading "Studying" [level=3] [ref=e246]
+                - generic [ref=e247]:
+                  - paragraph [ref=e249]: "\"I asked AI to quiz me on key points from my notes. It helped me identify gaps in my understanding and focus my study time more effectively.\""
+                  - generic [ref=e250]:
+                    - img [ref=e252]
+                    - generic [ref=e254]: Second-year Nursing student
+              - generic [ref=e255]:
+                - heading "Writing an Email" [level=3] [ref=e257]
+                - generic [ref=e258]:
+                  - paragraph [ref=e260]: "\"I used Grammarly to help me write a polite message to my instructor about missing class due to illness. It helped me sound professional while still being authentic.\""
+                  - generic [ref=e261]:
+                    - img [ref=e263]
+                    - generic [ref=e265]: Transfer student, Business major
+          - generic [ref=e266]:
+            - heading "🛠️ Helpful AI Tools for Students" [level=2] [ref=e267]
+            - table [ref=e269]:
+              - rowgroup [ref=e270]:
+                - row "Tool What It's Good For Tip" [ref=e271]:
+                  - columnheader "Tool" [ref=e272]
+                  - columnheader "What It's Good For" [ref=e273]
+                  - columnheader "Tip" [ref=e274]
+              - rowgroup [ref=e275]:
+                - row "ChatGPT Brainstorming, questions, explanations Don't submit full AI drafts" [ref=e276]:
+                  - cell "ChatGPT" [ref=e277]
+                  - cell "Brainstorming, questions, explanations" [ref=e278]
+                  - cell "Don't submit full AI drafts" [ref=e279]
+                - row "Grammarly Grammar and tone improvements Use with your own words" [ref=e280]:
+                  - cell "Grammarly" [ref=e281]
+                  - cell "Grammar and tone improvements" [ref=e282]
+                  - cell "Use with your own words" [ref=e283]
+                - row "Canva AI Design ideas, captions, presentations Customize everything!" [ref=e284]:
+                  - cell "Canva AI" [ref=e285]
+                  - cell "Design ideas, captions, presentations" [ref=e286]
+                  - cell "Customize everything!" [ref=e287]
+                - row "Quillbot Paraphrasing, summarizing Always cite original sources" [ref=e288]:
+                  - cell "Quillbot" [ref=e289]
+                  - cell "Paraphrasing, summarizing" [ref=e290]
+                  - cell "Always cite original sources" [ref=e291]
+                - row "Microsoft Copilot Office documents, presentations Review all generated content" [ref=e292]:
+                  - cell "Microsoft Copilot" [ref=e293]
+                  - cell "Office documents, presentations" [ref=e294]
+                  - cell "Review all generated content" [ref=e295]
+            - generic [ref=e297]:
+              - img [ref=e299]
+              - paragraph [ref=e302]: Remember that AI tools are constantly changing. Always check the latest features and limitations before using them for your coursework.
+          - generic [ref=e305]:
+            - img [ref=e308]
+            - generic [ref=e310]:
+              - heading "📬 Need Help or Not Sure?" [level=2] [ref=e311]
+              - generic [ref=e312]: "\"When in doubt, ask your instructor!\""
+              - generic [ref=e313]:
+                - link "Student Code of Conduct" [ref=e314] [cursor=pointer]:
+                  - /url: "#"
+                  - img [ref=e315]
+                  - text: Student Code of Conduct
+                - link "Ask a Question" [ref=e317] [cursor=pointer]:
+                  - /url: "#"
+                  - img [ref=e318]
+                  - text: Ask a Question
+                - link "Writing & Tutoring Center" [ref=e320] [cursor=pointer]:
+                  - /url: "#"
+                  - img [ref=e321]
+                  - text: Writing & Tutoring Center
+        - contentinfo [ref=e323]:
+          - generic [ref=e324]:
+            - paragraph [ref=e325]: © 2025 Green River College. All rights reserved.
+            - paragraph [ref=e326]: "Last updated: June 2025"
+  - generic [ref=e327]:
+    - generic [ref=e328]:
+      - list:
+        - listitem [ref=e329]: "Last Updated: Feb 7, 2026 2:59 PM"
+        - listitem [ref=e330]: "URL: https://libguides.greenriver.edu/AITaskforce"
+        - listitem [ref=e331]:
+          - link "Print Page" [ref=e332] [cursor=pointer]:
+            - /url: "javascript: window.print();"
+            - generic [ref=e333]: 
+            - text: Print Page
+      - link "Login to LibApps" [ref=e335] [cursor=pointer]:
+        - /url: https://greenriver.libapps.com/libapps/login.php?site_id=2621&target64=L2xpYmd1aWRlcy9hZG1pbl9jLnBocD9nPTE0NzE3MzMmcD0xMDk1NjM5Ng==
+    - link "Report a problem" [ref=e338] [cursor=pointer]:
+      - /url: mailto:kcunnion@greenriver.edu
+  - text:  
+  - contentinfo [ref=e340]:
+    - list [ref=e342]:
+      - listitem [ref=e343]:
+        - link "Ask A Question" [ref=e344] [cursor=pointer]:
+          - /url: https://libguides.greenriver.edu/about-the-library/ask
+      - listitem [ref=e345]:
+        - link "Holman Library" [ref=e346] [cursor=pointer]:
+          - /url: https://www.greenriver.edu/library
