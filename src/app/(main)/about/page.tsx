@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { springDefault } from "@/lib/animations/motion";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { useAudience } from "@/contexts/AudienceContext";
 
 const timeline = [
@@ -103,7 +105,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+  transition: springDefault,
 };
 
 export default function AboutPage() {
@@ -358,7 +360,7 @@ export default function AboutPage() {
         <div className="divider-glow mt-16" />
 
         {/* What We Recommend */}
-        <motion.div {...fadeUp} className="mt-16">
+        <ScrollReveal className="mt-16">
           <h2 className="text-title font-heading font-extrabold text-pine-cone">
             What We Recommend
           </h2>
@@ -381,12 +383,12 @@ export default function AboutPage() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </ScrollReveal>
 
         <div className="divider-glow mt-16" />
 
         {/* Timeline */}
-        <motion.div {...fadeUp} className="mt-16">
+        <ScrollReveal delay={0.1} className="mt-16">
           <h2 className="text-title font-heading font-extrabold text-pine-cone">
             Our Journey
           </h2>
@@ -434,7 +436,7 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </ScrollReveal>
 
         {/* Campus photo strip */}
         <motion.div {...fadeUp} className="mt-16 grid grid-cols-3 gap-3 overflow-hidden rounded-3xl">
@@ -468,7 +470,7 @@ export default function AboutPage() {
         </motion.div>
 
         {/* Key Documents */}
-        <motion.div {...fadeUp} className="mt-16 rounded-3xl border border-ever-green/[0.06] bg-gradient-to-br from-ever-green/[0.03] to-sky-blue/[0.03] p-8 sm:p-10">
+        <ScrollReveal delay={0.1} className="mt-16 rounded-3xl border border-ever-green/[0.06] bg-gradient-to-br from-ever-green/[0.03] to-sky-blue/[0.03] p-8 sm:p-10">
           <h2 className="font-heading text-xl font-bold text-pine-cone">Key Documents & Reports</h2>
           <p className="mt-2 font-body text-sm text-pine-cone/70">
             Reports, updates, and planning documents from the AI Task Force.
@@ -523,7 +525,7 @@ export default function AboutPage() {
               </div>
             </a>
           </div>
-        </motion.div>
+        </ScrollReveal>
 
         {/* CTA */}
         <motion.div {...fadeUp} className="mt-16 card-feature rounded-3xl p-10 text-center sm:p-14">

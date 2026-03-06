@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { springDefault } from "@/lib/animations/motion";
 import { useAudience } from "@/contexts/AudienceContext";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
@@ -167,11 +168,10 @@ const comparisonRows = [
 /*  SPECTRUM SLIDER COMPONENT                                          */
 /* ------------------------------------------------------------------ */
 
-function SpectrumSlider({ activeLevel, onSelect }: { activeLevel: number | null; onSelect: (n: number) => void }) {
+function SpectrumSlider({ activeLevel, onSelect, disabled }: { activeLevel: number | null; onSelect: (n: number) => void; disabled?: boolean }) {
   return (
-    <div className="relative mx-auto mt-10 max-w-4xl px-4">
-      {/* Gradient bar */}
-      <div className="relative h-4 overflow-hidden rounded-full" style={{ background: "linear-gradient(to right, #EF4444, #F97316, #EAB308, #418FDE, #6CB443)" }}>
+    <div className="relative mx-auto mt-10 max-w-4xl px-4" role={disabled ? "img" : undefined} aria-label={disabled ? "AI assessment spectrum from Level 1 (No AI) to Level 5 (AI Exploration)" : undefined}>
+      <div className="relative h-4 overflow-hidden rounded-full" aria-hidden="true" style={{ background: "linear-gradient(to right, #EF4444, #F97316, #EAB308, #418FDE, #6CB443)" }}>
         {activeLevel !== null && (
           <motion.div
             className="absolute top-0 h-full w-1 bg-white shadow-lg"
@@ -181,12 +181,15 @@ function SpectrumSlider({ activeLevel, onSelect }: { activeLevel: number | null;
           />
         )}
       </div>
-      {/* Level markers */}
       <div className="mt-3 flex justify-between">
         {levels.map((level, i) => (
           <button
             key={level.num}
             onClick={() => onSelect(level.num)}
+            aria-label={`Select Level ${level.num}`}
+            aria-pressed={activeLevel === level.num}
+            aria-disabled={disabled ? "true" : undefined}
+            tabIndex={disabled ? -1 : undefined}
             className={`flex flex-col items-center transition-all duration-200 ${
               activeLevel === level.num ? "scale-110" : "opacity-60 hover:opacity-100"
             }`}
@@ -281,7 +284,7 @@ function StudentView() {
               key={activeLevel}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
-              transition={{ duration: 0.3 }}
+              transition={springDefault}
               className="mt-8 overflow-hidden rounded-2xl border p-6"
               style={{
                 borderColor: `${LEVEL_COLORS[activeLevel - 1].hex}33`,
@@ -345,6 +348,8 @@ function StudentView() {
 /* ------------------------------------------------------------------ */
 
 function FacultyView() {
+  const [copiedLevel, setCopiedLevel] = useState<number | null>(null);
+
   return (
     <>
       {/* For Faculty / For Students info cards */}
@@ -421,7 +426,8 @@ function FacultyView() {
                   </th>
                   {levels.map((l) => (
                     <th key={l.num} className="px-4 py-4 text-center font-heading text-sm font-bold uppercase tracking-wider text-pine-cone/60">
-                      L{l.num}
+                      <span aria-hidden="true">L{l.num}</span>
+                      <span className="sr-only">Level {l.num}: {l.name}</span>
                     </th>
                   ))}
                 </tr>
@@ -431,7 +437,7 @@ function FacultyView() {
                   <tr key={row.activity} className={i < comparisonRows.length - 1 ? "border-b border-ever-green/[0.04]" : ""}>
                     <td className="px-6 py-3.5 font-body text-sm font-medium text-pine-cone/70">{row.activity}</td>
                     {row.levels.map((allowed, j) => (
-                      <td key={j} className="px-4 py-3.5 text-center">
+                      <td key={j} className="px-4 py-3.5 text-center" aria-label={allowed ? "Allowed" : "Not allowed"}>
                         {allowed ? (
                           <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gator-green/10 text-gator-green">
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -445,6 +451,7 @@ function FacultyView() {
                             </svg>
                           </span>
                         )}
+                        <span className="sr-only">{allowed ? "Allowed" : "Not allowed"}</span>
                       </td>
                     ))}
                   </tr>
@@ -462,7 +469,7 @@ function FacultyView() {
         <div className="mt-14 overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <h2 className="font-heading text-2xl font-bold text-pine-cone sm:text-3xl">Level Spectrum</h2>
           <p className="mt-2 font-body text-base text-pine-cone/70">The five levels form a continuous spectrum from full restriction to full creative freedom.</p>
-          <SpectrumSlider activeLevel={null} onSelect={() => {}} />
+          <SpectrumSlider activeLevel={null} onSelect={() => {}} disabled />
         </div>
       </ScrollReveal>
 
@@ -532,14 +539,28 @@ function FacultyView() {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation();
                       navigator.clipboard.writeText(level.facultySyllabusLanguage);
+                      setCopiedLevel(level.num);
+                      setTimeout(() => setCopiedLevel(null), 2000);
                     }}
                     className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-sky-blue/10 px-3 py-1.5 font-body text-xs font-semibold text-sky-blue transition-colors hover:bg-sky-blue/20"
                   >
-                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9.75a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-                    </svg>
-                    Copy to clipboard
+                    {copiedLevel === level.num ? (
+                      <>
+                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                        </svg>
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9.75a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                        </svg>
+                        Copy to clipboard
+                      </>
+                    )}
                   </button>
                 </div>
 
@@ -591,7 +612,7 @@ function StaffView() {
         <div className="mb-12 overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <h2 className="font-heading text-2xl font-bold text-pine-cone sm:text-3xl">The Spectrum at a Glance</h2>
           <p className="mt-2 font-body text-base text-pine-cone/70">From full restriction to full creative freedom.</p>
-          <SpectrumSlider activeLevel={null} onSelect={() => {}} />
+          <SpectrumSlider activeLevel={null} onSelect={() => {}} disabled />
         </div>
       </ScrollReveal>
 
@@ -713,8 +734,7 @@ export default function AssessmentScalePage() {
 
   return (
     <PageTransition>
-      <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
-        {/* Decorative background numbers */}
+      <div className="relative mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
         <div className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden" aria-hidden="true">
           <div className="mx-auto flex max-w-7xl justify-between px-4 opacity-[0.03]">
             {[1, 2, 3, 4, 5].map((n, i) => (
@@ -761,7 +781,7 @@ export default function AssessmentScalePage() {
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ ...springDefault, delay: 0.3 }}
           className="mt-10 h-1 origin-left rounded-full"
           style={{ background: "linear-gradient(to right, #EF4444, #F97316, #EAB308, #418FDE, #6CB443)" }}
         />

@@ -3,6 +3,7 @@
 import { useState, useEffect, type FormEvent } from "react";
 import { useAudience } from "@/contexts/AudienceContext";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { motion, AnimatePresence } from "framer-motion";
 
 const audienceIntro = {
@@ -181,6 +182,7 @@ export default function FeedbackPage() {
           </div>
         </div>
 
+        <ScrollReveal>
         <div className="mx-auto mt-10 max-w-xl rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <AnimatePresence mode="wait">
             {isSubmitted ? (
@@ -201,6 +203,9 @@ export default function FeedbackPage() {
                 </h2>
                 <p className="mt-3 max-w-sm font-body text-base text-pine-cone/60">
                   Your message has been received. The AI Task Force team will review it and follow up if needed.
+                </p>
+                <p className="mt-3 rounded-lg bg-sunrise-orange/10 px-4 py-2 font-body text-sm text-sunrise-orange">
+                  This is a demo — no data is sent.
                 </p>
                 <button
                   type="button"
@@ -237,10 +242,13 @@ export default function FeedbackPage() {
                       setName(e.target.value);
                       if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                     }}
+                    aria-required="true"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "name-error" : undefined}
                     className={`mt-1.5 w-full rounded-xl border px-4 py-3 font-body text-base text-pine-cone outline-none transition-colors focus:border-gator-green/30 focus:ring-2 focus:ring-gator-green/10 ${errors.name ? "border-red-400 bg-red-50/50" : "border-ever-green/10 bg-surface-dim/50"}`}
                     placeholder="Your name"
                   />
-                  {errors.name && <p className="mt-1.5 font-body text-sm text-red-500">{errors.name}</p>}
+                  {errors.name && <p id="name-error" role="alert" className="mt-1.5 font-body text-sm text-red-500">{errors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="email" className="block font-body text-sm font-semibold text-pine-cone/70">Email</label>
@@ -252,10 +260,13 @@ export default function FeedbackPage() {
                       setEmail(e.target.value);
                       if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
                     }}
+                    aria-required="true"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? "email-error" : undefined}
                     className={`mt-1.5 w-full rounded-xl border px-4 py-3 font-body text-base text-pine-cone outline-none transition-colors focus:border-gator-green/30 focus:ring-2 focus:ring-gator-green/10 ${errors.email ? "border-red-400 bg-red-50/50" : "border-ever-green/10 bg-surface-dim/50"}`}
                     placeholder="you@greenriver.edu"
                   />
-                  {errors.email && <p className="mt-1.5 font-body text-sm text-red-500">{errors.email}</p>}
+                  {errors.email && <p id="email-error" role="alert" className="mt-1.5 font-body text-sm text-red-500">{errors.email}</p>}
                 </div>
                 <div>
                   <label htmlFor="role" className="block font-body text-sm font-semibold text-pine-cone/70">Role</label>
@@ -281,10 +292,13 @@ export default function FeedbackPage() {
                       setMessage(e.target.value);
                       if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }));
                     }}
+                    aria-required="true"
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                     className={`mt-1.5 w-full resize-none rounded-xl border px-4 py-3 font-body text-base text-pine-cone outline-none transition-colors focus:border-gator-green/30 focus:ring-2 focus:ring-gator-green/10 ${errors.message ? "border-red-400 bg-red-50/50" : "border-ever-green/10 bg-surface-dim/50"}`}
                     placeholder="Your feedback..."
                   />
-                  {errors.message && <p className="mt-1.5 font-body text-sm text-red-500">{errors.message}</p>}
+                  {errors.message && <p id="message-error" role="alert" className="mt-1.5 font-body text-sm text-red-500">{errors.message}</p>}
                 </div>
                 <button
                   type="submit"
@@ -303,10 +317,14 @@ export default function FeedbackPage() {
                     "Submit Feedback"
                   )}
                 </button>
+                <p className="mt-3 text-center font-body text-xs text-pine-cone/50">
+                  This is a demo — no data is sent.
+                </p>
               </motion.form>
             )}
           </AnimatePresence>
         </div>
+        </ScrollReveal>
       </div>
     </PageTransition>
   );

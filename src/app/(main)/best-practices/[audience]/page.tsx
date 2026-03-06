@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Best Practices",
@@ -298,7 +300,7 @@ const audienceData: Record<string, AudienceData> = {
       { label: "Can explain everything in my submission in my own words", category: "Before Submitting" },
       { label: "Did not share any personal information with AI tools", category: "Before Submitting" },
     ],
-    ctaText: "Student Code of Conduct",
+    ctaText: "Student-Facing Language Toolkit",
     ctaHref: "/toolkits/student-language",
     ctaSecondaryText: "AI Assessment Scale",
     ctaSecondaryHref: "/assessment-scale",
@@ -660,6 +662,13 @@ export default async function BestPracticesPage({
   return (
     <PageTransition>
       <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
+        <Breadcrumbs
+          crumbs={[
+            { label: "Best Practices", href: "/best-practices" },
+            { label: data.title },
+          ]}
+        />
+
         {/* ---- Header ---- */}
         <div className="max-w-3xl">
           <span
@@ -731,6 +740,7 @@ export default async function BestPracticesPage({
         )}
 
         {/* ---- Guiding Principles ---- */}
+        <ScrollReveal>
         <div className="mt-14">
           <div className="mb-5 flex items-center gap-3">
             <span
@@ -759,8 +769,10 @@ export default async function BestPracticesPage({
             ))}
           </div>
         </div>
+        </ScrollReveal>
 
         {/* ---- Do's ---- */}
+        <ScrollReveal delay={0.1}>
         <div className="mt-14">
           <div className="mb-5 flex items-center gap-3">
             <span className="inline-flex items-center rounded-xl bg-gator-green/10 px-3.5 py-1.5 font-body text-sm font-bold text-gator-green">
@@ -799,8 +811,10 @@ export default async function BestPracticesPage({
             ))}
           </div>
         </div>
+        </ScrollReveal>
 
         {/* ---- Don'ts ---- */}
+        <ScrollReveal delay={0.1}>
         <div className="mt-14">
           <div className="mb-5 flex items-center gap-3">
             <span className="inline-flex items-center rounded-xl bg-red-500/10 px-3.5 py-1.5 font-body text-sm font-bold text-red-600">
@@ -829,6 +843,7 @@ export default async function BestPracticesPage({
             ))}
           </div>
         </div>
+        </ScrollReveal>
 
         {/* ---- FERPA / Privacy (Staff only) ---- */}
         {audience === "staff" && (

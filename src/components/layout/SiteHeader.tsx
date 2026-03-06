@@ -43,6 +43,44 @@ export function SiteHeader() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [mobileOpen]);
 
+  // Focus trap: when mobile menu opens, trap Tab/Shift+Tab within it
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const menu = mobileMenuRef.current;
+    if (!menu) return;
+
+    const focusableSelector =
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    // Focus first focusable element on open
+    requestAnimationFrame(() => {
+      const first = menu.querySelector<HTMLElement>(focusableSelector);
+      first?.focus();
+    });
+
+    function handleTabTrap(e: KeyboardEvent) {
+      if (e.key !== "Tab" || !menu) return;
+      const focusable = Array.from(
+        menu.querySelectorAll<HTMLElement>(focusableSelector)
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleTabTrap);
+    return () => document.removeEventListener("keydown", handleTabTrap);
+  }, [mobileOpen]);
+
   // Return focus to hamburger when menu closes
   const closeMobileMenu = useCallback(() => {
     setMobileOpen(false);
@@ -121,9 +159,9 @@ export function SiteHeader() {
           >
             <div className="px-5 py-4">
               <Navigation mobile onNavClick={closeMobileMenu} />
-              <div className="mt-4 flex items-center gap-3 border-t border-ever-green/[0.06] pt-4">
+              <div className="mt-4 flex flex-col gap-4 border-t border-ever-green/[0.06] pt-4">
                 <SearchTrigger />
-                <AudienceSwitcher />
+                <AudienceSwitcher mobile />
               </div>
             </div>
           </motion.div>

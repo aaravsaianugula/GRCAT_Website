@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { useAudience, type Audience } from "@/contexts/AudienceContext";
 import { AIChat } from "@/components/playground/AIChat";
 
@@ -298,12 +299,12 @@ const audienceConfigs: Record<NonNullable<Audience>, AudienceConfig> = {
     intro:
       "Explore AI tools that can help with studying, writing, research, and creative projects.",
     tip: "Always check your syllabus before using AI tools in your coursework.",
-    tipColor: "text-blue-800",
-    tipBg: "bg-blue-50",
-    tipBorder: "border-blue-200",
+    tipColor: "text-sky-blue",
+    tipBg: "bg-sky-blue/5",
+    tipBorder: "border-sky-blue/20",
     badgeLabel: "Recommended for Students",
-    badgeColor: "text-blue-700",
-    badgeBg: "bg-blue-100",
+    badgeColor: "text-sky-blue",
+    badgeBg: "bg-sky-blue/10",
     recommendedGenerativeTools: [
       "ChatGPT",
       "Gemini",
@@ -327,12 +328,12 @@ const audienceConfigs: Record<NonNullable<Audience>, AudienceConfig> = {
     intro:
       "Discover AI tools for teaching, assessment, content creation, and research.",
     tip: "Use the AI Assessment Scale to determine appropriate AI use levels for your courses.",
-    tipColor: "text-emerald-800",
-    tipBg: "bg-emerald-50",
-    tipBorder: "border-emerald-200",
+    tipColor: "text-gator-green",
+    tipBg: "bg-gator-green/5",
+    tipBorder: "border-gator-green/20",
     badgeLabel: "Recommended for Faculty",
-    badgeColor: "text-emerald-700",
-    badgeBg: "bg-emerald-100",
+    badgeColor: "text-gator-green",
+    badgeBg: "bg-gator-green/10",
     recommendedGenerativeTools: [
       "ChatGPT",
       "Claude",
@@ -355,12 +356,12 @@ const audienceConfigs: Record<NonNullable<Audience>, AudienceConfig> = {
     intro:
       "Find AI tools for productivity, communications, data analysis, and workflow automation.",
     tip: "Remember to follow FERPA guidelines when using AI with student data.",
-    tipColor: "text-amber-800",
-    tipBg: "bg-amber-50",
-    tipBorder: "border-amber-200",
+    tipColor: "text-sunrise-orange",
+    tipBg: "bg-sunrise-orange/5",
+    tipBorder: "border-sunrise-orange/20",
     badgeLabel: "Recommended for Staff",
-    badgeColor: "text-amber-700",
-    badgeBg: "bg-amber-100",
+    badgeColor: "text-sunrise-orange",
+    badgeBg: "bg-sunrise-orange/10",
     recommendedGenerativeTools: [
       "Microsoft Copilot",
       "ChatGPT",
@@ -571,12 +572,31 @@ export default function PlaygroundPage() {
 
         {/* -- AI Chat -------------------------------------------- */}
         <section className="mt-12 mb-4">
+          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-sunrise-orange/20 bg-sunrise-orange/5 p-4">
+            <svg
+              className="mt-0.5 h-5 w-5 shrink-0 text-sunrise-orange"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+              />
+            </svg>
+            <p className="font-body text-sm text-pine-cone/80">
+              <strong>Important:</strong> AI responses may be inaccurate. Always verify information from AI tools with trusted sources. This chat is for educational exploration only.
+            </p>
+          </div>
           <AIChat />
         </section>
 
         <div className="divider-glow my-16" />
 
         {/* -- Best Practices ---------------------------------------- */}
+        <ScrollReveal>
         <section className="mt-20">
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Best Practices for Ethical AI Use
@@ -619,10 +639,12 @@ export default function PlaygroundPage() {
             ))}
           </div>
         </section>
+        </ScrollReveal>
 
         <div className="divider-glow my-16" />
 
         {/* -- Category Overview Grid -------------------------------- */}
+        <ScrollReveal delay={0.1}>
         <section>
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Tool Categories
@@ -719,6 +741,7 @@ export default function PlaygroundPage() {
             })}
           </motion.div>
         </section>
+        </ScrollReveal>
 
         <div className="divider-glow my-16" />
 

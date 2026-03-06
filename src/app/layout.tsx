@@ -41,6 +41,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  name: "Green River College AI Task Force",
+                  url: "https://greenriver.edu",
+                  description:
+                    "Guiding responsible AI integration for students, faculty, and staff at Green River College.",
+                },
+                {
+                  "@type": "WebSite",
+                  name: "GRC AI Taskforce",
+                  url: "https://greenriver.edu/ai-taskforce",
+                  description:
+                    "Find your instructor's AI policy level, explore 80+ tools, and learn to use AI ethically.",
+                },
+              ],
+            }),
+          }}
+        />
+      </head>
       <body className="antialiased">
         <a href="#main-content" className="skip-to-main">
           Skip to main content

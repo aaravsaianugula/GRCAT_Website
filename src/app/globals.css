@@ -281,6 +281,97 @@
   html { scroll-behavior: auto; }
 }
 
+/* ==========================================
+   GRAIN TEXTURE OVERLAYS
+   ========================================== */
+
+.grain-subtle::before,
+.grain-medium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.grain-subtle::before {
+  opacity: 0.02;
+}
+
+.grain-medium::before {
+  opacity: 0.04;
+}
+
+/* ==========================================
+   ORGANIC BLOB SHAPES
+   ========================================== */
+
+.blob-shape {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  50% {
+    border-radius: 50% 60% 30% 70% / 30% 50% 70% 60%;
+  }
+  75% {
+    border-radius: 40% 60% 50% 30% / 60% 40% 60% 50%;
+  }
+}
+
+/* ==========================================
+   MEGA TYPOGRAPHY
+   ========================================== */
+
+@layer utilities {
+  .text-mega {
+    font-size: clamp(4rem, 10vw, 12rem);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+  }
+}
+
+/* ==========================================
+   AUDIENCE GRADIENT TEXT
+   ========================================== */
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #418FDE 0%, #2D6BB0 50%, #5BA3E8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-orange {
+  background: linear-gradient(135deg, #D14900 0%, #B03D00 50%, #E8621A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   BENTO CARD HOVER
+   ========================================== */
+
+.bento-card-hover {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bento-card-hover:hover,
+.bento-card-hover:focus-within {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -289,6 +380,29 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Chat markdown prose */
+.prose-chat p { margin: 0.25em 0; }
+.prose-chat p:first-child { margin-top: 0; }
+.prose-chat p:last-child { margin-bottom: 0; }
+.prose-chat ul, .prose-chat ol { margin: 0.4em 0; padding-left: 1.25em; }
+.prose-chat li { margin: 0.15em 0; }
+.prose-chat code {
+  background: rgba(0, 98, 37, 0.06);
+  padding: 0.1em 0.35em;
+  border-radius: 0.25rem;
+  font-size: 0.85em;
+}
+.prose-chat pre {
+  background: rgba(0, 98, 37, 0.06);
+  padding: 0.75em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+.prose-chat pre code { background: none; padding: 0; }
+.prose-chat strong { font-weight: 600; }
+.prose-chat a { color: #2C882B; text-decoration: underline; }
 
 /* Selection */
 ::selection {

@@ -7,6 +7,7 @@ import { useAudience, type Audience } from "@/contexts/AudienceContext";
 import { ParticleBackground } from "@/components/shared/ParticleBackground";
 import Image from "next/image";
 import Link from "next/link";
+import { OrganicBlob } from "@/components/shared/OrganicBlob";
 
 const audiences = [
   {
@@ -89,7 +90,6 @@ export function SplashGate() {
 
   function handleSelect(value: Audience) {
     setAudience(value);
-    if (value) router.push(`/${value}`);
   }
 
   if (hasChosen) {
@@ -102,7 +102,13 @@ export function SplashGate() {
           role="status"
           aria-label="Loading"
         >
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-gator-green/30 border-t-gator-green" />
+          <div className={`mx-auto h-8 w-8 animate-spin rounded-full border-2 ${
+            audience === "student"
+              ? "border-sky-blue/30 border-t-sky-blue"
+              : audience === "staff"
+                ? "border-sunrise-orange/30 border-t-sunrise-orange"
+                : "border-gator-green/30 border-t-gator-green"
+          }`} />
           <p className="mt-4 font-body text-sm text-white/60">
             Loading your experience...
           </p>
@@ -115,15 +121,9 @@ export function SplashGate() {
     <div className="noise relative flex min-h-screen flex-col items-center overflow-hidden gradient-mesh">
       <ParticleBackground fullViewport />
 
-      {/* Ambient glow orbs */}
-      <div
-        className="pointer-events-none absolute left-1/4 top-1/4 h-[600px] w-[600px] rounded-full bg-gator-green/8 blur-[150px]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute bottom-1/4 right-1/4 h-[500px] w-[500px] rounded-full bg-sky-blue/6 blur-[120px]"
-        aria-hidden="true"
-      />
+      {/* Ambient organic blobs */}
+      <OrganicBlob color="bg-gator-green" size="lg" position="left-[15%] top-[20%]" />
+      <OrganicBlob color="bg-sky-blue" size="md" position="right-[15%] bottom-[20%]" />
 
       {/* GRC Logo + Branding */}
       <motion.div
@@ -153,18 +153,27 @@ export function SplashGate() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
           className="text-center"
         >
-          <h1 className="font-heading text-6xl font-extrabold leading-[0.95] tracking-tight sm:text-8xl lg:text-9xl">
-            <span className="text-gradient-white">AI</span>
-            <span className="text-gradient-green"> Taskforce</span>
+          <h1 className="font-heading text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
+            <span className="text-gradient-white">Your Guide to AI</span>
+            <br />
+            <span className="text-gradient-green">at Green River College</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-lg font-body text-lg leading-relaxed text-white/70 sm:text-xl">
-            Empowering Green River College through
-            <span className="font-semibold text-gator-green">
-              {" "}
-              responsible AI integration
-            </span>
-            .
+          <p className="mx-auto mt-6 max-w-2xl font-body text-lg leading-relaxed text-white/70 sm:text-xl">
+            Find your instructor&apos;s AI policy level, explore 80+ tools, and
+            learn to use AI ethically &mdash; whether you&apos;re a{" "}
+            <span className="font-semibold text-sky-blue">student</span>,{" "}
+            <span className="font-semibold text-gator-green">faculty member</span>
+            , or{" "}
+            <span className="font-semibold text-sunrise-orange">staff</span>.
+          </p>
+
+          <p className="mx-auto mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 font-body text-sm font-medium tracking-wide text-white/50">
+            <span>5-Level Assessment Scale</span>
+            <span aria-hidden="true" className="text-white/20">&middot;</span>
+            <span>6 Toolkits</span>
+            <span aria-hidden="true" className="text-white/20">&middot;</span>
+            <span>80+ AI Tools</span>
           </p>
 
           <p className="mt-3 font-body text-base text-white/60">
@@ -202,6 +211,7 @@ export function SplashGate() {
                     src={a.image}
                     alt=""
                     fill
+                    sizes="(max-width: 640px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-[#050D08]" />

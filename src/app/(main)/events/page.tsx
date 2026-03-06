@@ -2,6 +2,7 @@
 
 import { useAudience } from "@/contexts/AudienceContext";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { motion } from "framer-motion";
 
 const events = [
@@ -129,7 +130,7 @@ const audienceBanners = {
   student: {
     label: "For Students",
     text: "Want to learn about AI? Check out upcoming workshops and courses.",
-    color: "bg-gator-green/10 border-gator-green/20 text-gator-green",
+    color: "bg-sky-blue/10 border-sky-blue/20 text-sky-blue",
     icon: (
       <svg className="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
@@ -139,7 +140,7 @@ const audienceBanners = {
   faculty: {
     label: "For Faculty",
     text: "Professional development opportunities in AI for teaching.",
-    color: "bg-sky-blue/10 border-sky-blue/20 text-sky-blue",
+    color: "bg-gator-green/10 border-gator-green/20 text-gator-green",
     icon: (
       <svg className="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
@@ -162,14 +163,14 @@ const audienceCallouts = {
   student: {
     title: "Why Attend?",
     text: "Build practical AI skills that give you an edge in coursework and your future career. Learn ethical AI use, discover free tools, and connect with peers exploring the same technology.",
-    color: "bg-gradient-to-br from-gator-green/5 to-gator-green/10 border-gator-green/15",
-    textColor: "text-gator-green",
+    color: "bg-gradient-to-br from-sky-blue/5 to-sky-blue/10 border-sky-blue/15",
+    textColor: "text-sky-blue",
   },
   faculty: {
     title: "Earn PD Credit",
     text: "All AI Task Force workshops and courses qualify for professional development credit. The AI 101 Course for Faculty is a 40-hour comprehensive program recognized by the college for PD advancement.",
-    color: "bg-gradient-to-br from-sky-blue/5 to-sky-blue/10 border-sky-blue/15",
-    textColor: "text-sky-blue",
+    color: "bg-gradient-to-br from-gator-green/5 to-gator-green/10 border-gator-green/15",
+    textColor: "text-gator-green",
   },
   staff: {
     title: "Operational AI Training",
@@ -232,6 +233,7 @@ export default function EventsPage() {
         )}
 
         {/* Presentations */}
+        <ScrollReveal>
         <div className="mt-14">
           <h2 className="text-title font-heading font-extrabold text-pine-cone">Presentations</h2>
           <p className="mt-3 font-body text-base text-pine-cone/70">
@@ -239,12 +241,12 @@ export default function EventsPage() {
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "AI at Green River College", tag: "Overview", desc: "Overview of how AI is shaping learning, policy, and faculty approaches.", url: "https://www.canva.com/design/DAF1a-HNyQk/Lw6u4R2Fs_Zcvp6mdY2VOA/edit" },
-              { title: "AI 101 for Educators", tag: "Foundations", desc: "Introduces foundational tools, policies, and pedagogical strategies using AI.", url: "https://www.canva.com/design/DAGWe0JVVNo/adlPp9SNT7gj_2ppkmEorw/edit" },
-              { title: "Reimagining Assessment in an AI-Enabled Classroom", tag: "Pedagogy", desc: "Innovative, AI-integrated assignments and pedagogy.", url: "https://www.canva.com/design/DAGWe0JVVNo/adlPp9SNT7gj_2ppkmEorw/edit" },
+              { title: "AI at Green River College", tag: "Overview", desc: "Overview of how AI is shaping learning, policy, and faculty approaches.", url: "https://www.canva.com/design/DAF1a-HNyQk/Lw6u4R2Fs_Zcvp6mdY2VOA/view" },
+              { title: "AI 101 for Educators", tag: "Foundations", desc: "Introduces foundational tools, policies, and pedagogical strategies using AI.", url: "https://www.canva.com/design/DAGWe0JVVNo/adlPp9SNT7gj_2ppkmEorw/view" },
+              { title: "Reimagining Assessment in an AI-Enabled Classroom", tag: "Pedagogy", desc: "Innovative, AI-integrated assignments and pedagogy.", url: "https://www.canva.com/design/DAGleK-4hTo/3iTV_nWkKI88btSEJ0Z0LQ/view" },
               { title: "Using AI for Accessibility", tag: "Accessibility", desc: "Real examples of how to improve digital accessibility using AI tools.", url: "https://www.canva.com/design/DAGleK-4hTo/3iTV_nWkKI88btSEJ0Z0LQ/view" },
               { title: "AI for Instructor Workload", tag: "Efficiency", desc: "Strategies for using AI to manage instructor workload effectively.", url: "https://www.canva.com/design/DAFlE-xsccs/O41J9wIvo19klZ1k388Hew/view" },
-              { title: "Crafting Clear Policies for Today's Classroom", tag: "Policy", desc: "Guidelines for creating effective AI policies for today's classroom.", url: "https://www.canva.com/design/DAGhuZJDOJM/azop-_EOA_EMqzr-9WVJug/edit" },
+              { title: "Crafting Clear Policies for Today's Classroom", tag: "Policy", desc: "Guidelines for creating effective AI policies for today's classroom.", url: "https://www.canva.com/design/DAGhuZJDOJM/azop-_EOA_EMqzr-9WVJug/view" },
               { title: "Prompting for the Classroom", tag: "Practical", desc: "Effective prompting techniques for educational contexts.", url: "https://www.canva.com/design/DAGhuZJDOJM/eeIAsfBMur1BQlefPdwU-A/view" },
             ].map((pres, i) => (
               <motion.div
@@ -296,10 +298,12 @@ export default function EventsPage() {
             </a>
           </div>
         </div>
+        </ScrollReveal>
 
         <div className="divider-glow mt-16" />
 
         {/* Timeline */}
+        <ScrollReveal delay={0.1}>
         <div className="relative mt-14">
           <h2 className="mb-10 text-center font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">Timeline</h2>
 
@@ -370,6 +374,7 @@ export default function EventsPage() {
             })}
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </PageTransition>
   );

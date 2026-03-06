@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAudience } from "@/contexts/AudienceContext";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import Link from "next/link";
 
 export default function BestPracticesRedirect() {
@@ -28,6 +29,7 @@ export default function BestPracticesRedirect() {
           <p className="mt-4 max-w-2xl font-body text-lg text-pine-cone/70">
             Choose your role to see AI best practices tailored for you.
           </p>
+          <ScrollReveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {[
               { label: "Students", href: "/best-practices/students", color: "card-accent-blue", desc: "Ethical AI use, study tips, and academic integrity guidelines." },
@@ -44,6 +46,7 @@ export default function BestPracticesRedirect() {
               </Link>
             ))}
           </div>
+          </ScrollReveal>
         </div>
       </PageTransition>
     );

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useAudience, type Audience } from "@/contexts/AudienceContext";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 /* ─── Toolkit Data ─── */
 
@@ -374,6 +375,7 @@ export default function ToolkitsPage() {
             src="/images/campus-entrance.jpg"
             alt=""
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover opacity-15 mix-blend-overlay"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-ever-green/80 via-ever-green/90 to-ever-green" />
@@ -470,6 +472,7 @@ export default function ToolkitsPage() {
                     src={featuredToolkit.image}
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-white" />
@@ -537,6 +540,7 @@ export default function ToolkitsPage() {
           </motion.div>
 
           {/* ── Toolkit Grid ── */}
+          <ScrollReveal>
           <motion.div
             className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
             variants={stagger}
@@ -561,6 +565,7 @@ export default function ToolkitsPage() {
                         src={tk.image}
                         alt=""
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70" />
@@ -617,8 +622,10 @@ export default function ToolkitsPage() {
               );
             })}
           </motion.div>
+          </ScrollReveal>
 
           {/* ── Bottom CTA ── */}
+          <ScrollReveal delay={0.1}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -649,6 +656,7 @@ export default function ToolkitsPage() {
               </Link>
             </div>
           </motion.div>
+          </ScrollReveal>
         </div>
       </div>
     </PageTransition>

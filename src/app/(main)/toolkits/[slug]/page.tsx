@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { PageTransition } from "@/components/shared/PageTransition";
-
-export const metadata: Metadata = {
-  title: "Toolkit",
-  description:
-    "Explore this AI toolkit resource provided by the Green River College AI Task Force.",
-};
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 /* ────────────────────────────────────────────────────────────────
    Toolkit Data — sourced from the GRC AI Taskforce LibGuide PDFs
@@ -559,6 +555,16 @@ const toolkitData: Record<string, ToolkitEntry> = {
     ],
   },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const data = toolkitData[slug];
+  if (!data) return { title: "Toolkit Not Found" };
+  return {
+    title: `${data.name} | GRC AI Taskforce`,
+    description: data.desc,
+  };
+}
 
 /* ────────────────────────────────────────────────────────────────
    Section Renderers
@@ -1751,62 +1757,34 @@ export default async function ToolkitPage({
 }) {
   const { slug } = await params;
   const data = toolkitData[slug];
+  if (!data) notFound();
 
   return (
     <PageTransition>
       <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
-        <Link
-          href="/toolkits"
-          className="mb-8 inline-flex items-center gap-2 font-body text-sm font-medium text-pine-cone/60 transition-colors hover:text-ever-green"
-        >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-            />
-          </svg>
-          Back to Toolkits
-        </Link>
+        <Breadcrumbs
+          crumbs={[
+            { label: "Toolkits", href: "/toolkits" },
+            { label: data.name },
+          ]}
+        />
 
         <div className="max-w-3xl">
           <h1 className="text-title font-heading font-extrabold text-pine-cone">
-            {data?.name ?? slug.replace(/-/g, " ")}
+            {data.name}
           </h1>
           <p className="mt-5 text-subtitle font-body text-pine-cone/60">
-            {data?.desc ?? "Toolkit details loading."}
+            {data.desc}
           </p>
         </div>
 
         <div className="divider-glow mt-12" />
 
+        <ScrollReveal>
         <div className="mt-12">
-          {data ? (
-            <ToolkitContent slug={slug} data={data} />
-          ) : (
-            <div className="rounded-3xl border border-ever-green/[0.06] p-8 sm:p-10">
-              <h2 className="font-heading text-2xl font-bold text-pine-cone">
-                Toolkit Not Found
-              </h2>
-              <p className="mt-4 font-body text-base leading-relaxed text-pine-cone/70">
-                The requested toolkit could not be found. Please return to the
-                toolkits page and select a valid toolkit.
-              </p>
-              <Link
-                href="/toolkits"
-                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gator-green px-5 py-2.5 font-heading text-sm font-bold text-white transition-colors hover:bg-ever-green"
-              >
-                View All Toolkits
-              </Link>
-            </div>
-          )}
+          <ToolkitContent slug={slug} data={data} />
         </div>
+        </ScrollReveal>
       </div>
     </PageTransition>
   );

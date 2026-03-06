@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { springDefault } from "@/lib/animations/motion";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { useAudience } from "@/contexts/AudienceContext";
 
 interface DisciplineExample {
@@ -13,6 +16,7 @@ interface DisciplineExample {
 interface LevelInfo {
   name: string;
   color: string;
+  dotColor: string;
   borderAccent: string;
   bgColor: string;
   quote: string;
@@ -34,6 +38,7 @@ const levelData: Record<string, LevelInfo> = {
   "1": {
     name: "No AI",
     color: "bg-red-500/10 text-red-600 border-red-500/20",
+    dotColor: "bg-red-500",
     borderAccent: "border-l-red-500",
     bgColor: "from-red-500/5 to-red-500/0",
     quote: "You must not use AI at any point during the assessment.",
@@ -83,6 +88,7 @@ const levelData: Record<string, LevelInfo> = {
   "2": {
     name: "AI Planning",
     color: "bg-orange-500/10 text-orange-600 border-orange-500/20",
+    dotColor: "bg-orange-500",
     borderAccent: "border-l-orange-500",
     bgColor: "from-orange-500/5 to-orange-500/0",
     quote: "You may use AI for planning and research only.",
@@ -131,6 +137,7 @@ const levelData: Record<string, LevelInfo> = {
   "3": {
     name: "AI Collaboration",
     color: "bg-yellow-500/10 text-yellow-700 border-yellow-500/20",
+    dotColor: "bg-yellow-500",
     borderAccent: "border-l-yellow-500",
     bgColor: "from-yellow-500/5 to-yellow-500/0",
     quote: "You may use AI to assist with specific tasks and drafting.",
@@ -179,6 +186,7 @@ const levelData: Record<string, LevelInfo> = {
   "4": {
     name: "Full AI",
     color: "bg-sky-blue/10 text-sky-blue border-sky-blue/20",
+    dotColor: "bg-sky-blue",
     borderAccent: "border-l-sky-blue",
     bgColor: "from-sky-blue/5 to-sky-blue/0",
     quote: "You may use AI extensively throughout your work.",
@@ -227,6 +235,7 @@ const levelData: Record<string, LevelInfo> = {
   "5": {
     name: "AI Exploration",
     color: "bg-gator-green/10 text-gator-green border-gator-green/20",
+    dotColor: "bg-gator-green",
     borderAccent: "border-l-gator-green",
     bgColor: "from-gator-green/5 to-gator-green/0",
     quote: "You should use AI creatively to solve the task.",
@@ -278,7 +287,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+  transition: springDefault,
 };
 
 export function LevelPageContent({ level }: { level: string }) {
@@ -312,20 +321,17 @@ export function LevelPageContent({ level }: { level: string }) {
       {/* Hero banner */}
       <div className={`bg-gradient-to-br ${data.bgColor} border-b border-ever-green/[0.06]`}>
         <div className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
-          <Link
-            href="/assessment-scale"
-            className="mb-6 inline-flex items-center gap-2 font-body text-sm font-medium text-pine-cone/70 transition-colors hover:text-ever-green"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-            </svg>
-            Back to Assessment Scale
-          </Link>
+          <Breadcrumbs
+            crumbs={[
+              { label: "Assessment Scale", href: "/assessment-scale" },
+              { label: `Level ${level} — ${data.name}` },
+            ]}
+          />
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={springDefault}
             className="flex flex-col gap-6 sm:flex-row sm:items-start"
           >
             <div
@@ -421,6 +427,7 @@ export function LevelPageContent({ level }: { level: string }) {
         <div className="divider-glow mt-12" />
 
         {/* Activities */}
+        <ScrollReveal>
         <motion.div {...fadeUp} className="mt-12 rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <h2 className="font-heading text-2xl font-bold text-pine-cone">
             {audience === "student" ? "What This Looks Like in Practice" : "Activities That Fit This Level"}
@@ -428,15 +435,17 @@ export function LevelPageContent({ level }: { level: string }) {
           <ul className="mt-6 space-y-4">
             {data.activities.map((activity) => (
               <li key={activity} className="flex items-start gap-3 font-body text-base leading-relaxed text-pine-cone/80">
-                <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-gator-green" />
+                <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${data.dotColor}`} />
                 {activity}
               </li>
             ))}
           </ul>
         </motion.div>
+        </ScrollReveal>
 
         {/* Discipline-Specific Examples */}
         {data.disciplineExamples.length > 0 && (
+          <ScrollReveal delay={0.1}>
           <motion.div {...fadeUp} className="mt-6 rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
             <h2 className="font-heading text-2xl font-bold text-pine-cone">
               {audience === "student" ? "Examples Across Subjects" : "Discipline-Specific Assignment Examples"}
@@ -452,6 +461,7 @@ export function LevelPageContent({ level }: { level: string }) {
               ))}
             </div>
           </motion.div>
+          </ScrollReveal>
         )}
 
         {/* When to Use */}

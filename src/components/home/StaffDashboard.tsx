@@ -5,19 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { HeroSection } from "./HeroSection";
 import { PageTransition } from "@/components/shared/PageTransition";
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-};
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
+import { stagger, fadeUp, springDefault } from "@/lib/animations/motion";
+import { OrganicBlob } from "@/components/shared/OrganicBlob";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { TestimonialCarousel } from "@/components/shared/TestimonialCarousel";
 
 export function StaffDashboard() {
   return (
@@ -27,6 +18,7 @@ export function StaffDashboard() {
         accentColor="bg-sunrise-orange/15 text-sunrise-orange"
         title="AI for Operations"
         subtitle="Streamline workflows, improve communications, and adopt AI responsibly with resources designed for GRC staff."
+        audience="staff"
       >
         <div className="flex flex-wrap gap-3">
           <Link
@@ -92,19 +84,21 @@ export function StaffDashboard() {
       </div>
 
       {/* Bento Grid Section */}
-      <section className="bg-surface-dim py-14 sm:py-20">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <section className="relative overflow-hidden bg-surface-dim py-16 sm:py-24">
+        <OrganicBlob color="bg-sunrise-orange" size="lg" position="right-[-10%] top-[15%]" />
+        <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-10"
+            transition={springDefault}
+            className="mb-12"
           >
-            <h2 className="text-title font-heading font-extrabold tracking-tight text-pine-cone">
+            <div className="mb-4 h-1 w-12 rounded-full bg-sunrise-orange" />
+            <h2 className="font-heading text-4xl font-extrabold tracking-tight text-pine-cone sm:text-5xl">
               AI for Your Work
             </h2>
-            <p className="mt-3 max-w-md font-body text-lg text-pine-cone/70">
+            <p className="mt-4 max-w-md font-body text-lg text-pine-cone/70">
               Practical resources for administrative and operational workflows.
             </p>
           </motion.div>
@@ -120,7 +114,7 @@ export function StaffDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/best-practices/staff"
-                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-elevated sm:p-10"
+                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 bento-card-hover hover:shadow-elevated sm:p-10"
               >
                 <div className="relative z-10 flex h-full flex-col justify-between gap-6 sm:flex-row sm:items-center">
                   <div className="flex-1">
@@ -179,13 +173,14 @@ export function StaffDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/prompting"
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-sunrise-orange/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sunrise-orange/30 hover:shadow-elevated"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-sunrise-orange/15 bg-white transition-all duration-300 bento-card-hover hover:border-sunrise-orange/30 hover:shadow-elevated"
               >
                 <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-sunrise-orange/10 to-sunrise-orange/5">
                   <Image
                     src="/images/graduation.jpg"
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover opacity-40 transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
@@ -224,7 +219,7 @@ export function StaffDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/toolkits/ethics-privacy"
-                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
+                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 bento-card-hover hover:border-sky-blue/30 hover:shadow-elevated"
               >
                 <div className="flex flex-1 flex-col p-8">
                   <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-pill bg-sky-blue/10 px-2.5 py-0.5 font-body text-xs font-bold uppercase tracking-wider text-sky-blue">
@@ -259,6 +254,7 @@ export function StaffDashboard() {
                     src="/images/campus-entrance.jpg"
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 0vw, 192px"
                     className="object-cover opacity-60 transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
@@ -270,7 +266,7 @@ export function StaffDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/playground"
-                className="group flex h-full flex-col rounded-3xl border-2 border-gator-green/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-gator-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-gator-green/15 bg-white p-6 transition-all duration-300 bento-card-hover hover:border-gator-green/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gator-green/10">
                   <svg
@@ -317,7 +313,7 @@ export function StaffDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/custom-gpts"
-                className="group flex h-full flex-col rounded-3xl border-2 border-ever-green/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-ever-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-ever-green/15 bg-white p-6 transition-all duration-300 bento-card-hover hover:border-ever-green/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-ever-green/10">
                   <svg
@@ -369,7 +365,7 @@ export function StaffDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/faqs"
-                className="group flex h-full flex-col rounded-3xl border-2 border-sunrise-orange/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sunrise-orange/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-sunrise-orange/15 bg-white p-6 transition-all duration-300 bento-card-hover hover:border-sunrise-orange/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-sunrise-orange/10">
                   <svg
@@ -416,7 +412,7 @@ export function StaffDashboard() {
       </section>
 
       {/* Workflow Examples + FERPA Quick Reference */}
-      <section className="border-t border-ever-green/[0.06] bg-white py-14 sm:py-20">
+      <section className="border-t border-ever-green/[0.06] bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Workflow Automation Examples */}
@@ -424,7 +420,7 @@ export function StaffDashboard() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={springDefault}
               className="rounded-3xl border border-ever-green/[0.06] bg-surface-dim p-8"
             >
               <h3 className="font-heading text-xl font-bold text-pine-cone">AI Workflow Ideas</h3>
@@ -459,23 +455,29 @@ export function StaffDashboard() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ ...springDefault, delay: 0.1 }}
               className="rounded-3xl border border-sky-blue/15 bg-sky-blue/5 p-8"
             >
               <h3 className="font-heading text-xl font-bold text-pine-cone">FERPA Quick Reference</h3>
               <p className="mt-2 font-body text-sm text-pine-cone/70">Protect student privacy when using AI tools.</p>
               <div className="mt-6 space-y-3">
                 {[
-                  { rule: "Never input student names, IDs, or grades", icon: "text-red-500" },
-                  { rule: "Do not upload student work or transcripts", icon: "text-red-500" },
-                  { rule: "Use only college-approved AI platforms", icon: "text-sky-blue" },
-                  { rule: "Anonymize all case examples before processing", icon: "text-sky-blue" },
-                  { rule: "Consult Registrar for questions about data sharing", icon: "text-sky-blue" },
+                  { rule: "Never input student names, IDs, or grades", icon: "text-red-500", type: "dont" as const },
+                  { rule: "Do not upload student work or transcripts", icon: "text-red-500", type: "dont" as const },
+                  { rule: "Use only college-approved AI platforms", icon: "text-sky-blue", type: "do" as const },
+                  { rule: "Anonymize all case examples before processing", icon: "text-sky-blue", type: "do" as const },
+                  { rule: "Consult Registrar for questions about data sharing", icon: "text-sky-blue", type: "do" as const },
                 ].map((item) => (
                   <div key={item.rule} className="flex items-start gap-3 rounded-2xl border border-ever-green/[0.06] bg-white px-5 py-3.5">
-                    <svg className={`mt-0.5 h-5 w-5 shrink-0 ${item.icon}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
-                    </svg>
+                    {item.type === "dont" ? (
+                      <svg className={`mt-0.5 h-5 w-5 shrink-0 ${item.icon}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    ) : (
+                      <svg className={`mt-0.5 h-5 w-5 shrink-0 ${item.icon}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                      </svg>
+                    )}
                     <span className="font-body text-sm text-pine-cone/80">{item.rule}</span>
                   </div>
                 ))}
@@ -491,6 +493,44 @@ export function StaffDashboard() {
               </Link>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Quiz CTA */}
+      <section className="border-t border-ever-green/[0.06] bg-white py-14">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <Link
+            href="/quiz"
+            className="group flex items-center justify-between rounded-3xl border-2 border-sunrise-orange/15 bg-sunrise-orange/5 p-8 bento-card-hover sm:p-10"
+          >
+            <div>
+              <span className="mb-2 inline-flex items-center gap-1.5 rounded-pill bg-sunrise-orange/10 px-2.5 py-0.5 font-body text-xs font-bold uppercase tracking-wider text-sunrise-orange">
+                Self-Assessment
+              </span>
+              <h3 className="font-heading text-2xl font-bold text-pine-cone">
+                Discover Your AI Readiness
+              </h3>
+              <p className="mt-2 max-w-sm font-body text-sm text-pine-cone/70">
+                Take a quick quiz to see where you stand on the AI comfort spectrum
+                and find resources matched to your level.
+              </p>
+            </div>
+            <svg className="h-8 w-8 shrink-0 text-sunrise-orange transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="border-t border-ever-green/[0.06] bg-white py-14">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <ScrollReveal>
+            <h2 className="mb-8 font-heading text-2xl font-bold text-pine-cone">
+              Staff Perspectives
+            </h2>
+            <TestimonialCarousel audience="staff" />
+          </ScrollReveal>
         </div>
       </section>
 

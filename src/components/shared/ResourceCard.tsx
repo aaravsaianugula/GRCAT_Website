@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { springDefault } from "@/lib/animations/motion";
 
 interface ResourceCardProps {
   href: string;
@@ -27,12 +28,12 @@ export function ResourceCard({
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ ...springDefault, delay }}
       className={featured ? "sm:col-span-2" : ""}
     >
       <Link
         href={href}
-        className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ever-green/[0.06] bg-white p-6 transition-all duration-400 hover:-translate-y-1 hover:shadow-elevated ${accentColor}`}
+        className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ever-green/[0.06] bg-white p-6 bento-card-hover ${accentColor}`}
       >
         {/* Subtle gradient on hover */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-ever-green/[0.02] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

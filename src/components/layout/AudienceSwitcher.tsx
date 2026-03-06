@@ -11,7 +11,7 @@ const audiences: { value: Audience; label: string; color: string }[] = [
   { value: "staff", label: "Staff", color: "bg-sunrise-orange" },
 ];
 
-export function AudienceSwitcher() {
+export function AudienceSwitcher({ mobile }: { mobile?: boolean } = {}) {
   const { audience, setAudience } = useAudience();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -84,6 +84,34 @@ export function AudienceSwitcher() {
       optionEl?.focus();
     }
   }, [open, focusedIndex]);
+
+  if (mobile) {
+    return (
+      <div className="flex flex-col gap-1.5" role="radiogroup" aria-label="Switch audience view">
+        <span className="font-body text-xs font-semibold uppercase tracking-wider text-pine-cone/50">
+          Viewing as
+        </span>
+        <div className="flex gap-2">
+          {audiences.map((a) => (
+            <button
+              key={a.value}
+              role="radio"
+              aria-checked={audience === a.value}
+              onClick={() => selectOption(a.value)}
+              className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 font-body text-sm font-medium transition-all ${
+                audience === a.value
+                  ? "bg-ever-green/10 font-semibold text-ever-green ring-1 ring-ever-green/20"
+                  : "bg-ever-green/[0.03] text-pine-cone/60 hover:bg-ever-green/[0.06]"
+              }`}
+            >
+              <span className={`h-2 w-2 rounded-full ${a.color}`} />
+              {a.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={ref} className="relative">

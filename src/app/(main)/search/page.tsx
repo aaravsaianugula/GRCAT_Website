@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useAudience, type Audience } from "@/contexts/AudienceContext";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -347,7 +348,6 @@ const typeColors: Record<ResultType, string> = {
 export default function SearchPage() {
   const { audience } = useAudience();
   const [query, setQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Cmd+K / Ctrl+K to focus
@@ -361,17 +361,6 @@ export default function SearchPage() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
-
-  // Simulated loading state on query change
-  useEffect(() => {
-    if (!query.trim()) {
-      setIsLoading(false);
-      return;
-    }
-    setIsLoading(true);
-    const timer = setTimeout(() => setIsLoading(false), 150);
-    return () => clearTimeout(timer);
-  }, [query]);
 
   const results = useMemo(() => searchEntries(query, audience), [query, audience]);
 
@@ -448,21 +437,10 @@ export default function SearchPage() {
         </div>
 
         {/* Results area */}
+        <ScrollReveal>
         <div className="mx-auto mt-8 max-w-2xl">
           <AnimatePresence mode="wait">
-            {isLoading ? (
-              /* Loading state */
-              <motion.div
-                key="loading"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex flex-col items-center py-16"
-              >
-                <div className="h-8 w-8 animate-spin rounded-full border-2 border-gator-green/20 border-t-gator-green" />
-                <p className="mt-4 font-body text-sm text-pine-cone/60">Searching...</p>
-              </motion.div>
-            ) : hasQuery && !hasResults ? (
+            {hasQuery && !hasResults ? (
               /* Empty state */
               <motion.div
                 key="empty"
@@ -574,6 +552,7 @@ export default function SearchPage() {
             )}
           </AnimatePresence>
         </div>
+        </ScrollReveal>
       </div>
     </PageTransition>
   );

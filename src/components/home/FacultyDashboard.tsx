@@ -5,19 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { HeroSection } from "./HeroSection";
 import { PageTransition } from "@/components/shared/PageTransition";
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-};
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
+import { stagger, fadeUp, springDefault } from "@/lib/animations/motion";
+import { OrganicBlob } from "@/components/shared/OrganicBlob";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { TestimonialCarousel } from "@/components/shared/TestimonialCarousel";
 
 export function FacultyDashboard() {
   return (
@@ -27,6 +18,7 @@ export function FacultyDashboard() {
         accentColor="bg-gator-green/15 text-gator-green"
         title="Design AI-Informed Courses"
         subtitle="Set clear AI policies, explore assessment frameworks, and discover strategies for responsible AI integration in your teaching."
+        audience="faculty"
       >
         <div className="flex flex-wrap gap-3">
           <Link
@@ -72,19 +64,21 @@ export function FacultyDashboard() {
       </div>
 
       {/* Bento Grid Section */}
-      <section className="bg-surface-dim py-14 sm:py-20">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <section className="relative overflow-hidden bg-surface-dim py-16 sm:py-24">
+        <OrganicBlob color="bg-gator-green" size="lg" position="left-[-10%] top-[20%]" />
+        <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-10"
+            transition={springDefault}
+            className="mb-12"
           >
-            <h2 className="text-title font-heading font-extrabold tracking-tight text-pine-cone">
+            <div className="mb-4 h-1 w-12 rounded-full bg-gator-green" />
+            <h2 className="font-heading text-4xl font-extrabold tracking-tight text-pine-cone sm:text-5xl">
               Teaching with AI
             </h2>
-            <p className="mt-3 max-w-md font-body text-lg text-pine-cone/70">
+            <p className="mt-4 max-w-md font-body text-lg text-pine-cone/70">
               Frameworks, toolkits, and strategies for your courses.
             </p>
           </motion.div>
@@ -100,7 +94,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/assessment-scale"
-                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-elevated sm:p-10"
+                className="card-feature group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-400 bento-card-hover hover:shadow-elevated sm:p-10"
               >
                 <div className="relative z-10 flex h-full flex-col justify-between gap-6 sm:flex-row sm:items-center">
                   <div className="flex-1">
@@ -162,13 +156,14 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/syllabus"
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gator-green/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-gator-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gator-green/15 bg-white transition-all duration-300 bento-card-hover hover:border-gator-green/30 hover:shadow-elevated"
               >
                 <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-gator-green/10 to-gator-green/5">
                   <Image
                     src="/images/tech-center.jpg"
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover opacity-40 transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
@@ -220,7 +215,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <Link
                 href="/toolkits/assessment-design"
-                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
+                className="group flex h-full overflow-hidden rounded-3xl border-2 border-sky-blue/15 bg-white transition-all duration-300 bento-card-hover hover:border-sky-blue/30 hover:shadow-elevated"
               >
                 <div className="flex flex-1 flex-col p-8">
                   <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-pill bg-sky-blue/10 px-2.5 py-0.5 font-body text-xs font-bold uppercase tracking-wider text-sky-blue">
@@ -255,6 +250,7 @@ export function FacultyDashboard() {
                     src="/images/campus-garden.jpg"
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 0vw, 192px"
                     className="object-cover opacity-60 transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
@@ -266,7 +262,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/best-practices/faculty"
-                className="group flex h-full flex-col rounded-3xl border-2 border-grc-green/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-grc-green/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-grc-green/15 bg-white p-6 transition-all duration-300 bento-card-hover hover:border-grc-green/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-grc-green/10">
                   <svg
@@ -313,7 +309,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/toolkits/prompting"
-                className="group flex h-full flex-col rounded-3xl border-2 border-leaf-green/20 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-leaf-green/40 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-leaf-green/20 bg-white p-6 transition-all duration-300 bento-card-hover hover:border-leaf-green/40 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-leaf-green/15">
                   <svg
@@ -360,7 +356,7 @@ export function FacultyDashboard() {
             <motion.div variants={fadeUp}>
               <Link
                 href="/playground"
-                className="group flex h-full flex-col rounded-3xl border-2 border-sky-blue/15 bg-white p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:border-sky-blue/30 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-sky-blue/15 bg-white p-6 transition-all duration-300 bento-card-hover hover:border-sky-blue/30 hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-blue/10">
                   <svg
@@ -407,7 +403,7 @@ export function FacultyDashboard() {
       </section>
 
       {/* Quick Stats + Events */}
-      <section className="border-t border-ever-green/[0.06] bg-white py-14 sm:py-20">
+      <section className="border-t border-ever-green/[0.06] bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-3">
             {/* Quick Stats */}
@@ -415,15 +411,15 @@ export function FacultyDashboard() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={springDefault}
               className="lg:col-span-2"
             >
               <h3 className="font-heading text-xl font-bold text-pine-cone">Why Clear AI Policies Matter</h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {[
-                  { stat: "73%", label: "of students want clear AI guidelines in their courses", color: "text-gator-green" },
-                  { stat: "68%", label: "of faculty find AI policies reduce confusion and conflict", color: "text-sky-blue" },
-                  { stat: "85%", label: "of workplaces now use AI tools regularly", color: "text-sunrise-orange" },
+                  { stat: "73%", label: "of students want clear AI guidelines (illustrative)", color: "text-gator-green" },
+                  { stat: "68%", label: "of faculty say policies reduce confusion (illustrative)", color: "text-sky-blue" },
+                  { stat: "85%", label: "of workplaces now use AI tools (illustrative)", color: "text-sunrise-orange" },
                 ].map((item) => (
                   <div key={item.stat} className="rounded-2xl border border-ever-green/[0.06] bg-surface-dim p-6 text-center">
                     <span className={`font-heading text-4xl font-black ${item.color}`}>{item.stat}</span>
@@ -438,11 +434,11 @@ export function FacultyDashboard() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ ...springDefault, delay: 0.1 }}
             >
               <Link
                 href="/events"
-                className="group flex h-full flex-col rounded-3xl border-2 border-gator-green/15 bg-gator-green/5 p-6 transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-elevated"
+                className="group flex h-full flex-col rounded-3xl border-2 border-gator-green/15 bg-gator-green/5 p-6 transition-all duration-300 bento-card-hover hover:shadow-elevated"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gator-green/15">
                   <svg className="h-5 w-5 text-gator-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -462,6 +458,44 @@ export function FacultyDashboard() {
               </Link>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Quiz CTA */}
+      <section className="border-t border-ever-green/[0.06] bg-white py-14">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <Link
+            href="/quiz"
+            className="group flex items-center justify-between rounded-3xl border-2 border-gator-green/15 bg-gator-green/5 p-8 bento-card-hover sm:p-10"
+          >
+            <div>
+              <span className="mb-2 inline-flex items-center gap-1.5 rounded-pill bg-gator-green/10 px-2.5 py-0.5 font-body text-xs font-bold uppercase tracking-wider text-gator-green">
+                Faculty Tool
+              </span>
+              <h3 className="font-heading text-2xl font-bold text-pine-cone">
+                Find Your Teaching AI Level
+              </h3>
+              <p className="mt-2 max-w-sm font-body text-sm text-pine-cone/70">
+                Discover which Assessment Scale level matches your teaching philosophy
+                and comfort with AI.
+              </p>
+            </div>
+            <svg className="h-8 w-8 shrink-0 text-gator-green transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="border-t border-ever-green/[0.06] bg-white py-14">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <ScrollReveal>
+            <h2 className="mb-8 font-heading text-2xl font-bold text-pine-cone">
+              Faculty Voices
+            </h2>
+            <TestimonialCarousel audience="faculty" />
+          </ScrollReveal>
         </div>
       </section>
 

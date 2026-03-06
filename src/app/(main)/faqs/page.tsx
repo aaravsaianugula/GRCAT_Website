@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useMemo, useId } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAudience, type Audience } from "@/contexts/AudienceContext";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { Accordion } from "@/components/shared/Accordion";
+import { springDefault } from "@/lib/animations/motion";
 
 interface Faq {
   q: string;
@@ -244,6 +246,7 @@ function getSectionsForAudience(audience: Audience): FaqSection[] {
 function getBanner(audience: Audience): {
   text: string;
   badge: string;
+  badgeColor: string;
   gradient: string;
 } {
   switch (audience) {
@@ -251,24 +254,28 @@ function getBanner(audience: Audience): {
       return {
         text: "Got a question about using AI in your classes? Start here.",
         badge: "For Students",
+        badgeColor: "bg-sky-blue/10 text-sky-blue",
         gradient: "from-sky-blue/20 via-sky-blue/5 to-transparent",
       };
     case "faculty":
       return {
         text: "Find answers about AI policies, assessment, and teaching strategies.",
         badge: "For Faculty",
+        badgeColor: "bg-gator-green/10 text-gator-green",
         gradient: "from-ever-green/20 via-ever-green/5 to-transparent",
       };
     case "staff":
       return {
         text: "Answers to common questions about AI tools, privacy, and institutional policies.",
         badge: "For Staff",
+        badgeColor: "bg-sunrise-orange/10 text-sunrise-orange",
         gradient: "from-sunrise-orange/20 via-sunrise-orange/5 to-transparent",
       };
     default:
       return {
         text: "Your guide to understanding and using AI responsibly at Green River College.",
         badge: "Help",
+        badgeColor: "bg-gator-green/10 text-gator-green",
         gradient: "from-gator-green/10 via-gator-green/5 to-transparent",
       };
   }
@@ -318,118 +325,31 @@ function getCtaContent(audience: Audience) {
   }
 }
 
-function AccordionItem({
-  faq,
-  isOpen,
-  onToggle,
-}: {
-  faq: Faq;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
-  const id = useId();
-  const buttonId = `${id}-btn`;
-  const panelId = `${id}-panel`;
-
-  return (
-    <div className="rounded-3xl border border-ever-green/[0.06] bg-white overflow-hidden">
-      <button
-        id={buttonId}
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        aria-controls={panelId}
-        className="flex w-full cursor-pointer items-center justify-between p-6 sm:p-8 text-left font-heading text-lg font-bold text-ever-green"
-      >
-        <span className="pr-4">{faq.q}</span>
-        <motion.svg
-          className="h-5 w-5 shrink-0 text-pine-cone/55"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
-        </motion.svg>
-      </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] as const }}
-          >
-            <div
-              id={panelId}
-              role="region"
-              aria-labelledby={buttonId}
-              className="px-6 pb-6 sm:px-8 sm:pb-8"
-            >
-              <p className="font-body text-base leading-relaxed text-pine-cone/70">
-                {faq.a}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export default function FaqsPage() {
   const { audience } = useAudience();
   const sections = useMemo(() => getSectionsForAudience(audience), [audience]);
   const banner = useMemo(() => getBanner(audience), [audience]);
   const cta = useMemo(() => getCtaContent(audience), [audience]);
 
-  // Track which FAQ items are open. Key = "sectionId-faqIndex"
-  // The first FAQ of the first section is open by default when an audience is selected
-  const [openItems, setOpenItems] = useState<Set<string>>(new Set());
-  const defaultOpenKey = audience ? `${sections[0]?.id}-0` : null;
-
-  function toggleItem(key: string) {
-    setOpenItems((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      return next;
+  const faqSchema = useMemo(() => {
+    const allFaqs = sections.flatMap((s) => s.faqs);
+    return JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: allFaqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
     });
-  }
-
-  function isItemOpen(key: string): boolean {
-    if (openItems.has(key)) return true;
-    if (key === defaultOpenKey && !openItems.has(`_closed_${key}`)) return true;
-    return false;
-  }
-
-  function handleToggle(key: string) {
-    if (key === defaultOpenKey && !openItems.has(key) && !openItems.has(`_closed_${key}`)) {
-      // Close the default-open item
-      setOpenItems((prev) => new Set(prev).add(`_closed_${key}`));
-    } else if (openItems.has(`_closed_${key}`)) {
-      // Re-open the previously-default item
-      setOpenItems((prev) => {
-        const next = new Set(prev);
-        next.delete(`_closed_${key}`);
-        next.add(key);
-        return next;
-      });
-    } else {
-      toggleItem(key);
-    }
-  }
+  }, [sections]);
 
   return (
     <PageTransition>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: faqSchema }}
+      />
       <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
         {/* Hero / Banner */}
         <div className="relative overflow-hidden rounded-3xl mb-14">
@@ -444,7 +364,7 @@ export default function FaqsPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-4 inline-flex items-center gap-2 rounded-pill bg-sky-blue/10 px-3.5 py-1 font-body text-sm font-bold uppercase tracking-[0.12em] text-sky-blue"
+                className={`mb-4 inline-flex items-center gap-2 rounded-pill px-3.5 py-1 font-body text-sm font-bold uppercase tracking-[0.12em] ${banner.badgeColor}`}
               >
                 {banner.badge}
               </motion.span>
@@ -517,7 +437,7 @@ export default function FaqsPage() {
                 className="mt-14 scroll-mt-24"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * sectionIdx, duration: 0.4 }}
+                transition={{ ...springDefault, delay: 0.1 * sectionIdx }}
               >
                 {/* Section Header */}
                 <div className="mb-6 flex items-center gap-4">
@@ -545,19 +465,10 @@ export default function FaqsPage() {
                 </div>
 
                 {/* FAQ Items */}
-                <div className="space-y-3">
-                  {section.faqs.map((faq, faqIdx) => {
-                    const key = `${section.id}-${faqIdx}`;
-                    return (
-                      <AccordionItem
-                        key={key}
-                        faq={faq}
-                        isOpen={isItemOpen(key)}
-                        onToggle={() => handleToggle(key)}
-                      />
-                    );
-                  })}
-                </div>
+                <Accordion
+                  items={section.faqs.map((f) => ({ question: f.q, answer: f.a }))}
+                  defaultOpen={sectionIdx === 0 && audience ? 0 : undefined}
+                />
               </motion.div>
             ))}
           </motion.div>

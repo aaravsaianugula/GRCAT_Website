@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAudience, type Audience } from "@/contexts/AudienceContext";
+import ReactMarkdown from "react-markdown";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -71,6 +72,11 @@ export function AIChat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const messagesRef = useRef<Message[]>(messages);
+
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   const userMessageCount = messages.filter((m) => m.role === "user").length;
   const remaining = MAX_USER_MESSAGES - userMessageCount;
@@ -112,7 +118,7 @@ export function AIChat() {
         content: "",
       };
 
-      const nextMessages = [...messages, userMsg];
+      const nextMessages = [...messagesRef.current, userMsg];
       setMessages([...nextMessages, assistantMsg]);
       setIsStreaming(true);
 
@@ -202,7 +208,7 @@ export function AIChat() {
         abortRef.current = null;
       }
     },
-    [messages, isStreaming, atLimit, audience],
+    [isStreaming, atLimit, audience],
   );
 
   const handleSubmit = (e: FormEvent) => {
@@ -246,7 +252,7 @@ export function AIChat() {
               Ask the AI Guide
             </h3>
             <p className="font-body text-xs text-pine-cone/70">
-              Powered by Llama 3.1
+              Powered by Gemma via OpenRouter
             </p>
           </div>
         </div>
@@ -334,10 +340,19 @@ export function AIChat() {
                       : "bg-ever-green/[0.04] text-pine-cone"
                   }`}
                 >
-                  {msg.content ||
-                    (msg.role === "assistant" && isStreaming ? (
+                  {msg.content ? (
+                    msg.role === "assistant" ? (
+                      <div className="prose-chat">
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      msg.content
+                    )
+                  ) : (
+                    msg.role === "assistant" && isStreaming ? (
                       <TypingDots />
-                    ) : null)}
+                    ) : null
+                  )}
                 </div>
               </motion.div>
             ))
@@ -369,6 +384,7 @@ export function AIChat() {
           placeholder={atLimit ? "Message limit reached" : "Ask about AI tools, policies, or best practices..."}
           disabled={isStreaming || atLimit}
           rows={1}
+          aria-label="Type your message"
           className="flex-1 resize-none rounded-xl border border-ever-green/[0.08] bg-surface-dim px-4 py-2.5 font-body text-sm text-pine-cone placeholder:text-pine-cone/35 focus:border-grc-green/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         />
         <button
@@ -377,38 +393,35 @@ export function AIChat() {
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-pill bg-grc-green text-white transition-colors hover:bg-ever-green disabled:opacity-40 disabled:hover:bg-grc-green"
           aria-label="Send message"
         >
-          {isStreaming ? (
-            <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
-              />
-            </svg>
-          )}
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+            />
+          </svg>
         </button>
+        {isStreaming && (
+          <button
+            type="button"
+            onClick={() => {
+              abortRef.current?.abort();
+              setIsStreaming(false);
+            }}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-pill bg-sunrise-orange text-white transition-colors hover:bg-sunrise-orange/80"
+            aria-label="Stop generating"
+          >
+            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+              <rect x="6" y="6" width="12" height="12" rx="2" />
+            </svg>
+          </button>
+        )}
       </form>
     </div>
   );

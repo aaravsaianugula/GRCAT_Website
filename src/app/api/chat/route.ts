@@ -124,56 +124,59 @@ export async function POST(req: NextRequest) {
     }));
 
   // --- Build request to OpenRouter ---
-  // Gemma doesn't support the "system" role, so we prepend
-  // the system prompt into the first user message instead.
   const systemPrompt =
     audience && SYSTEM_PROMPTS[audience]
       ? SYSTEM_PROMPTS[audience]
       : SYSTEM_PROMPTS.default;
 
-  const orMessages = sanitized.map((m, i) => {
-    if (i === 0 && m.role === "user") {
-      return {
-        ...m,
-        content: `[Instructions: ${systemPrompt}]\n\n${m.content}`,
-      };
-    }
-    return m;
-  });
+  const MODELS = [
+    "google/gemma-3n-e4b-it:free",
+    "google/gemma-3-12b-it:free",
+    "liquid/lfm-2.5-1.2b-instruct:free",
+  ];
 
-  let orResponse: Response;
-  try {
-    orResponse = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://grc-ai-taskforce.vercel.app",
-          "X-Title": "GRC AI Taskforce",
+  const orMessages = [
+    { role: "user" as const, content: `[System Instructions — follow these strictly]\n${systemPrompt}\n[End Instructions]\n\n${sanitized[0]?.content ?? ""}` },
+    ...sanitized.slice(1),
+  ];
+
+  let orResponse: Response | null = null;
+
+  for (const model of MODELS) {
+    try {
+      const res = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://grc-ai-taskforce.vercel.app",
+            "X-Title": "GRC AI Taskforce",
+          },
+          body: JSON.stringify({
+            model,
+            messages: orMessages,
+            max_tokens: 300,
+            temperature: 0.7,
+            stream: true,
+          }),
         },
-        body: JSON.stringify({
-          model: "google/gemma-3-12b-it:free",
-          messages: orMessages,
-          max_tokens: 150,
-          temperature: 0.7,
-          stream: true,
-        }),
-      },
-    );
-  } catch {
-    return NextResponse.json(
-      { error: "AI service temporarily unavailable" },
-      { status: 502 },
-    );
+      );
+
+      if (res.ok) {
+        orResponse = res;
+        break;
+      }
+    } catch {
+      // try next model
+    }
   }
 
-  if (!orResponse.ok) {
-    const status = orResponse.status >= 500 ? 502 : orResponse.status;
+  if (!orResponse) {
     return NextResponse.json(
-      { error: "AI service temporarily unavailable" },
-      { status },
+      { error: "AI service temporarily unavailable. Please try again in a moment." },
+      { status: 502 },
     );
   }
 
