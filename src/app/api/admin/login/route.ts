@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { validatePassword, setAdminSession } from "@/lib/admin-auth";
+import { validatePassword } from "@/lib/admin-auth";
 
 export async function POST(req: NextRequest) {
   const { password } = await req.json();
@@ -8,6 +8,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid password" }, { status: 401 });
   }
 
-  await setAdminSession();
-  return NextResponse.json({ success: true });
+  const response = NextResponse.json({ success: true });
+  response.cookies.set("grc-admin-session", "authenticated", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 60 * 60 * 8,
+    path: "/",
+  });
+  return response;
 }
