@@ -397,7 +397,7 @@ export default function SearchPage() {
         {/* Search input */}
         <div className="mx-auto mt-10 max-w-2xl" role="search" aria-label="Site search">
           <div className="relative flex items-center gap-3 rounded-2xl border border-ever-green/10 bg-white px-5 py-4 shadow-card transition-all focus-within:border-gator-green/30 focus-within:ring-2 focus-within:ring-gator-green/10">
-            <svg className="h-5 w-5 shrink-0 text-pine-cone/55" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="h-5 w-5 shrink-0 text-pine-cone/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -406,7 +406,7 @@ export default function SearchPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for anything..."
-              className="flex-1 bg-transparent font-body text-lg text-pine-cone outline-none placeholder:text-pine-cone/40"
+              className="flex-1 bg-transparent font-body text-lg text-pine-cone outline-none placeholder:text-pine-cone/60"
             />
             {hasQuery && (
               <button

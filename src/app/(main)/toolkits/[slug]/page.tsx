@@ -655,7 +655,7 @@ function SyllabusContent({ data }: { data: ToolkitEntry }) {
               </span>
               Level {lvl.level}: {lvl.title}
               <svg
-                className="ml-auto h-5 w-5 shrink-0 text-pine-cone/55 transition-transform group-open:rotate-180"
+                className="ml-auto h-5 w-5 shrink-0 text-pine-cone/70 transition-transform group-open:rotate-180"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -1171,7 +1171,7 @@ function PromptingContent({ data }: { data: ToolkitEntry }) {
               <summary className="flex cursor-pointer items-center gap-3 px-6 py-4 font-heading text-base font-bold text-ever-green transition-colors hover:text-gator-green">
                 {tmpl.title}
                 <svg
-                  className="ml-auto h-4 w-4 shrink-0 text-pine-cone/55 transition-transform group-open:rotate-180"
+                  className="ml-auto h-4 w-4 shrink-0 text-pine-cone/70 transition-transform group-open:rotate-180"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -1354,7 +1354,7 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
               </span>
               Level {lvl.level}: {lvl.title}
               <svg
-                className="ml-auto h-5 w-5 shrink-0 text-pine-cone/55 transition-transform group-open:rotate-180"
+                className="ml-auto h-5 w-5 shrink-0 text-pine-cone/70 transition-transform group-open:rotate-180"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -1561,7 +1561,7 @@ function AssessmentDesignContent({ data }: { data: ToolkitEntry }) {
       </div>
 
       {/* Attribution */}
-      <p className="mt-8 text-center font-body text-xs text-pine-cone/35">
+      <p className="mt-8 text-center font-body text-xs text-pine-cone/70">
         Created by Ari Wilber, English Faculty & AI Task Force Co-Lead at
         Green River College. Assessment framework based on the AI Assessment
         Scale (AIAS) by Perkins, Furze, Roe, & MacVaugh (2024). Licensed under

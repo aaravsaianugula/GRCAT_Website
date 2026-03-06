@@ -65,21 +65,147 @@ export const quizQuestions: QuizQuestion[] = [
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/*  Audience-specific question overrides (Q1 and Q6)                   */
+/* ------------------------------------------------------------------ */
+
+type AudienceOverride = {
+  question: string;
+  options: string[];
+};
+
+const audienceQuestionOverrides: Record<string, Record<number, AudienceOverride>> = {
+  faculty: {
+    0: {
+      question: "When you design a writing assignment, what's your approach to AI?",
+      options: [
+        "I design assignments where students work entirely from scratch",
+        "I allow AI for brainstorming, but students write everything themselves",
+        "I let students draft with AI, then require significant revision",
+        "I design assignments where students direct AI and demonstrate integration skills",
+      ],
+    },
+    5: {
+      question: "How do you approach AI disclosure in your courses?",
+      options: [
+        "I don't allow AI, so disclosure isn't relevant",
+        "I ask students to mention AI use if prompted",
+        "I require an AI disclosure statement with submissions",
+        "I require students to document their full AI process — prompts, iterations, and rationale",
+      ],
+    },
+  },
+  staff: {
+    0: {
+      question: "When you encounter a new work task or project, what's your instinct?",
+      options: [
+        "Handle it manually using established procedures",
+        "Brainstorm approaches with AI, then do the work myself",
+        "Draft with AI help, then review and refine the output",
+        "Use AI as a co-pilot and focus on directing it effectively",
+      ],
+    },
+    5: {
+      question: "How do you approach disclosing AI use in your work?",
+      options: [
+        "I don't use AI in my work",
+        "I mention it if someone asks",
+        "I note when AI assisted in producing a deliverable",
+        "I document my AI process so colleagues can replicate it",
+      ],
+    },
+  },
+};
+
+export function getQuestionForAudience(
+  questionIndex: number,
+  audience: string | null | undefined,
+): QuizQuestion {
+  const base = quizQuestions[questionIndex];
+  if (!audience || !audienceQuestionOverrides[audience]?.[questionIndex]) {
+    return base;
+  }
+
+  const override = audienceQuestionOverrides[audience][questionIndex];
+  return {
+    question: override.question,
+    options: base.options.map((opt, i) => ({
+      ...opt,
+      text: override.options[i] ?? opt.text,
+    })),
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/*  Level descriptions with audience variants                          */
+/* ------------------------------------------------------------------ */
+
 export interface LevelDescription {
   level: number;
   name: string;
   summary: string;
+  summaryByAudience?: Record<string, string>;
   color: string;
   href: string;
 }
 
 export const levelDescriptions: LevelDescription[] = [
-  { level: 1, name: "No AI", summary: "You prefer to work independently without AI assistance. Some assignments require this approach.", color: "text-red-500", href: "/assessment-scale/1" },
-  { level: 2, name: "AI for Planning", summary: "You're comfortable using AI for brainstorming and planning, but want to do the actual work yourself.", color: "text-orange-500", href: "/assessment-scale/2" },
-  { level: 3, name: "AI Collaboration", summary: "You see AI as a collaborative partner for drafting and revision, while maintaining ownership of the final product.", color: "text-yellow-600", href: "/assessment-scale/3" },
-  { level: 4, name: "AI Integration", summary: "You're skilled at directing AI tools and integrating their output into high-quality work.", color: "text-sky-blue", href: "/assessment-scale/4" },
-  { level: 5, name: "AI Exploration", summary: "You push the boundaries of what's possible with AI, experimenting with creative and advanced workflows.", color: "text-gator-green", href: "/assessment-scale/5" },
+  {
+    level: 1, name: "No AI",
+    summary: "You prefer to work independently without AI assistance. Some assignments require this approach.",
+    summaryByAudience: {
+      faculty: "You design assessments that require students to demonstrate skills without AI assistance.",
+      staff: "You prefer established processes and see limited need for AI in your workflows.",
+    },
+    color: "text-red-500", href: "/assessment-scale/1",
+  },
+  {
+    level: 2, name: "AI for Planning",
+    summary: "You're comfortable using AI for brainstorming and planning, but want to do the actual work yourself.",
+    summaryByAudience: {
+      faculty: "You allow AI for brainstorming in your courses, but expect students to produce their own work.",
+      staff: "You use AI for brainstorming and planning, but handle the core work yourself.",
+    },
+    color: "text-orange-500", href: "/assessment-scale/2",
+  },
+  {
+    level: 3, name: "AI Collaboration",
+    summary: "You see AI as a collaborative partner for drafting and revision, while maintaining ownership of the final product.",
+    summaryByAudience: {
+      faculty: "You design assignments where students collaborate with AI while developing critical evaluation skills.",
+      staff: "You see AI as a collaborative tool for drafting and revision in your daily work.",
+    },
+    color: "text-yellow-600", href: "/assessment-scale/3",
+  },
+  {
+    level: 4, name: "AI Integration",
+    summary: "You're skilled at directing AI tools and integrating their output into high-quality work.",
+    summaryByAudience: {
+      faculty: "You teach students to direct AI effectively and assess their integration skills.",
+      staff: "You're skilled at directing AI tools and integrating their output into your workflows.",
+    },
+    color: "text-sky-blue", href: "/assessment-scale/4",
+  },
+  {
+    level: 5, name: "AI Exploration",
+    summary: "You push the boundaries of what's possible with AI, experimenting with creative and advanced workflows.",
+    summaryByAudience: {
+      faculty: "You encourage students to push AI boundaries, designing open-ended assignments that reward innovation.",
+      staff: "You experiment with creative AI workflows and explore new ways to improve operations.",
+    },
+    color: "text-gator-green", href: "/assessment-scale/5",
+  },
 ];
+
+export function getLevelSummary(
+  description: LevelDescription,
+  audience: string | null | undefined,
+): string {
+  if (audience && description.summaryByAudience?.[audience]) {
+    return description.summaryByAudience[audience];
+  }
+  return description.summary;
+}
 
 export interface QuizResult {
   level: number;

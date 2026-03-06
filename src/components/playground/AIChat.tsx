@@ -222,7 +222,7 @@ export function AIChat({ floating = false }: AIChatProps) {
         <div className="flex items-center justify-between border-b border-ever-green/[0.06] px-6 py-4">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-grc-green/10">
-              <svg className="h-5 w-5 text-grc-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg className="h-5 w-5 text-grc-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
               </svg>
             </div>
@@ -269,14 +269,14 @@ export function AIChat({ floating = false }: AIChatProps) {
                 {showDivider && (
                   <div className="flex items-center gap-2 py-2 select-none" aria-hidden>
                     <div className="h-px flex-1 bg-pine-cone/10" />
-                    <span className="font-body text-[10px] text-pine-cone/30">new context</span>
+                    <span className="font-body text-[10px] text-pine-cone/70">new context</span>
                     <div className="h-px flex-1 bg-pine-cone/10" />
                   </div>
                 )}
                 <div className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 {msg.role === "assistant" && (
                   <div className="mr-2 mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-grc-green/10">
-                    <svg className="h-4 w-4 text-grc-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <svg className="h-4 w-4 text-grc-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                     </svg>
                   </div>
@@ -300,7 +300,7 @@ export function AIChat({ floating = false }: AIChatProps) {
                       {msg.links!.map((link, i) => (
                         <Link key={i} href={link.route}
                           className="inline-flex items-center gap-1.5 rounded-pill border border-grc-green/20 bg-grc-green/[0.04] px-3 py-1.5 font-body text-xs font-medium text-grc-green transition-colors hover:bg-grc-green/10">
-                          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                           </svg>
                           {link.label}
@@ -334,12 +334,12 @@ export function AIChat({ floating = false }: AIChatProps) {
           disabled={isStreaming || atLimit}
           rows={1}
           aria-label="Type your message"
-          className="flex-1 resize-none rounded-xl border border-ever-green/[0.08] bg-surface-dim px-3 py-2 font-body text-sm text-pine-cone placeholder:text-pine-cone/35 focus:border-grc-green/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex-1 resize-none rounded-xl border border-ever-green/[0.08] bg-surface-dim px-3 py-2 font-body text-sm text-pine-cone placeholder:text-pine-cone/60 focus:border-grc-green/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         />
         <button type="submit" disabled={isStreaming || !input.trim() || atLimit}
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-grc-green text-white transition-colors hover:bg-ever-green disabled:opacity-40"
           aria-label="Send message">
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
           </svg>
         </button>
@@ -347,7 +347,7 @@ export function AIChat({ floating = false }: AIChatProps) {
           <button type="button" onClick={() => { abortRef.current?.abort(); setIsStreaming(false); }}
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-sunrise-orange text-white transition-colors hover:bg-sunrise-orange/80"
             aria-label="Stop generating">
-            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" /></svg>
+            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" /></svg>
           </button>
         )}
       </form>
@@ -369,7 +369,7 @@ export function AIChat({ floating = false }: AIChatProps) {
 /* ------------------------------------------------------------------ */
 function TypingDots() {
   return (
-    <span className="inline-flex items-center gap-1">
+    <span className="inline-flex items-center gap-1" aria-hidden="true">
       {[0, 1, 2].map((i) => (
         <span key={i} className="inline-block h-1.5 w-1.5 rounded-full bg-pine-cone/30"
           style={{ animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />

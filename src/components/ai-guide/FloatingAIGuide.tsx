@@ -17,9 +17,22 @@ export function FloatingAIGuide() {
   const [mounted, setMounted] = useState(false);
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
 
+  const [ctaDismissed, setCtaDismissed] = useState(false);
+
   const dragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
   const introTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Listen for CTA dismissed event
+  useEffect(() => {
+    // Check if already dismissed from a prior interaction this session
+    if (sessionStorage.getItem("grc-floating-cta-dismissed")) {
+      setCtaDismissed(true);
+    }
+    const handler = () => setCtaDismissed(true);
+    window.addEventListener("cta-dismissed", handler);
+    return () => window.removeEventListener("cta-dismissed", handler);
+  }, []);
 
   // Mount gate (SSR safety) + intro timer
   useEffect(() => {
@@ -104,8 +117,9 @@ export function FloatingAIGuide() {
 
           {/* Intro card */}
           <div
-            className="fixed bottom-40 right-6 z-[9999] w-[300px] overflow-hidden rounded-2xl border border-grc-green/20 bg-white shadow-2xl transition-all duration-500 ease-out"
+            className="fixed right-6 z-[9999] w-[300px] overflow-hidden rounded-2xl border border-grc-green/20 bg-white shadow-2xl transition-all duration-500 ease-out"
             style={{
+              bottom: ctaDismissed ? 84 : 148,
               opacity: introReady ? 1 : 0,
               transform: introReady ? "translateY(0) scale(1)" : "translateY(20px) scale(0.95)",
             }}
@@ -120,7 +134,7 @@ export function FloatingAIGuide() {
                   transitionDelay: "200ms",
                 }}
               >
-                <svg className="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 2L14.09 8.26L20 9.27L15.55 13.97L16.91 20L12 16.9L7.09 20L8.45 13.97L4 9.27L9.91 8.26L12 2Z" />
                 </svg>
               </div>
@@ -165,7 +179,7 @@ export function FloatingAIGuide() {
                     }}
                   >
                     <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${item.bg}`}>
-                      <svg className={`h-4 w-4 ${item.text}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <svg className={`h-4 w-4 ${item.text}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                       </svg>
                     </div>
@@ -214,18 +228,13 @@ export function FloatingAIGuide() {
             setOpen(true);
             setHasOpened(true);
           }}
-          className="fixed bottom-22 right-6 z-[9998] flex h-14 w-14 items-center justify-center rounded-full bg-grc-green text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-grc-green/50"
+          className="group fixed right-6 z-[9998] flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-grc-green shadow-[0_2px_12px_rgba(0,0,0,0.1)] ring-1 ring-black/[0.04] transition-all duration-500 hover:shadow-[0_4px_20px_rgba(108,180,67,0.25)] hover:ring-grc-green/20 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-grc-green/50"
+          style={{ bottom: ctaDismissed ? 24 : 88 }}
           aria-label="Open AI Guide"
         >
-          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L14.09 8.26L20 9.27L15.55 13.97L16.91 20L12 16.9L7.09 20L8.45 13.97L4 9.27L9.91 8.26L12 2Z" />
+          <svg className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
           </svg>
-          {!hasOpened && (
-            <span className="absolute inset-0 rounded-full animate-ping bg-grc-green/30 pointer-events-none" />
-          )}
-          {showIntro && (
-            <span className="absolute inset-0 rounded-full border-2 border-grc-green/50 pointer-events-none animate-[glow-ring_2s_ease-in-out_infinite]" />
-          )}
         </button>
       )}
 
@@ -249,27 +258,27 @@ export function FloatingAIGuide() {
           >
             <div className="flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-grc-green/10">
-                <svg className="h-4 w-4 text-grc-green" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="h-4 w-4 text-grc-green" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 2L14.09 8.26L20 9.27L15.55 13.97L16.91 20L12 16.9L7.09 20L8.45 13.97L4 9.27L9.91 8.26L12 2Z" />
                 </svg>
               </div>
               <div>
                 <h3 className="font-heading text-sm font-bold text-pine-cone">AI Guide</h3>
-                <p className="font-body text-[10px] text-pine-cone/50">I can navigate you around the site</p>
+                <p className="font-body text-[10px] text-pine-cone/80">I can navigate you around the site</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
               <button onClick={() => setOpen(false)}
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-pine-cone/40 transition-colors hover:bg-ever-green/[0.06] hover:text-pine-cone/70"
+                className="flex h-7 w-7 items-center justify-center rounded-lg text-pine-cone/70 transition-colors hover:bg-ever-green/[0.06] hover:text-pine-cone"
                 aria-label="Minimize AI Guide">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                 </svg>
               </button>
               <button onClick={() => setOpen(false)}
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-pine-cone/40 transition-colors hover:bg-sunrise-orange/10 hover:text-sunrise-orange"
+                className="flex h-7 w-7 items-center justify-center rounded-lg text-pine-cone/70 transition-colors hover:bg-sunrise-orange/10 hover:text-sunrise-orange"
                 aria-label="Close AI Guide">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>

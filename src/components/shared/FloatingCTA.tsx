@@ -30,6 +30,7 @@ export function FloatingCTA() {
   function handleDismiss() {
     setPhase("dismissed");
     sessionStorage.setItem(STORAGE_KEY, "1");
+    window.dispatchEvent(new CustomEvent("cta-dismissed"));
   }
 
   return (
@@ -53,6 +54,7 @@ export function FloatingCTA() {
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -65,7 +67,7 @@ export function FloatingCTA() {
         <button
           onClick={handleDismiss}
           aria-label="Dismiss feedback button"
-          className="flex h-8 w-8 items-center justify-center rounded-lg bg-pine-cone/10 text-pine-cone/50 transition-colors hover:bg-pine-cone/20 hover:text-pine-cone/80"
+          className="flex h-8 w-8 items-center justify-center rounded-lg bg-pine-cone/10 text-pine-cone/70 transition-colors hover:bg-pine-cone/20 hover:text-pine-cone"
         >
           <svg
             className="h-4 w-4"
@@ -73,6 +75,7 @@ export function FloatingCTA() {
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"

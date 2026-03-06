@@ -71,7 +71,7 @@ export function Navigation({ mobile, onNavClick }: { mobile?: boolean; onNavClic
                 className={`relative px-3 py-2 font-body text-sm font-medium transition-colors ${
                   active
                     ? "text-ever-green"
-                    : "text-pine-cone/60 hover:text-ever-green"
+                    : "text-pine-cone/75 hover:text-ever-green"
                 }`}
                 aria-current={active ? "page" : undefined}
               >

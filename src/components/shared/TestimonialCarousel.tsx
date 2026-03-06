@@ -141,7 +141,7 @@ export function TestimonialCarousel({ audience }: TestimonialCarouselProps) {
           <button
             onClick={() => setPaused((p) => !p)}
             aria-label={paused ? "Resume auto-advance" : "Pause auto-advance"}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-pine-cone/40 transition-colors hover:bg-ever-green/5 hover:text-pine-cone/60"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-pine-cone/70 transition-colors hover:bg-ever-green/5 hover:text-pine-cone"
           >
             {paused ? (
               <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -153,12 +153,12 @@ export function TestimonialCarousel({ audience }: TestimonialCarouselProps) {
               </svg>
             )}
           </button>
-          <button onClick={prev} aria-label="Previous testimonial" className="flex h-8 w-8 items-center justify-center rounded-lg text-pine-cone/40 transition-colors hover:bg-ever-green/5 hover:text-pine-cone/60">
+          <button onClick={prev} aria-label="Previous testimonial" className="flex h-8 w-8 items-center justify-center rounded-lg text-pine-cone/70 transition-colors hover:bg-ever-green/5 hover:text-pine-cone">
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
             </svg>
           </button>
-          <button onClick={next} aria-label="Next testimonial" className="flex h-8 w-8 items-center justify-center rounded-lg text-pine-cone/40 transition-colors hover:bg-ever-green/5 hover:text-pine-cone/60">
+          <button onClick={next} aria-label="Next testimonial" className="flex h-8 w-8 items-center justify-center rounded-lg text-pine-cone/70 transition-colors hover:bg-ever-green/5 hover:text-pine-cone">
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>

@@ -5,9 +5,9 @@ import { AILevelQuiz } from "@/components/shared/AILevelQuiz";
 import { useAudience } from "@/contexts/AudienceContext";
 
 const badgeColors: Record<string, string> = {
-  student: "bg-sky-blue/10 text-sky-blue",
-  faculty: "bg-gator-green/10 text-gator-green",
-  staff: "bg-sunrise-orange/10 text-sunrise-orange",
+  student: "bg-sky-blue/10 text-sky-blue-text",
+  faculty: "bg-gator-green/10 text-gator-green-text",
+  staff: "bg-sunrise-orange/10 text-sunrise-orange-text",
 };
 
 export default function QuizPage() {
@@ -24,9 +24,9 @@ export default function QuizPage() {
           <h1 className="font-heading text-4xl font-extrabold tracking-tight text-pine-cone sm:text-5xl">
             What&apos;s Your AI Level?
           </h1>
-          <p className="mx-auto mt-4 max-w-lg font-body text-lg text-pine-cone/60">
+          <p className="mx-auto mt-4 max-w-lg font-body text-lg text-pine-cone/80">
             Answer 6 quick questions to find out which AI Assessment Scale level
-            matches your current comfort and approach.
+            matches {audience === "faculty" ? "how you design and teach with AI" : audience === "staff" ? "how you use AI in your work" : "your current comfort and approach"}.
           </p>
         </div>
         <AILevelQuiz audience={audience} />

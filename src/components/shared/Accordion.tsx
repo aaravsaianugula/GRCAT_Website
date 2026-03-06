@@ -44,7 +44,7 @@ function AccordionEntry({
       >
         <span className="pr-4">{item.question}</span>
         <motion.svg
-          className="h-5 w-5 shrink-0 text-pine-cone/55"
+          className="h-5 w-5 shrink-0 text-pine-cone/70"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

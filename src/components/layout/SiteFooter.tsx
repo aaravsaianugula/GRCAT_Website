@@ -49,7 +49,7 @@ export function SiteFooter() {
                 GRC AI Taskforce
               </span>
             </Link>
-            <p className="mt-4 max-w-[220px] font-body text-sm leading-relaxed text-pine-cone/60">
+            <p className="mt-4 max-w-[220px] font-body text-sm leading-relaxed text-pine-cone/80">
               Empowering education through responsible AI integration.
             </p>
             <p className="mt-3 font-body text-xs text-pine-cone/70">
@@ -82,7 +82,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 border-t border-ever-green/[0.04] pt-6">
-          <p className="font-body text-xs text-pine-cone/55">
+          <p className="font-body text-xs text-pine-cone/75">
             &copy; {new Date().getFullYear()} Green River College AI Taskforce. Built for ENGL 235 Unit 2.
           </p>
         </div>

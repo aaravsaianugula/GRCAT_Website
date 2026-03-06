@@ -88,7 +88,7 @@ export function AudienceSwitcher({ mobile }: { mobile?: boolean } = {}) {
   if (mobile) {
     return (
       <div className="flex flex-col gap-1.5" role="radiogroup" aria-label="Switch audience view">
-        <span className="font-body text-xs font-semibold uppercase tracking-wider text-pine-cone/50">
+        <span className="font-body text-xs font-semibold uppercase tracking-wider text-pine-cone/80">
           Viewing as
         </span>
         <div className="flex gap-2">
@@ -101,7 +101,7 @@ export function AudienceSwitcher({ mobile }: { mobile?: boolean } = {}) {
               className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 font-body text-sm font-medium transition-all ${
                 audience === a.value
                   ? "bg-ever-green/10 font-semibold text-ever-green ring-1 ring-ever-green/20"
-                  : "bg-ever-green/[0.03] text-pine-cone/60 hover:bg-ever-green/[0.06]"
+                  : "bg-ever-green/[0.03] text-pine-cone/80 hover:bg-ever-green/[0.06]"
               }`}
             >
               <span className={`h-2 w-2 rounded-full ${a.color}`} />
@@ -127,11 +127,12 @@ export function AudienceSwitcher({ mobile }: { mobile?: boolean } = {}) {
         <span className={`h-2 w-2 rounded-full ${current?.color ?? "bg-pine-cone/30"}`} />
         <span>{current?.label ?? "Choose Role"}</span>
         <svg
-          className={`h-3.5 w-3.5 text-pine-cone/60 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`h-3.5 w-3.5 text-pine-cone/70 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
           strokeWidth={2}
+          aria-hidden="true"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
@@ -173,6 +174,7 @@ export function AudienceSwitcher({ mobile }: { mobile?: boolean } = {}) {
                       viewBox="0 0 24 24"
                       stroke="currentColor"
                       strokeWidth={2.5}
+                      aria-hidden="true"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>

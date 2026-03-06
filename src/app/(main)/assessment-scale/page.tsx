@@ -200,7 +200,7 @@ function SpectrumSlider({ activeLevel, onSelect, disabled }: { activeLevel: numb
             >
               {level.num}
             </div>
-            <span className="mt-1.5 font-body text-[10px] font-semibold uppercase tracking-wide text-pine-cone/60 sm:text-xs">
+            <span className="mt-1.5 font-body text-[10px] font-semibold uppercase tracking-wide text-pine-cone/80 sm:text-xs">
               {level.name}
             </span>
           </button>
@@ -242,7 +242,7 @@ function StudentView() {
       <ScrollReveal delay={0.1}>
         <div className="mb-12 overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
           <h2 className="font-heading text-2xl font-bold text-pine-cone">Quick Guide</h2>
-          <p className="mt-2 font-body text-base text-pine-cone/60">The scale in plain English:</p>
+          <p className="mt-2 font-body text-base text-pine-cone/80">The scale in plain English:</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-5">
             {levels.map((level, i) => (
               <motion.div
@@ -299,7 +299,7 @@ function StudentView() {
               </p>
               <div className="mt-4 rounded-xl bg-ever-green/[0.04] p-4">
                 <p className="font-body text-sm font-semibold text-ever-green">What this means for you:</p>
-                <p className="mt-1 font-body text-sm leading-relaxed text-pine-cone/65">
+                <p className="mt-1 font-body text-sm leading-relaxed text-pine-cone/80">
                   {levels[activeLevel - 1].studentTip}
                 </p>
               </div>
@@ -329,7 +329,7 @@ function StudentView() {
                 <h3 className="font-heading text-lg font-bold text-ever-green sm:text-xl">
                   Level {level.num}: {level.name}
                 </h3>
-                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/60">
+                <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/80">
                   {level.desc.student}
                 </p>
               </div>
@@ -422,11 +422,11 @@ function FacultyView() {
             <table className="w-full min-w-[640px] text-left">
               <thead>
                 <tr className="border-b border-ever-green/[0.06]">
-                  <th className="px-6 py-4 font-heading text-sm font-bold uppercase tracking-wider text-pine-cone/60">
+                  <th className="px-6 py-4 font-heading text-sm font-bold uppercase tracking-wider text-pine-cone/80">
                     Activity
                   </th>
                   {levels.map((l) => (
-                    <th key={l.num} className="px-4 py-4 text-center font-heading text-sm font-bold uppercase tracking-wider text-pine-cone/60">
+                    <th key={l.num} className="px-4 py-4 text-center font-heading text-sm font-bold uppercase tracking-wider text-pine-cone/80">
                       <span aria-hidden="true">L{l.num}</span>
                       <span className="sr-only">Level {l.num}: {l.name}</span>
                     </th>
@@ -505,7 +505,7 @@ function FacultyView() {
                   <h3 className="font-heading text-xl font-bold text-pine-cone sm:text-2xl">
                     Level {level.num}: {level.name}
                   </h3>
-                  <p className="mt-1 font-body text-sm italic text-pine-cone/60">
+                  <p className="mt-1 font-body text-sm italic text-pine-cone/80">
                     &ldquo;{level.quote}&rdquo;
                   </p>
                   <p className="mt-2 font-body text-base leading-relaxed text-pine-cone/70">{level.desc.faculty}</p>
@@ -525,7 +525,7 @@ function FacultyView() {
                     </svg>
                     <h4 className="font-heading text-sm font-bold text-ever-green">Assignment Design Tip</h4>
                   </div>
-                  <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/60">{level.facultyDesignTip}</p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/80">{level.facultyDesignTip}</p>
                 </div>
 
                 {/* Syllabus Language */}
@@ -536,7 +536,7 @@ function FacultyView() {
                     </svg>
                     <h4 className="font-heading text-sm font-bold text-ever-green">Syllabus Language</h4>
                   </div>
-                  <p className="mt-2 font-body text-sm italic leading-relaxed text-pine-cone/60">&ldquo;{level.facultySyllabusLanguage}&rdquo;</p>
+                  <p className="mt-2 font-body text-sm italic leading-relaxed text-pine-cone/80">&ldquo;{level.facultySyllabusLanguage}&rdquo;</p>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -573,7 +573,7 @@ function FacultyView() {
                     </svg>
                     <h4 className="font-heading text-sm font-bold text-ever-green">Communicating to Students</h4>
                   </div>
-                  <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/60">{level.facultyCommunicationTip}</p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/80">{level.facultyCommunicationTip}</p>
                 </div>
               </div>
             </div>
@@ -600,7 +600,7 @@ function StaffView() {
           <h2 className="font-heading text-xl font-bold text-pine-cone sm:text-2xl">
             Explaining the AI Assessment Scale
           </h2>
-          <p className="mt-3 font-body text-base leading-relaxed text-pine-cone/60">
+          <p className="mt-3 font-body text-base leading-relaxed text-pine-cone/80">
             The AI Assessment Scale gives Green River College a consistent, institution-wide framework for communicating AI expectations.
             Whether you are speaking with parents, board members, accreditation bodies, or community partners, this scale demonstrates
             that AI use is intentional, structured, and aligned with learning outcomes.
@@ -626,21 +626,21 @@ function StaffView() {
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <div className="rounded-2xl bg-gator-green/[0.04] p-5">
               <h4 className="font-heading text-sm font-bold text-ever-green">To Parents & Families</h4>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/60">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/80">
                 &ldquo;Our college uses a clear 5-level system so students always know exactly when and how AI tools can be used.
                 This ensures academic integrity while preparing students for an AI-enabled workforce.&rdquo;
               </p>
             </div>
             <div className="rounded-2xl bg-sky-blue/[0.04] p-5">
               <h4 className="font-heading text-sm font-bold text-ever-green">To Board Members</h4>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/60">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/80">
                 &ldquo;The AI Assessment Scale provides institutional governance over AI integration in curriculum.
                 It standardizes expectations, supports accreditation compliance, and positions us as leaders in responsible AI adoption.&rdquo;
               </p>
             </div>
             <div className="rounded-2xl bg-sunrise-orange/[0.04] p-5">
               <h4 className="font-heading text-sm font-bold text-ever-green">To Community Partners</h4>
-              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/60">
+              <p className="mt-2 font-body text-sm leading-relaxed text-pine-cone/80">
                 &ldquo;Our graduates learn to work with AI responsibly and effectively, from understanding when not to use it
                 to leveraging it for creative problem-solving. This prepares them for real-world AI-augmented roles.&rdquo;
               </p>
@@ -697,7 +697,7 @@ function StaffView() {
                   </h4>
                   <ul className="mt-3 space-y-2">
                     {level.staffTalkingPoints.map((point) => (
-                      <li key={point} className="flex items-start gap-2 font-body text-sm leading-relaxed text-pine-cone/60">
+                      <li key={point} className="flex items-start gap-2 font-body text-sm leading-relaxed text-pine-cone/80">
                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gator-green" />
                         {point}
                       </li>
@@ -713,7 +713,7 @@ function StaffView() {
                     </svg>
                     Policy Implications
                   </h4>
-                  <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/60">{level.staffPolicyNote}</p>
+                  <p className="mt-3 font-body text-sm leading-relaxed text-pine-cone/80">{level.staffPolicyNote}</p>
                 </div>
               </div>
             </div>
@@ -768,7 +768,7 @@ export default function AssessmentScalePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-5 text-subtitle font-body text-pine-cone/60"
+            className="mt-5 text-subtitle font-body text-pine-cone/80"
           >
             {isStudent
               ? "Your professors use a 5-level scale to tell you how much AI you can use on each assignment. Here is what each level means and how to stay on the right side of the rules."

@@ -8,7 +8,7 @@ interface Crumb {
 export function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex flex-wrap items-center gap-1 font-body text-sm text-pine-cone/60">
+      <ol className="flex flex-wrap items-center gap-1 font-body text-sm text-pine-cone/80">
         <li>
           <Link
             href="/"
