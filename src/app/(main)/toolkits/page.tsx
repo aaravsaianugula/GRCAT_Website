@@ -542,6 +542,7 @@ export default function ToolkitsPage() {
           {/* ── Toolkit Grid ── */}
           <ScrollReveal>
           <motion.div
+            data-ai-id="toolkit-grid"
             className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
             variants={stagger}
             initial="hidden"
@@ -552,7 +553,7 @@ export default function ToolkitsPage() {
               const isAcademic = badge && (badge.label === "Academic Resource" || badge.label === "For Your Instructors");
 
               return (
-                <motion.div key={tk.slug} variants={cardAnim}>
+                <motion.div key={tk.slug} variants={cardAnim} data-ai-id={`toolkit-${tk.slug}`}>
                   <Link
                     href={`/toolkits/${tk.slug}`}
                     className={`group flex h-full flex-col overflow-hidden rounded-3xl border-2 bg-white transition-all hover:-translate-y-1.5 hover:shadow-elevated ${

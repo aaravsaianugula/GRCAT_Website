@@ -434,6 +434,7 @@ export default function FaqsPage() {
               <motion.div
                 key={section.id}
                 id={section.id}
+                data-ai-id={`faq-${section.id === "staff-ops" ? "staff" : section.id}`}
                 className="mt-14 scroll-mt-24"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

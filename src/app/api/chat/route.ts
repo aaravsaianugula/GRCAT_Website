@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 /* ------------------------------------------------------------------ */
 /*  Rate-limiting: in-memory store keyed by IP                        */
 /* ------------------------------------------------------------------ */
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const WINDOW_MS = 15 * 60 * 1000;
 const MAX_REQUESTS = 30;
 
 const hits = new Map<string, { count: number; start: number }>();
@@ -20,41 +20,75 @@ function isRateLimited(ip: string): boolean {
 }
 
 /* ------------------------------------------------------------------ */
-/*  System prompts per audience                                       */
+/*  Smart model rotation with cooldown tracking                       */
 /* ------------------------------------------------------------------ */
-const SHARED_CONTEXT = `You are the GRC AI Guide on Green River College's AI Taskforce website (grc-ai-taskforce.vercel.app).
+const MODELS = [
+  "google/gemma-3n-e4b-it:free",
+  "google/gemma-3n-e4b-it:free",
+  "google/gemma-3-12b-it:free",
+  "liquid/lfm-2.5-1.2b-instruct:free",
+];
 
-ABOUT THE TASKFORCE: The GRC AI Taskforce launched Fall 2023 in response to rapid AI adoption on campus. Co-led by Ari Wilber (English Faculty). Mission: provide faculty, staff, and students with resources, guidance, and best practices for responsible AI use. The Taskforce created toolkits, the AI Assessment Scale, workshop trainings, and this website with 85+ curated AI tools.
+let nextModelIndex = 0;
+const cooldowns = new Map<string, number>();
 
-AI ASSESSMENT SCALE (5 levels, set per-assignment by instructors):
-- Level 1 "No AI": AI use prohibited entirely
-- Level 2 "AI Planning": AI for brainstorming/outlining only, final work must be human-written
-- Level 3 "AI Collaboration": AI assists throughout but student drives and edits all output
-- Level 4 "Full AI": AI does heavy lifting, student curates/evaluates/refines
-- Level 5 "AI Exploration": Full AI integration, focus on critical evaluation of AI capabilities
+function pickModel(): string | null {
+  const now = Date.now();
+  const tried = new Set<string>();
+  for (let i = 0; i < MODELS.length; i++) {
+    const idx = (nextModelIndex + i) % MODELS.length;
+    const model = MODELS[idx];
+    if (tried.has(model)) continue;
+    tried.add(model);
 
-KEY POLICIES: Never input PII or FERPA-protected data into AI tools. Always disclose AI use. Always verify AI outputs — AI can hallucinate.
+    const cooldownUntil = cooldowns.get(model) ?? 0;
+    if (now >= cooldownUntil) {
+      nextModelIndex = (idx + 1) % MODELS.length;
+      return model;
+    }
+  }
+  return null;
+}
 
-WEBSITE PAGES: /playground (85+ tools), /assessment-scale (scale details), /toolkits (audience toolkits), /best-practices, /faqs, /about, /events, /feedback.
+function markCooldown(model: string, retryAfterSec?: number) {
+  const duration = (retryAfterSec ?? 60) * 1000;
+  cooldowns.set(model, Date.now() + duration);
+}
 
-RESPONSE RULES: Keep every response under 3 sentences. Be direct — no filler, no preambles, no bullet lists unless asked. Answer the question, then stop. Never fabricate policies or facts.`;
+function getShortestCooldown(): number {
+  const now = Date.now();
+  let shortest = Infinity;
+  for (const until of cooldowns.values()) {
+    const remaining = Math.max(0, until - now);
+    if (remaining < shortest) shortest = remaining;
+  }
+  return Math.ceil(shortest / 1000);
+}
 
-const SYSTEM_PROMPTS: Record<string, string> = {
-  student: `${SHARED_CONTEXT}
+/* ------------------------------------------------------------------ */
+/*  System prompt — kept minimal for small free models                */
+/* ------------------------------------------------------------------ */
+const SHARED_CONTEXT = `You are the AI Guide on Green River College's AI Taskforce website. Answer questions about AI at GRC.
 
-AUDIENCE: Student. Be friendly and approachable. When relevant, mention specific Playground tools (ChatGPT, Perplexity for research, QuillBot for writing, NotebookLM for studying). Always remind them to check their syllabus for their instructor's AI Assessment Scale level. Emphasize: disclose AI use, maintain academic integrity.`,
+KEY FACTS:
+- AI Assessment Scale: 5 levels (1=No AI, 2=Planning only, 3=Collaboration, 4=Full AI, 5=AI Exploration). Set per-assignment.
+- Taskforce launched Fall 2023, co-led by Ari Wilber. Created toolkits, workshops, and 80+ curated AI tools.
+- Key policies: Never input PII/FERPA data into AI. Always disclose AI use. Always verify outputs.
+- Toolkits: Syllabus Statements, Student Language, Ethics & Privacy, Prompting, Assessment Design, Custom GPTs.
 
-  faculty: `${SHARED_CONTEXT}
+NAVIGATION — if the user wants to GO somewhere, append exactly ONE command at the end:
+/nav page=assessment-scale OR toolkits OR playground OR best-practices OR faqs OR about OR quiz OR events OR feedback
+/walk page=PAGE — guided tour
+Do NOT list multiple commands. Do NOT use commands for general questions.
+Example: "The Scale has 5 levels. /nav page=assessment-scale"
 
-AUDIENCE: Faculty. Be collegial and respect their expertise. Help with syllabus AI policy language, choosing Assessment Scale levels for assignments, designing AI-integrated or AI-restricted assignments, and evaluating tools for classroom use. Mention the Toolkits page for syllabus templates and the 40-hour AI 101 course. Recommend MagicSchool, Diffit, and Curipod for teaching.`,
+RULES: Keep responses under 3 sentences. Be direct. Never fabricate policies.`;
 
-  staff: `${SHARED_CONTEXT}
-
-AUDIENCE: Staff. Focus on operational workflow improvements. Recommend Notion AI, ClickUp AI, Otter.ai for productivity. Emphasize FERPA compliance — never input student records, SSNs, or financial data into AI. Suggest the Toolkits page for staff-specific resources and prompting guides.`,
-
-  default: `${SHARED_CONTEXT}
-
-AUDIENCE: General visitor. Provide helpful AI education. Suggest they select an audience role (Student, Faculty, or Staff) at the top of the page for tailored recommendations. Point them to the Playground for 85+ tools and the Assessment Scale page to understand GRC's framework.`,
+const AUDIENCE_SUFFIX: Record<string, string> = {
+  student: "Audience: Student. Be friendly. Mention tools like ChatGPT, Perplexity, QuillBot. Remind to check syllabus for AI level.",
+  faculty: "Audience: Faculty. Help with syllabus AI policy, choosing Scale levels, designing assignments.",
+  staff: "Audience: Staff. Focus on workflow tools and FERPA compliance.",
+  default: "Audience: General visitor. Suggest exploring the Assessment Scale and AI Playground.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -67,138 +101,118 @@ interface ChatMessage {
 }
 
 export async function POST(req: NextRequest) {
-  // --- API key check ---
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey || apiKey === "your_key_here") {
-    return NextResponse.json(
-      { error: "Chat service not configured" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Chat service not configured" }, { status: 500 });
   }
 
-  // --- Rate limit ---
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many requests. Please wait a few minutes." },
-      { status: 429 },
-    );
+    return NextResponse.json({ error: "Too many requests. Please wait a few minutes." }, { status: 429 });
   }
 
-  // --- Parse & validate body ---
   let messages: ChatMessage[];
   let audience: string | null;
+  let pageContext: string | undefined;
   try {
     const body = await req.json();
     messages = body.messages;
     audience = body.audience ?? null;
+    pageContext = body.pageContext;
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
   if (!Array.isArray(messages) || messages.length === 0) {
-    return NextResponse.json(
-      { error: "Messages array is required" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Messages array is required" }, { status: 400 });
   }
 
-  // Enforce limits
   const userMessages = messages.filter((m) => m.role === "user");
   if (userMessages.length > 10) {
-    return NextResponse.json(
-      { error: "Message limit reached (10 messages max)" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Message limit reached (10 messages max)" }, { status: 400 });
   }
 
-  // Sanitize: strip HTML, enforce max length, keep only valid roles
   const sanitized: ChatMessage[] = messages
     .filter((m) => m.role === "user" || m.role === "assistant")
     .map((m) => ({
       role: m.role,
-      content: String(m.content)
-        .replace(/<[^>]*>/g, "")
-        .slice(0, 1000),
+      content: String(m.content).replace(/<[^>]*>/g, "").slice(0, 800),
     }));
 
-  // --- Build request to OpenRouter ---
-  const systemPrompt =
-    audience && SYSTEM_PROMPTS[audience]
-      ? SYSTEM_PROMPTS[audience]
-      : SYSTEM_PROMPTS.default;
+  const suffix = AUDIENCE_SUFFIX[audience ?? "default"] ?? AUDIENCE_SUFFIX.default;
+  let systemPrompt = `${SHARED_CONTEXT}\n${suffix}`;
 
-  const MODELS = [
-    "google/gemma-3n-e4b-it:free",
-    "google/gemma-3-12b-it:free",
-    "liquid/lfm-2.5-1.2b-instruct:free",
-  ];
+  if (pageContext) {
+    systemPrompt += `\n\nCONTEXT:\n${pageContext.slice(0, 400)}`;
+  }
 
   const orMessages = [
-    { role: "user" as const, content: `[System Instructions — follow these strictly]\n${systemPrompt}\n[End Instructions]\n\n${sanitized[0]?.content ?? ""}` },
+    { role: "user" as const, content: `[Instructions]\n${systemPrompt}\n[End]\n\n${sanitized[0]?.content ?? ""}` },
     ...sanitized.slice(1),
   ];
 
   let orResponse: Response | null = null;
+  const triedModels = new Set<string>();
 
-  for (const model of MODELS) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const model = pickModel();
+    if (!model) break;
+    if (triedModels.has(model)) continue;
+    triedModels.add(model);
+
     try {
-      const res = await fetch(
-        "https://openrouter.ai/api/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-            "HTTP-Referer": "https://grc-ai-taskforce.vercel.app",
-            "X-Title": "GRC AI Taskforce",
-          },
-          body: JSON.stringify({
-            model,
-            messages: orMessages,
-            max_tokens: 300,
-            temperature: 0.7,
-            stream: true,
-          }),
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://grc-ai-taskforce.vercel.app",
+          "X-Title": "GRC AI Taskforce",
         },
-      );
+        body: JSON.stringify({
+          model,
+          messages: orMessages,
+          max_tokens: 200,
+          temperature: 0.7,
+          stream: true,
+        }),
+      });
 
       if (res.ok) {
         orResponse = res;
         break;
       }
+
+      if (res.status === 429) {
+        const retryAfter = parseInt(res.headers.get("retry-after") ?? "60", 10);
+        markCooldown(model, retryAfter);
+      }
     } catch {
-      // try next model
+      markCooldown(model, 30);
     }
   }
 
   if (!orResponse) {
+    const wait = getShortestCooldown();
     return NextResponse.json(
-      { error: "AI service temporarily unavailable. Please try again in a moment." },
+      { error: `AI models are busy. Try again in ~${wait}s.` },
       { status: 502 },
     );
   }
 
-  // --- Stream the response back ---
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
   const readable = new ReadableStream({
     async start(controller) {
       const reader = orResponse.body?.getReader();
-      if (!reader) {
-        controller.close();
-        return;
-      }
+      if (!reader) { controller.close(); return; }
 
       let buffer = "";
-
       try {
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-
           buffer += decoder.decode(value, { stream: true });
           const lines = buffer.split("\n");
           buffer = lines.pop() ?? "";
@@ -208,23 +222,17 @@ export async function POST(req: NextRequest) {
             if (!trimmed || !trimmed.startsWith("data: ")) continue;
             const data = trimmed.slice(6);
             if (data === "[DONE]") continue;
-
             try {
               const parsed = JSON.parse(data);
               const token = parsed.choices?.[0]?.delta?.content;
               if (token) {
-                controller.enqueue(
-                  encoder.encode(`data: ${JSON.stringify({ token })}\n\n`),
-                );
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token })}\n\n`));
               }
-            } catch {
-              // skip malformed chunks
-            }
+            } catch { /* skip malformed chunks */ }
           }
         }
-      } catch {
-        // stream interrupted
-      } finally {
+      } catch { /* stream interrupted */ }
+      finally {
         controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         controller.close();
       }

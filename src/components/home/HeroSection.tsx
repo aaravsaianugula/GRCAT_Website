@@ -14,6 +14,7 @@ interface HeroSectionProps {
   accentColor?: string;
   audience?: Audience;
   children?: ReactNode;
+  dataAiId?: string;
 }
 
 const audienceBlobColor: Record<string, string> = {
@@ -35,11 +36,12 @@ export function HeroSection({
   accentColor = "bg-gator-green/15 text-gator-green",
   audience,
   children,
+  dataAiId,
 }: HeroSectionProps) {
   const blobColor = audience ? (audienceBlobColor[audience] ?? "bg-gator-green/5") : "bg-gator-green/5";
 
   return (
-    <section className="noise relative overflow-hidden gradient-mesh">
+    <section data-ai-id={dataAiId} className="noise relative overflow-hidden gradient-mesh">
       <ParticleBackground />
       {/* Ambient orbs */}
       <div className="pointer-events-none absolute left-0 top-0 h-[400px] w-[400px] rounded-full bg-gator-green/8 blur-[100px]" aria-hidden="true" />

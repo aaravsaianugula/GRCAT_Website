@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { useAudience, type Audience } from "@/contexts/AudienceContext";
-import { AIChat } from "@/components/playground/AIChat";
 
 /* ------------------------------------------------------------------ */
 /*  Best-practice guidelines from the LibGuide                        */
@@ -570,34 +569,11 @@ export default function PlaygroundPage() {
           )}
         </AnimatePresence>
 
-        {/* -- AI Chat -------------------------------------------- */}
-        <section className="mt-12 mb-4">
-          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-sunrise-orange/20 bg-sunrise-orange/5 p-4">
-            <svg
-              className="mt-0.5 h-5 w-5 shrink-0 text-sunrise-orange"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-              />
-            </svg>
-            <p className="font-body text-sm text-pine-cone/80">
-              <strong>Important:</strong> AI responses may be inaccurate. Always verify information from AI tools with trusted sources. This chat is for educational exploration only.
-            </p>
-          </div>
-          <AIChat />
-        </section>
-
         <div className="divider-glow my-16" />
 
         {/* -- Best Practices ---------------------------------------- */}
         <ScrollReveal>
-        <section className="mt-20">
+        <section className="mt-20" data-ai-id="playground-guidelines">
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Best Practices for Ethical AI Use
           </h2>
@@ -746,7 +722,7 @@ export default function PlaygroundPage() {
         <div className="divider-glow my-16" />
 
         {/* -- Generative AI — Full Tool Grid ------------------------ */}
-        <section id="generative-ai">
+        <section id="generative-ai" data-ai-id="playground-gen-ai">
           <div className="flex items-end justify-between">
             <div>
               <span className="mb-3 inline-flex items-center gap-1.5 rounded-pill bg-gator-green/15 px-3 py-0.5 font-body text-xs font-bold uppercase tracking-wider text-gator-green">
@@ -940,7 +916,7 @@ export default function PlaygroundPage() {
         <div className="divider-glow my-16" />
 
         {/* -- All Other Categories — Summary Cards ------------------ */}
-        <section>
+        <section data-ai-id="playground-tools">
           <h2 className="font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">
             Browse All Categories
           </h2>

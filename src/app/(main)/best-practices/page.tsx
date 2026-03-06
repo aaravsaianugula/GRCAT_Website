@@ -22,7 +22,7 @@ export default function BestPracticesRedirect() {
   if (!hasChosen || !audience) {
     return (
       <PageTransition>
-        <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
+        <div data-ai-id="best-practices-hero" className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
           <h1 className="text-title font-heading font-extrabold text-pine-cone">
             Best Practices
           </h1>
@@ -30,7 +30,7 @@ export default function BestPracticesRedirect() {
             Choose your role to see AI best practices tailored for you.
           </p>
           <ScrollReveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          <div data-ai-id="best-practices-cards" className="mt-10 grid gap-4 sm:grid-cols-3">
             {[
               { label: "Students", href: "/best-practices/students", color: "card-accent-blue", desc: "Ethical AI use, study tips, and academic integrity guidelines." },
               { label: "Faculty", href: "/best-practices/faculty", color: "card-accent-green", desc: "Teaching with AI, assessment design, and syllabus policies." },

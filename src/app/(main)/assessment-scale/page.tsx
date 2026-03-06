@@ -314,6 +314,7 @@ function StudentView() {
           <ScrollReveal key={level.num} delay={i * 0.06}>
             <Link
               href={`/assessment-scale/${level.num}`}
+              data-ai-id={`level-${level.num}`}
               className="group flex items-start gap-5 rounded-3xl border border-ever-green/[0.06] bg-white p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-elevated sm:p-8"
             >
               <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl" style={{ backgroundColor: `${LEVEL_COLORS[i].hex}12` }}>
@@ -486,7 +487,7 @@ function FacultyView() {
       <div className="mt-8 space-y-6">
         {levels.map((level, i) => (
           <ScrollReveal key={level.num} delay={i * 0.06}>
-            <div className="overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white">
+            <div data-ai-id={`level-${level.num}`} className="overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white">
               {/* Card header */}
               <Link
                 href={`/assessment-scale/${level.num}`}
@@ -661,7 +662,7 @@ function StaffView() {
       <div className="mt-8 space-y-6">
         {levels.map((level, i) => (
           <ScrollReveal key={level.num} delay={i * 0.06}>
-            <div className="overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white">
+            <div data-ai-id={`level-${level.num}`} className="overflow-hidden rounded-3xl border border-ever-green/[0.06] bg-white">
               <Link
                 href={`/assessment-scale/${level.num}`}
                 className="group flex items-start gap-6 p-6 transition-colors hover:bg-surface-dim sm:p-8"
@@ -786,7 +787,7 @@ export default function AssessmentScalePage() {
           style={{ background: "linear-gradient(to right, #EF4444, #F97316, #EAB308, #418FDE, #6CB443)" }}
         />
 
-        <div className="mt-14">
+        <div className="mt-14" data-ai-id="scale-overview">
           {isStudent ? (
             <StudentView />
           ) : isStaff ? (

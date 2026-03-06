@@ -304,7 +304,7 @@ export default function EventsPage() {
 
         {/* Timeline */}
         <ScrollReveal delay={0.1}>
-        <div className="relative mt-14">
+        <div data-ai-id="events-list" className="relative mt-14">
           <h2 className="mb-10 text-center font-heading text-2xl font-extrabold text-pine-cone sm:text-3xl">Timeline</h2>
 
           {/* Vertical center line */}

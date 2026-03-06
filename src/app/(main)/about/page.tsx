@@ -130,7 +130,7 @@ export default function AboutPage() {
   return (
     <PageTransition>
       {/* Hero with campus image */}
-      <div className="relative overflow-hidden bg-ever-green">
+      <div data-ai-id="about-hero" className="relative overflow-hidden bg-ever-green">
         <Image
           src="/images/campus-entrance.jpg"
           alt="Green River College campus"
@@ -199,7 +199,7 @@ export default function AboutPage() {
 
       <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
         {/* Mission + Photo grid */}
-        <motion.div {...fadeUp} className="grid gap-6 lg:grid-cols-2">
+        <motion.div {...fadeUp} data-ai-id="about-mission" className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-3xl border border-ever-green/[0.06] bg-white p-8 sm:p-10">
             <h2 className="font-heading text-2xl font-bold text-pine-cone">
               Our Mission
@@ -361,6 +361,7 @@ export default function AboutPage() {
 
         {/* What We Recommend */}
         <ScrollReveal className="mt-16">
+          <div data-ai-id="about-recommendations">
           <h2 className="text-title font-heading font-extrabold text-pine-cone">
             What We Recommend
           </h2>
@@ -383,12 +384,14 @@ export default function AboutPage() {
               </motion.div>
             ))}
           </div>
+          </div>
         </ScrollReveal>
 
         <div className="divider-glow mt-16" />
 
         {/* Timeline */}
         <ScrollReveal delay={0.1} className="mt-16">
+          <div data-ai-id="about-timeline">
           <h2 className="text-title font-heading font-extrabold text-pine-cone">
             Our Journey
           </h2>
@@ -435,6 +438,7 @@ export default function AboutPage() {
                 </motion.div>
               ))}
             </div>
+          </div>
           </div>
         </ScrollReveal>
 

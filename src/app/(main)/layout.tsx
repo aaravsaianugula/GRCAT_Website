@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { FloatingCTA } from "@/components/shared/FloatingCTA";
 import { WhatsNewBanner } from "@/components/shared/WhatsNewBanner";
 import { ProgressIndicator } from "@/components/shared/ProgressIndicator";
+import { FloatingAIGuide } from "@/components/ai-guide/FloatingAIGuide";
 
 export default function MainLayout({
   children,
@@ -29,6 +30,7 @@ export default function MainLayout({
       <SiteFooter />
       <FloatingCTA />
       <ProgressIndicator />
+      <FloatingAIGuide />
     </>
   );
 }

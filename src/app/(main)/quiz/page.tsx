@@ -16,7 +16,7 @@ export default function QuizPage() {
 
   return (
     <PageTransition>
-      <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
+      <div data-ai-id="quiz-container" className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
         <div className="mb-12 text-center">
           <span className={`mb-4 inline-flex items-center rounded-pill px-3.5 py-1 font-body text-sm font-bold uppercase tracking-[0.12em] ${badge}`}>
             Interactive

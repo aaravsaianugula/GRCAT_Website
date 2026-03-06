@@ -19,6 +19,7 @@ export function FacultyDashboard() {
         title="Design AI-Informed Courses"
         subtitle="Set clear AI policies, explore assessment frameworks, and discover strategies for responsible AI integration in your teaching."
         audience="faculty"
+        dataAiId="faculty-hero"
       >
         <div className="flex flex-wrap gap-3">
           <Link
@@ -89,6 +90,7 @@ export function FacultyDashboard() {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            data-ai-id="faculty-tools"
           >
             {/* Featured card — AI Assessment Scale */}
             <motion.div variants={fadeUp} className="lg:col-span-2">
@@ -413,6 +415,7 @@ export function FacultyDashboard() {
               viewport={{ once: true }}
               transition={springDefault}
               className="lg:col-span-2"
+              data-ai-id="faculty-stats"
             >
               <h3 className="font-heading text-xl font-bold text-pine-cone">Why Clear AI Policies Matter</h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-3">

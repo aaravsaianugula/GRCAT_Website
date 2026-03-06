@@ -409,3 +409,38 @@
   background-color: rgba(108, 180, 67, 0.25);
   color: #006225;
 }
+
+/* ==========================================
+   AI GUIDE — ELEMENT HIGHLIGHT
+   ========================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes glow-ring {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.35); opacity: 0; }
+}
+
+@keyframes ai-highlight-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(108, 180, 67, 0); }
+  25% { box-shadow: 0 0 0 6px rgba(108, 180, 67, 0.25); }
+  50% { box-shadow: 0 0 0 12px rgba(108, 180, 67, 0.15); }
+  75% { box-shadow: 0 0 0 6px rgba(108, 180, 67, 0.25); }
+}
+
+.ai-highlight {
+  animation: ai-highlight-pulse 1.2s ease-in-out 3;
+  outline: 2px solid rgba(108, 180, 67, 0.5);
+  outline-offset: 4px;
+  border-radius: inherit;
+  position: relative;
+  z-index: 10;
+}

@@ -19,6 +19,7 @@ export function StudentDashboard() {
         title="Navigate AI in Your Coursework"
         subtitle="Check your syllabus for your instructor's AI policy, then explore tools and best practices for using AI responsibly."
         audience="student"
+        dataAiId="student-hero"
       >
         <div className="flex flex-wrap gap-3">
           <Link
@@ -109,6 +110,7 @@ export function StudentDashboard() {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            data-ai-id="student-tools"
           >
             {/* Featured card — AI Assessment Scale */}
             <motion.div variants={fadeUp} className="lg:col-span-2">
@@ -465,6 +467,7 @@ export function StudentDashboard() {
               viewport={{ once: true }}
               transition={{ ...springDefault, delay: 0.1 }}
               className="rounded-3xl border border-sky-blue/15 bg-sky-blue/5 p-8"
+              data-ai-id="student-scale-ref"
             >
               <h3 className="font-heading text-xl font-bold text-pine-cone">What AI Level is My Assignment?</h3>
               <p className="mt-2 font-body text-sm text-pine-cone/70">Quick reference to understand what each level means for you.</p>

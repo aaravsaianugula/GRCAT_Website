@@ -19,6 +19,7 @@ export function StaffDashboard() {
         title="AI for Operations"
         subtitle="Streamline workflows, improve communications, and adopt AI responsibly with resources designed for GRC staff."
         audience="staff"
+        dataAiId="staff-hero"
       >
         <div className="flex flex-wrap gap-3">
           <Link
@@ -109,6 +110,7 @@ export function StaffDashboard() {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            data-ai-id="staff-tools"
           >
             {/* Featured card — Staff Best Practices */}
             <motion.div variants={fadeUp} className="lg:col-span-2">
