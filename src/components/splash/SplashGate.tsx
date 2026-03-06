@@ -298,7 +298,7 @@ export function SplashGate() {
                   {/* CTA button */}
                   <div className="mt-5">
                     <span
-                      className={`inline-flex items-center gap-2 rounded-xl ${a.btnBg} px-5 py-2.5 font-body text-sm font-semibold text-white transition-all`}
+                      className={`inline-flex items-center gap-2 rounded-xl ${a.btnBg} px-5 py-2.5 font-body text-sm font-semibold text-white transition-all btn-press`}
                     >
                       Enter as {a.title}
                       <svg

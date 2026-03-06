@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getTopicById } from "@/lib/data/ai-topics";
 
 /* ------------------------------------------------------------------ */
 /*  Rate-limiting: in-memory store keyed by IP                        */
@@ -66,9 +67,11 @@ function getShortestCooldown(): number {
 }
 
 /* ------------------------------------------------------------------ */
-/*  System prompt — kept minimal for small free models                */
+/*  System prompts                                                     */
 /* ------------------------------------------------------------------ */
-const SHARED_CONTEXT = `You are the AI Guide on Green River College's AI Taskforce website. Answer questions about AI at GRC.
+
+/** Guide mode: site navigator with slash commands */
+const GUIDE_CONTEXT = `You are the AI Guide on Green River College's AI Taskforce website. Answer questions about AI at GRC.
 
 KEY FACTS:
 - AI Assessment Scale: 5 levels (1=No AI, 2=Planning only, 3=Collaboration, 4=Full AI, 5=AI Exploration). Set per-assignment.
@@ -83,6 +86,17 @@ Do NOT list multiple commands. Do NOT use commands for general questions.
 Example: "The Scale has 5 levels. /nav page=assessment-scale"
 
 RULES: Keep responses under 3 sentences. Be direct. Never fabricate policies.`;
+
+/** Playground mode: educational AI tutor, no navigation commands */
+const PLAYGROUND_CONTEXT = `You are an AI Learning Assistant on Green River College's AI Taskforce website. Your role is to teach and explain AI concepts clearly.
+
+KEY FACTS about GRC:
+- AI Assessment Scale: 5 levels (1=No AI, 2=Planning only, 3=Collaboration, 4=Full AI, 5=AI Exploration). Set per-assignment.
+- Taskforce launched Fall 2023, co-led by Ari Wilber. Created toolkits, workshops, and 80+ curated AI tools.
+- Key policies: Never input PII/FERPA data into AI. Always disclose AI use. Always verify outputs.
+- Toolkits: Syllabus Statements, Student Language, Ethics & Privacy, Prompting, Assessment Design, Custom GPTs.
+
+RULES: Be educational and thorough. Use examples and analogies. Never fabricate facts or policies. Do NOT output any navigation commands or slash commands like /nav or /walk.`;
 
 const AUDIENCE_SUFFIX: Record<string, string> = {
   student: `AUDIENCE: Student.
@@ -143,11 +157,15 @@ export async function POST(req: NextRequest) {
   let messages: ChatMessage[];
   let audience: string | null;
   let pageContext: string | undefined;
+  let topicId: string | undefined;
+  let mode: "guide" | "playground" = "guide";
   try {
     const body = await req.json();
     messages = body.messages;
     audience = body.audience ?? null;
     pageContext = body.pageContext;
+    topicId = body.topic;
+    if (body.mode === "playground") mode = "playground";
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
@@ -168,8 +186,14 @@ export async function POST(req: NextRequest) {
       content: String(m.content).replace(/<[^>]*>/g, "").slice(0, 800),
     }));
 
+  const baseContext = mode === "playground" ? PLAYGROUND_CONTEXT : GUIDE_CONTEXT;
   const suffix = AUDIENCE_SUFFIX[audience ?? "default"] ?? AUDIENCE_SUFFIX.default;
-  let systemPrompt = `${SHARED_CONTEXT}\n${suffix}`;
+  let systemPrompt = `${baseContext}\n${suffix}`;
+
+  const topic = topicId ? getTopicById(topicId) : undefined;
+  if (topic) {
+    systemPrompt += `\n\nEDUCATIONAL MODE:\n${topic.systemPromptContext}\nRULES OVERRIDE: You may give longer, more detailed explanations (up to 5-6 sentences). Use examples and analogies. Still be accurate and never fabricate.`;
+  }
 
   if (pageContext) {
     systemPrompt += `\n\nCONTEXT:\n${pageContext.slice(0, 400)}`;
@@ -201,7 +225,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           model,
           messages: orMessages,
-          max_tokens: 200,
+          max_tokens: topic ? 400 : 200,
           temperature: 0.7,
           stream: true,
         }),

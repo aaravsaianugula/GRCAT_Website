@@ -81,10 +81,16 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 border-t border-ever-green/[0.04] pt-6">
+        <div className="mt-12 flex items-center justify-between border-t border-ever-green/[0.04] pt-6">
           <p className="font-body text-xs text-pine-cone/75">
             &copy; {new Date().getFullYear()} Green River College AI Taskforce. Built for ENGL 235 Unit 2.
           </p>
+          <Link
+            href="/admin/login"
+            className="font-body text-xs text-pine-cone/30 transition-colors hover:text-pine-cone/50"
+          >
+            Admin
+          </Link>
         </div>
       </div>
     </footer>

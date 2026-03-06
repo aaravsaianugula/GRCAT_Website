@@ -65,10 +65,18 @@ export default function FeedbackPage() {
     if (Object.keys(validationErrors).length > 0) return;
 
     setIsSubmitting(true);
-    // Simulate network delay for realistic UX
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    try {
+      const res = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, role: audience, message }),
+      });
+      if (!res.ok) throw new Error("Failed to submit");
+      setIsSubmitted(true);
+    } catch {
+      setErrors({ message: "Failed to submit. Please try again." });
+    }
     setIsSubmitting(false);
-    setIsSubmitted(true);
   }
 
   const intro = audience

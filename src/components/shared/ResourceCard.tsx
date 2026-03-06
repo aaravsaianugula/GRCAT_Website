@@ -33,7 +33,7 @@ export function ResourceCard({
     >
       <Link
         href={href}
-        className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ever-green/[0.06] bg-white p-6 bento-card-hover ${accentColor}`}
+        className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ever-green/[0.06] bg-white p-6 bento-card-hover card-hover-glow ${accentColor}`}
       >
         {/* Subtle gradient on hover */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-ever-green/[0.02] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

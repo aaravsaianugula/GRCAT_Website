@@ -147,7 +147,7 @@ export function AILevelQuiz({ audience }: AILevelQuizProps) {
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
                 href={result.description.href}
-                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-body text-sm font-semibold text-white transition-all ${colors.cta}`}
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-body text-sm font-semibold text-white transition-all btn-press ${colors.cta}`}
               >
                 Learn about Level {result.level}
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
@@ -194,7 +194,7 @@ export function AILevelQuiz({ audience }: AILevelQuizProps) {
                   onClick={() => handleSelect(i)}
                   role="radio"
                   aria-checked={false}
-                  className={`group w-full rounded-2xl border-2 border-ever-green/[0.06] bg-white p-5 text-left font-body text-base text-pine-cone transition-all bento-card-hover ${colors.hover}`}
+                  className={`group w-full rounded-2xl border-2 border-ever-green/[0.06] bg-white p-5 text-left font-body text-base text-pine-cone transition-all bento-card-hover option-pop ${colors.hover}`}
                 >
                   <span className="mr-3 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-ever-green/[0.06] font-heading text-xs font-bold text-ever-green">
                     {String.fromCharCode(65 + i)}

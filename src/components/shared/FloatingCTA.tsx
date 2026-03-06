@@ -46,7 +46,7 @@ export function FloatingCTA() {
       >
         <Link
           href="/feedback"
-          className="inline-flex items-center gap-2 rounded-xl bg-ever-green px-5 py-3 font-body text-sm font-semibold text-white shadow-elevated transition-all hover:bg-gator-green hover:shadow-lg"
+          className="inline-flex items-center gap-2 rounded-xl bg-ever-green px-5 py-3 font-body text-sm font-semibold text-white shadow-elevated transition-all hover:bg-gator-green hover:shadow-lg btn-press"
         >
           <svg
             className="h-4 w-4"

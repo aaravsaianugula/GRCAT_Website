@@ -121,6 +121,16 @@ export function SiteHeader() {
             <div className="hidden lg:flex lg:items-center lg:gap-2">
               <SearchTrigger />
               <AudienceSwitcher />
+              <Link
+                href="/admin/login"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-pine-cone/30 transition-colors hover:bg-ever-green/5 hover:text-pine-cone/60"
+                aria-label="Admin login"
+                title="Admin"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+              </Link>
             </div>
 
             {/* Mobile Hamburger */}
@@ -162,6 +172,16 @@ export function SiteHeader() {
               <div className="mt-4 flex flex-col gap-4 border-t border-ever-green/[0.06] pt-4">
                 <SearchTrigger />
                 <AudienceSwitcher mobile />
+                <Link
+                  href="/admin/login"
+                  onClick={closeMobileMenu}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2.5 font-body text-sm text-pine-cone/40 transition-colors hover:text-pine-cone/60"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                  </svg>
+                  Admin
+                </Link>
               </div>
             </div>
           </motion.div>
