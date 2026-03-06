@@ -228,8 +228,11 @@ export function FloatingAIGuide() {
             setOpen(true);
             setHasOpened(true);
           }}
-          className="group fixed right-6 z-[9998] flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-grc-green shadow-[0_2px_12px_rgba(0,0,0,0.1)] ring-1 ring-black/[0.04] transition-all duration-500 hover:shadow-[0_4px_20px_rgba(108,180,67,0.25)] hover:ring-grc-green/20 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-grc-green/50"
-          style={{ bottom: ctaDismissed ? 24 : 88 }}
+          className="group fixed right-6 z-[9998] flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-grc-green shadow-[0_2px_12px_rgba(0,0,0,0.1)] ring-1 ring-black/[0.04] hover:shadow-[0_4px_20px_rgba(108,180,67,0.25)] hover:ring-grc-green/20 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-grc-green/50"
+          style={{
+            bottom: ctaDismissed ? 24 : 88,
+            transition: "bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s, transform 0.3s, ring-color 0.3s",
+          }}
           aria-label="Open AI Guide"
         >
           <svg className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
